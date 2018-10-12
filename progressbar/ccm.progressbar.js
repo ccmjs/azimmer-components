@@ -14,7 +14,7 @@
                     }
                 }
             },
-            css: ['ccm.load', 'style.css'],
+            css: ['ccm.load', 'https://ccmjs.github.io/azimmer-components/resources/default.css'],
         },
 
         Instance: function () {
