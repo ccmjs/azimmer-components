@@ -15,7 +15,7 @@
                     }
                 }
             },
-            css: ['ccm.load', 'https://ccmjs.github.io/azimmer-components/resources/default.css'],
+            css: ['ccm.load', 'https://ccmjs.github.io/azimmer-components/progressbar/resources/default.css'],
         },
 
         Instance: function () {
