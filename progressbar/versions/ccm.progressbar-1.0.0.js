@@ -1,8 +1,7 @@
 (function () {
     let component = {
         name: "progressbar",
-        version: [ 1, 0, 0 ],
-        ccm: "https://akless.github.io/ccm/versions/ccm-18.0.2.js",
+        ccm: "https://akless.github.io/ccm/ccm.js",
         config: {
             html: {
                 progressbar: {
@@ -22,12 +21,11 @@
             let self = this;
             let my;
 
-            this.ready = function (callback) {
+            this.ready = async () => {
                 my = self.ccm.helper.privatize(self);
-                if (callback) callback();
             };
 
-            this.start = function (callback) {
+            this.start = async () => {
                 let main_elem = self.ccm.helper.html(my.html.progressbar);
                 self.element.appendChild(main_elem);
 
@@ -35,13 +33,12 @@
                 let _complete = this.getComplete();
 
 
-                for(let i= my.min; i <= my.max; i++){
+                for(let i= my.min; i <= my.max; i++) {
                     setTimeout(function () {
                         _complete = i;
                         self.setComplete(_complete);
-                    }, 100*i);
+                    }, 100 * i);
                 }
-                if (callback) callback();
             };
             this.setComplete = function(value){
                 let newValue = value / my.max;
