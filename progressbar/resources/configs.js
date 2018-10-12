@@ -21,7 +21,6 @@ ccm.files[ 'configs.js' ] = {
     "demo": {
 
         "key": "demo",
-        "css.1": "resources/default.css",
         "complete": "0",
         "sign": '%',
         "showText": "true",
