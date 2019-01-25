@@ -13,7 +13,7 @@ ccm.files[ 'configs.js' ] = {
         "complete": "0",
         "sign": '%',
         "showText": "true",
-        "min": "0",
+        "min": "50",
         "max": "100"
 
     },
