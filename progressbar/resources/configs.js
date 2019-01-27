@@ -14,7 +14,8 @@ ccm.files[ 'configs.js' ] = {
         "sign": '%',
         "showText": "true",
         "min": "50",
-        "max": "100"
+        "max": "100",
+        "run_automatic":"false"
 
     },
 
@@ -25,6 +26,7 @@ ccm.files[ 'configs.js' ] = {
         "sign": '%',
         "showText": "true",
         "min": "0",
-        "max": "100"
+        "max": "100",
+        "run_automatic":"true"
     }
 };

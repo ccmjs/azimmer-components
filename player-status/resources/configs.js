@@ -9,14 +9,13 @@ ccm.files[ 'configs.js' ] = {
     "local": {
 
         "key": "local",
-        //"css.1": "resources/default.css",
-        "progressbar": ["ccm.instance", "https://ccmjs.github.io/azimmer-components/progressbar/versions/ccm.progressbar-1.0.0.js"]
+        "css.1": "resources/default.css",
+
 
     },
 
     "demo": {
 
         "key": "demo",
-        "progressbar": ["ccm.instance", "https://ccmjs.github.io/azimmer-components/progressbar/versions/ccm.progressbar-1.0.0.js"]
-    }
+        }
 };
