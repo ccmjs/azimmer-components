@@ -41,6 +41,11 @@
                         },
                         {
                             "tag": "div",
+                            "class": "achievement",
+                            "inner": "Errungenschaften"
+                        },
+                        {
+                            "tag": "div",
                             "class": "progress-bar",
                             "inner": ""
                         },
@@ -53,7 +58,7 @@
                 }
             },
             "css": ["ccm.load", "./player-status/resources/default.css"],
-            "store": ["ccm.store", {store: 'test'}],
+            "store": ["ccm.store", {'name': "player"}],
         },
 
         Instance: function () {
@@ -63,87 +68,50 @@
                 for (let i = 0; i < exp; i++) {
                     this.progressbar.setComplete(counter += 1);
                     if (this.progressbar.getComplete() <= this.progressbar.max) {
-                        console.log("Wenn kleiner als max");
+                        this.player.exp = this.progressbar.getComplete();
                     } else {
                         this.addLevel();
-                        console.log("wenn größer als max");
-                        this.progressbar.start({
-                            min: 0,
-                            max: 100,
-                            sign: 'exp',
-                            complete: 0,
-                            showText: true
-                        });
-                        counter = this.progressbar.getComplete()+1;
+                        this.progressbar.start(this.progressbarConfig);
+                        counter = this.progressbar.getComplete() + 1;
                     }
                 }
+                this.store.set({"key": "game", "value": this.player});
             };
             this.addLevel = () => {
                 this.player.level++;
             };
-            this.player = {
-                name: "Test",
-                level: 1,
-                badges: [],
-                exp: 0,
-                task_done: []
+            this.progressbarConfig = {
+                min: 0,
+                max: 100,
+                sign: 'exp',
+                complete: 0,
+                showText: true
             };
             this.start = async () => {
-
-                let playerObj = {};
-
-                let getPlayerObj = (value) => {
-                    playerObj = value;
-                };
-
-
-                if (!('indexedDB' in window)) {
-                    console.log('This browser doesn\'t support IndexedDB');
-                    return;
-                }
-
-                let resultDB = indexedDB.open('player', 1);
-
-                resultDB.onupgradeneeded = function () {
-                    // The database did not previously exist, so create object stores and indexes.
-                    let db = resultDB.result;
-                    let store = db.createObjectStore("player", {keyPath: "name"});
-                    store.createIndex("name", "name", {unique: true});
-
-                    // Populate with initial data.
-                    store.put({
-                        name: "Test",
-                        level: 1,
-                        badges: [],
-                        exp: 0,
-                        task_done: []
-                    });
-                };
-                resultDB.onsuccess = function () {
-                    db = resultDB.result;
-                    let tx = db.transaction("player", "readonly");
-                    let store = tx.objectStore("player");
-                    let index = store.index("name");
-                    let request = index.get("Test");
-
-                    request.onsuccess = (event) => {
-                        let playerData = event.target.result;
-                        getPlayerObj(playerData);
-                    };
-                };
-
+                await this.store.get("game").then(result => {
+                    if (result === null) {
+                        let name = prompt("Bitte Namen des Spielers eingeben:", "Spieler1");
+                        this.store.set({
+                            "key": "game",
+                            "value": {
+                                "name": name,
+                                "level": 1,
+                                "badges": [],
+                                "achievement":[],
+                                "exp": 0,
+                                "task_done": []
+                            }
+                        })
+                    }
+                    this.player = result.value;
+                });
 
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.player));
 
                 let progressbarContainer = this.element.querySelector('.progress-bar');
 
-                this.progressbar = await this.ccm.start('../progressbar/ccm.progressbar.js', {
-                    min: 0,
-                    max: 100,
-                    sign: 'exp',
-                    complete: 0,
-                    showText: true
-                });
+                await this.progressbar.start();
+                this.progressbar.setComplete(this.player.exp);
 
 
                 progressbarContainer.appendChild(this.progressbar.root);
