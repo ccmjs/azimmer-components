@@ -1,0 +1,17 @@
+.badges-headline {
+    display: inline-block;
+}
+
+.badges-content {
+    display: inline-block;
+}
+
+.badges-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.badges-title {
+    display: block;
+    float: left;
+}
