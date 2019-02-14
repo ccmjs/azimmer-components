@@ -10,22 +10,20 @@ ccm.files['configs.js'] = {
 
         "key": "local",
         "css.1": "resources/default.css",
-        "progressbar": [
-            "ccm.instance",
-            "../progressbar/ccm.progressbar.js",
-            {
-                min: 0,
-                max: 100,
-                sign: 'exp',
-                complete: 0,
-                showText: true
-            }
-        ]
-
     },
 
     "demo": {
 
         "key": "demo",
+        "achievements": [
+            {
+                "icon": "./resources/podium.svg",
+                "show": false,
+                "title": "Level over 10!!!",
+                "achievementid": "achievement1",
+                "condition": {"level":10}
+            }
+        ],
+        "testButton": true
     }
 };

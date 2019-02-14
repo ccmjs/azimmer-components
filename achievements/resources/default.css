@@ -1,6 +1,16 @@
-.level-headline{
+.achievement-headline {
     display: inline-block;
 }
-.level-number{
+
+.achievement-content {
     display: inline-block;
+}
+
+.achievement-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.achievement-title {
+    display: block;
 }

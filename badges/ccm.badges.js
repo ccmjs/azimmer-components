@@ -30,14 +30,28 @@
                     }
                 ]
             },
-            "css": ["ccm.load", "./resources/default.css"]
+            "css": ["ccm.load", "./resources/default.css"],
+            "store": ["ccm.store", {"name": "player"}]
         },
 
         Instance: function () {
+            let playerStatus;
+
             this.addBadge = badgeid => {
                 this.badges.forEach(badge => {
                     if(badge.badgesid === badgeid){
                         badge.show = true;
+                        console.log(playerStatus);
+                        playerStatus.badges.forEach(element => {
+                            if (element.badgesid != badgeid){
+                                console.log(badge);
+                                playerStatus.badges.push(badge);
+                            }
+                        });
+                        if(playerStatus.badges.length === 0){
+                            playerStatus.badges.push(badge);
+                        }
+                        this.store.set({"key":"game", "value":playerStatus})
                     }
                 });
                 this.renderBadges();
@@ -59,7 +73,7 @@
                         badgeIcon.src = badge.icon;
 
                         let badgeTitle = document.createElement("figcaption");
-                        badgeTitle.className = "badge-title";
+                        badgeTitle.className = "badges-title";
                         badgeTitle.innerText = badge.title;
 
                         badgeWrapper.appendChild(badgeIcon);
@@ -70,7 +84,11 @@
                 })
             };
             this.start = async () => {
+                await this.store.get("game").then(result => playerStatus = result.value);
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.badges));
+                playerStatus.badges.forEach(element => {
+                    this.addBadge(element.badgesid);
+                });
                 if(this.testButton){
                     let testButton = document.createElement("button");
                     testButton.innerText="Fireing Events";

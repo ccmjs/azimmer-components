@@ -11,126 +11,96 @@
 
     const component = {
 
-        name: "player-status",
+        name: "achievements",
 
         ccm: "https://ccmjs.github.io/ccm/ccm.js",
 
         config: {
             "html": {
-                "player": {
-                    "tag": "div",
-                    "class": "player-status",
-                    "inner": [
-                        {
-                            "tag": "div",
-                            "class": "player-name",
-                            "inner": {
-                                "tag": "h1",
-                                "inner": ""
-                            }
-                        },
-                        {
-                            "tag": "div",
-                            "class": "level-container",
-                            "inner": [
-                                {"tag":"h2","class":"level-headline","inner":"Level: "},
-                                {"tag":"div","class":"level-number","inner":""}
-                            ]
-                        },
-                        {
-                            "tag": "div",
-                            "class": "badges-container",
-                            "inner": ""
-                        },
-                        {
-                            "tag": "div",
-                            "class": "achievement-container",
-                            "inner": ""
-                        },
-                        {
-                            "tag": "div",
-                            "class": "progress-bar",
-                            "inner": ""
-                        },
-                        {
-                            "tag": "button",
-                            "class": "btn",
-                            "inner": "Test"
-                        }
-                    ]
-                }
+                "achievement": [
+                    {
+                        "tag": "h2",
+                        "class": "achievement-headline",
+                        "inner": "Errungenschaften"
+                    },
+                    {
+                        "tag": "div",
+                        "class": "achievement-content",
+                        "inner": ""
+                    }
+                ]
             },
-            "css": ["ccm.load", "./player-status/resources/default.css"],
+            "css": ["ccm.load", "./resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
         },
 
         Instance: function () {
-
-            this.setProgress = exp => {
-                let counter = this.progressbar.getComplete();
-                for (let i = 0; i < exp; i++) {
-                    this.progressbar.setComplete(counter += 1);
-                    if (this.progressbar.getComplete() <= this.progressbar.max) {
-                        this.player.exp = this.progressbar.getComplete();
-                    } else {
-                        this.addLevel();
-                        this.progressbar.start(this.progressbarConfig);
-                        counter = this.progressbar.getComplete() + 1;
+            let playerStatus;
+            this.addAchievement = achievementid => {
+                this.achievements.forEach(achievement => {
+                    if(achievement.achievementid === achievementid){
+                        achievement.show = true;
+                        playerStatus.achievement.forEach(element => {
+                            if (element.achievementid != achievementid){
+                                playerStatus.achievement.push(achievement);
+                            }
+                        });
+                        if(playerStatus.achievement.length === 0){
+                            playerStatus.achievement.push(achievement);
+                        }
+                        this.store.set({"key":"game", "value":playerStatus})
                     }
-                }
-                this.store.set({"key": "game", "value": this.player});
+                });
+                this.renderAchievement();
             };
-            this.addLevel = () => {
-                this.player.level++;
-                let playersLevel = this.element.querySelector(".level-number");
-                playersLevel.innerHTML = this.player.level;
-            };
-            this.progressbarConfig = {
-                min: 0,
-                max: 100,
-                sign: "exp",
-                complete: 0,
-                showText: true
+            this.renderAchievement = () => {
+                let oldAchievement =  this.element.querySelectorAll(".achievement-wrapper");
+                oldAchievement.forEach(element => {
+                    element.parentNode.removeChild(element);
+                });
+                this.achievements.forEach(achievement => {
+                    if(achievement.show){
+                        let achievementContent = this.element.querySelector(".achievement-content");
+
+                        let achievementWrapper = document.createElement("figure");
+                        achievementWrapper.className = "achievement-wrapper";
+
+                        let achievementIcon = document.createElement("img");
+                        achievementIcon.className = "achievement-icon";
+                        achievementIcon.src = achievement.icon;
+
+                        let achievementTitle = document.createElement("figcaption");
+                        achievementTitle.className = "achievement-title";
+                        achievementTitle.innerText = achievement.title;
+
+                        achievementWrapper.appendChild(achievementIcon);
+                        achievementWrapper.appendChild(achievementTitle);
+
+                        achievementContent.appendChild(achievementWrapper);
+                    }
+                })
             };
             this.start = async () => {
-                await this.store.get("game")
-                    .then(result => {
-                        this.player = result.value;
-                    })
-                    .catch(error => {
-                        let name = prompt("Bitte Namen des Spielers eingeben:", "Spieler1");
-                        const initalPlayerObj = {
-                            "key": "game",
-                            "value": {
-                                "name": name,
-                                "level": 1,
-                                "badges": [],
-                                "achievement": [],
-                                "exp": 0,
-                                "task_done": []
+                await this.store.get("game").then(result => playerStatus = result.value);
+                this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.achievement));
+                playerStatus.achievement.forEach(element => {
+                    this.addAchievement(element.achievementid);
+                });
+                if(this.testButton){
+                    let testButton = document.createElement("button");
+                    testButton.innerText="Fireing Events";
+                    testButton.addEventListener("click",()=>this.addAchievement("achievement1"));
+                    this.element.appendChild(testButton);
+                }
+                await this.store.get("game").then(result => {
+                    this.achievements.forEach(achievement => {
+                        Object.keys(achievement.condition).forEach(e =>{
+                            if(result.value[e] === achievement.condition[e]){
+                                this.addAchievement(achievement.achievementid);
                             }
-                        };
-                        this.store.set(initalPlayerObj);
-                        this.start();
+                        })
                     });
-                this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.player));
-                let playersName = this.element.querySelector(".player-name").querySelector("h1");
-                playersName.innerHTML = this.player.name;
-
-                let playersLevel = this.element.querySelector(".level-number");
-                playersLevel.innerHTML = this.player.level;
-
-                let progressbarContainer = this.element.querySelector(".progress-bar");
-
-                await this.progressbar.start();
-                this.progressbar.setComplete(this.player.exp);
-
-
-
-                progressbarContainer.appendChild(this.progressbar.root);
-                let button = this.element.querySelector(".btn");
-                button.addEventListener("click", () => this.setProgress(30));
-
+                });
             };
 
 
