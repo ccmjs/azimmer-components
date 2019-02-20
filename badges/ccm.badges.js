@@ -30,7 +30,7 @@
                     }
                 ]
             },
-            "css": ["ccm.load", "./resources/default.css"],
+            "css": ["ccm.load", "../badges/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
         },
 
@@ -41,10 +41,8 @@
                 this.badges.forEach(badge => {
                     if(badge.badgesid === badgeid){
                         badge.show = true;
-                        console.log(playerStatus);
                         playerStatus.badges.forEach(element => {
                             if (element.badgesid != badgeid){
-                                console.log(badge);
                                 playerStatus.badges.push(badge);
                             }
                         });

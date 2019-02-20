@@ -20,6 +20,38 @@ ccm.files['configs.js'] = {
                 complete: 0,
                 showText: true
             }
+        ],
+        "badges": [
+            "ccm.instance",
+            "../badges/ccm.badges.js",
+            {"badges":[
+                {
+                    "icon": "../badges/resources/podium.svg",
+                    "show": false,
+                    "title": "Loop Master",
+                    "badgesid": "badges1"
+                }
+            ]}
+        ],
+        "achievement": [
+            "ccm.instance",
+            "../achievements/ccm.achievements.js",
+            {"achievements":[
+                {
+                    "icon": "../achievements/resources/podium.svg",
+                    "show": false,
+                    "title": "Level over 10!!!",
+                    "achievementid": "achievement1",
+                    "condition": {"level": 10}
+                },
+                {
+                    "icon": "./resources/podium.svg",
+                    "show": false,
+                    "title": "Level over 20!!!",
+                    "achievementid": "achievement2",
+                    "condition": {"level": 20}
+                }
+            ]}
         ]
 
     },

@@ -121,13 +121,19 @@
                 playersLevel.innerHTML = this.player.level;
 
                 let progressbarContainer = this.element.querySelector(".progress-bar");
+                let badgesContainer = this.element.querySelector(".badges-container");
+                let achievementsContainer = this.element.querySelector(".achievement-container");
 
                 await this.progressbar.start();
+                await this.badges.start();
+                await this.achievement.start();
                 this.progressbar.setComplete(this.player.exp);
 
 
 
                 progressbarContainer.appendChild(this.progressbar.root);
+                badgesContainer.appendChild(this.badges.root);
+                achievementsContainer.appendChild(this.achievement.root);
                 let button = this.element.querySelector(".btn");
                 button.addEventListener("click", () => this.setProgress(30));
 
