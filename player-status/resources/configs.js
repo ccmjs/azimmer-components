@@ -45,7 +45,7 @@ ccm.files['configs.js'] = {
                     "condition": {"level": 10}
                 },
                 {
-                    "icon": "./resources/podium.svg",
+                    "icon": "../achievements/resources/podium.svg",
                     "show": false,
                     "title": "Level over 20!!!",
                     "achievementid": "achievement2",

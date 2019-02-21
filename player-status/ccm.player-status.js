@@ -80,10 +80,11 @@
                 }
                 this.store.set({"key": "game", "value": this.player});
             };
-            this.addLevel = () => {
+            this.addLevel = async () => {
                 this.player.level++;
                 let playersLevel = this.element.querySelector(".level-number");
                 playersLevel.innerHTML = this.player.level;
+                await this.start();
             };
             this.progressbarConfig = {
                 min: 0,

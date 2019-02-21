@@ -58,7 +58,7 @@
                 oldAchievement.forEach(element => {
                     element.parentNode.removeChild(element);
                 });
-                this.achievements.forEach(achievement => {
+                playerStatus.achievement.forEach(achievement => {
                     if(achievement.show){
                         let achievementContent = this.element.querySelector(".achievement-content");
 
@@ -83,9 +83,7 @@
             this.start = async () => {
                 await this.store.get("game").then(result => playerStatus = result.value);
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.achievement));
-                playerStatus.achievement.forEach(element => {
-                    this.addAchievement(element.achievementid);
-                });
+                this.renderAchievement();
                 if(this.testButton){
                     let testButton = document.createElement("button");
                     testButton.innerText="Fireing Events";

@@ -14,3 +14,7 @@
 .achievement-title {
     display: block;
 }
+.achievement-wrapper {
+    display: inline-block;
+    margin: 10px;
+}
