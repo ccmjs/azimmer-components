@@ -42,7 +42,7 @@
                         this.player = result.value;
                     });
                 const numberOfMilestones = this.milestones.length;
-                let counter = 0;
+                let left = 0;
                 this.milestones.forEach((milestone, index) => {
                     const milestoneTag = document.createElement("span");
                     const storyboard = this.element.querySelector(".storyboard");
@@ -52,26 +52,20 @@
                     if(milestone.conditions.level <= this.player.level){
                         milestoneTag.style.backgroundColor = "black";
                     }
-                    const storyboardHeight = storyboard.clientHeight;
-                    const storyboardWidth = storyboard.clientWidth ;
-                    counter += (storyboardWidth/numberOfMilestones)/2;
+                    left += (100/numberOfMilestones)/2;
 
 
                     if(index === 0){
-                        milestoneTag.style.top = storyboardHeight/2+"px";
-                        milestoneTag.style.left = counter+"px";
+                        milestoneTag.className = "milestone-center";
                     }
                     else if(index % 2 === 0) {
-                        milestoneTag.style.top = storyboardHeight/3+"px";
-                        milestoneTag.style.left = counter+"px";
+                        milestoneTag.className = "milestone-top";
                     }
                     else if(index % 2 >= 0) {
-                        milestoneTag.style.top = storyboardHeight/1.5+"px";
-                        milestoneTag.style.left = counter+"px";
+                        milestoneTag.className = "milestone-bottom";
                     }
                     if(index === numberOfMilestones-1) {
-                        milestoneTag.style.top = storyboardHeight/2+"px";
-                        milestoneTag.style.left = counter+"px";
+                        milestoneTag.className = "milestone-center";
                     }
 
                     storyboard.appendChild(milestoneTag);
