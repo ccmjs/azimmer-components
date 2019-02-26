@@ -20,7 +20,9 @@
                 "storyboard": {
                     "tag": "div",
                     "class": "storyboard",
-                    "inner": []
+                    "inner": [
+                        {"tag": "svg", "class": "svg"}
+                    ]
                 }
             },
             "css": ["ccm.load", "./resources/default.css"],
@@ -42,10 +44,15 @@
                         this.player = result.value;
                     });
                 const numberOfMilestones = this.milestones.length;
+                let pathCoordinates = [];
+
+                const storyboard = this.element.querySelector(".storyboard");
+                const svg = this.element.querySelector(".svg");
+
                 this.milestones.forEach((milestone, index) => {
                     const milestoneWrapper = document.createElement("span");
                     const milestoneTag = document.createElement("span");
-                    const storyboard = this.element.querySelector(".storyboard");
+
 
                     milestoneWrapper.id = milestone.milestoneID;
                     milestoneWrapper.className = "milestone-wrapper";
@@ -69,18 +76,47 @@
                     }
                     milestoneWrapper.appendChild(milestoneTag);
                     storyboard.appendChild(milestoneWrapper);
-                })
+                    console.log(milestoneTag.getBoundingClientRect());
+                    pathCoordinates.push({
+                        X: milestoneTag.offsetLeft + (milestoneTag.offsetWidth / 2),
+                        Y: milestoneTag.offsetTop + (milestoneTag.offsetWidth / 2)
+                    });
+                });
+                svg.appendChild(this.drawPath(pathCoordinates));
             };
+            this.drawPath = (coordinates) => {
+                const path = document.createElement("path");
+                let pathString = "";
+                coordinates.forEach((item, index) => {
+                    if (index === 0) {
+                        pathString += "M" + item.X + " " + item.Y + " ";
+                    }
+                    else {
+                        pathString += "L" + item.X + " " + item.Y + " ";
+                    }
+                });
+                path.setAttribute("d", pathString);
+                path.setAttribute("stroke", "black");
+                path.setAttribute("stroke-width","5");
+                path.setAttribute("fill", "none");
+                console.log(path);
+                return path;
+            };
+
             this.renderTasks = () => {
                 this.tasks.forEach(task => {
                     const taskTag = document.createElement("span");
                     const milestoneWrapper = this.element.querySelector("#" + task.milestoneId);
                     taskTag.id = task.taskId;
                     if (task.challenge) {
-                        taskTag.className = "challenge"
+                        taskTag.className = "challenge";
+                        taskTag.style.top = Math.random() * milestoneWrapper.offsetHeight + "px";
+                        taskTag.style.left = milestoneWrapper.offsetLeft + (Math.random() * milestoneWrapper.offsetWidth) + "px";
                     }
                     else {
                         taskTag.className = "task";
+                        taskTag.style.top = Math.random() * milestoneWrapper.offsetHeight + "px";
+                        taskTag.style.left = milestoneWrapper.offsetLeft + (Math.random() * milestoneWrapper.offsetWidth) + "px";
                     }
                     taskTag.addEventListener("click", () => {
                         const taskField = document.createElement("div");
@@ -88,13 +124,15 @@
 
                         const testButton = document.createElement("button");
                         testButton.innerHTML = "Test Aufgaben button";
-                        testButton.addEventListener("click", () =>{console.log("Hurray")});
+                        testButton.addEventListener("click", () => {
+                            console.log("Hurray")
+                        });
                         taskField.appendChild(testButton);
                         this.element.appendChild(taskField);
                     });
                     taskTag.innerHTML = task.task.title;
 
-                    const result = this.milestones.find( milestone => milestone.milestoneID === task.milestoneId );
+                    const result = this.milestones.find(milestone => milestone.milestoneID === task.milestoneId);
                     if (result.show === true) {
                         milestoneWrapper.appendChild(taskTag);
                     }
