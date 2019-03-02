@@ -9,7 +9,7 @@ ccm.files['configs.js'] = {
     "local": {
 
         "key": "local",
-        "css.1": "resources/default.css"
+        "css.1": "./resources/default.css"
     },
     "demo": {
         "key": "demo",

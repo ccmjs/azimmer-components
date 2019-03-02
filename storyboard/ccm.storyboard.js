@@ -20,12 +20,10 @@
                 "storyboard": {
                     "tag": "div",
                     "class": "storyboard",
-                    "inner": [
-                        {"tag": "svg", "class": "svg"}
-                    ]
+                    "inner": [],
                 }
             },
-            "css": ["ccm.load", "./resources/default.css"],
+            "css": ["ccm.load", "./storyboard/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
         },
 
@@ -34,8 +32,14 @@
 
             this.start = async () => {
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.storyboard));
+                const svgPic = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                const storyboard = this.element.querySelector(".storyboard");
+                svgPic.className = "svg";
+                svgPic.setAttribute("width", "100%");
+                svgPic.setAttribute("height", "100%");
+                await storyboard.appendChild(svgPic);
                 await this.renderMilestones();
-                this.renderTasks();
+                await this.renderTasks();
 
             };
             this.renderMilestones = async () => {
@@ -45,47 +49,70 @@
                     });
                 const numberOfMilestones = this.milestones.length;
                 let pathCoordinates = [];
-
-                const storyboard = this.element.querySelector(".storyboard");
-                const svg = this.element.querySelector(".svg");
+                const storyboard = this.element.querySelector("svg");
+                const svgBound = storyboard.getBoundingClientRect();
+                const addwidth = svgBound.width / numberOfMilestones;
+                let startX = addwidth / 2;
+                const startY = svgBound.height / 2;
+                pathCoordinates.push({X: startX, Y: startY});
 
                 this.milestones.forEach((milestone, index) => {
-                    const milestoneWrapper = document.createElement("span");
-                    const milestoneTag = document.createElement("span");
+                    const milestoneCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    milestoneCircle.setAttribute("fill", "gray");
+                    milestoneCircle.setAttribute("stroke", "0");
+                    milestoneCircle.setAttribute("r", "50");
+                    milestoneCircle.id = milestone.milestoneID;
+
+                    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                    text.setAttribute("font-size", "30");
+                    text.setAttribute("font-family", "sans-serif");
+                    text.setAttribute("fill", "black");
+                    text.setAttribute("text-anchor", "middle");
 
 
-                    milestoneWrapper.id = milestone.milestoneID;
-                    milestoneWrapper.className = "milestone-wrapper";
                     if (milestone.conditions.level <= this.player.level) {
-                        milestoneTag.style.backgroundColor = "black";
+                        milestoneCircle.setAttribute("fill", "black");
                         milestone.show = true;
                     }
 
-
                     if (index === 0) {
-                        milestoneTag.className = "milestone-center";
+                        milestoneCircle.setAttribute("cx", "" + startX);
+                        milestoneCircle.setAttribute("cy", "" + startY);
+
+                        text.setAttribute("x", "" + startX);
+                        text.setAttribute("y", "" + (startY + 80));
+                        text.innerHTML = "Start";
+                        storyboard.appendChild(text);
                     }
-                    else if (index % 2 === 0) {
-                        milestoneTag.className = "milestone-top";
+                    else if (index % 2 === 0 && index !== numberOfMilestones - 1) {
+                        milestoneCircle.setAttribute("cx", "" + startX);
+                        milestoneCircle.setAttribute("cy", "" + startY / 2);
+                        pathCoordinates.push({X: startX, Y: startY / 2});
+
                     }
-                    else if (index % 2 >= 0) {
-                        milestoneTag.className = "milestone-bottom";
+                    else if (index % 2 === 1 && index !== 0) {
+                        milestoneCircle.setAttribute("cx", "" + startX);
+                        milestoneCircle.setAttribute("cy", "" + startY * 1.50);
+                        pathCoordinates.push({X: startX, Y: startY * 1.50});
+
                     }
-                    if (index === numberOfMilestones - 1) {
-                        milestoneTag.className = "milestone-center";
+                    else if (index === numberOfMilestones - 1) {
+                        milestoneCircle.setAttribute("cx", "" + startX);
+                        milestoneCircle.setAttribute("cy", "" + startY);
+                        pathCoordinates.push({X: startX, Y: startY});
+
+                        text.setAttribute("x", "" + startX);
+                        text.setAttribute("y", "" + (startY + 80));
+                        text.innerHTML = "Ziel";
+                        storyboard.appendChild(text);
                     }
-                    milestoneWrapper.appendChild(milestoneTag);
-                    storyboard.appendChild(milestoneWrapper);
-                    console.log(milestoneTag.getBoundingClientRect());
-                    pathCoordinates.push({
-                        X: milestoneTag.offsetLeft + (milestoneTag.offsetWidth / 2),
-                        Y: milestoneTag.offsetTop + (milestoneTag.offsetWidth / 2)
-                    });
+                    storyboard.appendChild(milestoneCircle);
+                    startX += addwidth
                 });
-                svg.appendChild(this.drawPath(pathCoordinates));
+                storyboard.appendChild(this.drawPath(pathCoordinates));
             };
             this.drawPath = (coordinates) => {
-                const path = document.createElement("path");
+                const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
                 let pathString = "";
                 coordinates.forEach((item, index) => {
                     if (index === 0) {
@@ -97,26 +124,41 @@
                 });
                 path.setAttribute("d", pathString);
                 path.setAttribute("stroke", "black");
-                path.setAttribute("stroke-width","5");
+                path.setAttribute("stroke-width", "5");
                 path.setAttribute("fill", "none");
-                console.log(path);
                 return path;
             };
 
             this.renderTasks = () => {
-                this.tasks.forEach(task => {
-                    const taskTag = document.createElement("span");
+                const storyboard = this.element.querySelector("svg");
+                let startX = 1;
+                let startY = 1;
+
+                this.tasks.forEach((task, index) => {
+                    const taskTag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
                     const milestoneWrapper = this.element.querySelector("#" + task.milestoneId);
                     taskTag.id = task.taskId;
                     if (task.challenge) {
-                        taskTag.className = "challenge";
-                        taskTag.style.top = Math.random() * milestoneWrapper.offsetHeight + "px";
-                        taskTag.style.left = milestoneWrapper.offsetLeft + (Math.random() * milestoneWrapper.offsetWidth) + "px";
+                        taskTag.setAttribute("x", "" + (Math.floor(Math.random() * milestoneWrapper.getBoundingClientRect().x) + startX));
+                        taskTag.setAttribute("y", "" + (Math.floor(Math.random() * milestoneWrapper.getBoundingClientRect().y) + startX));
+                        if (task.milestoneId !== this.tasks[""+(index + 1)].milestoneId) {
+                            startX = milestoneWrapper.getBoundingClientRect().x;
+                            startY = milestoneWrapper.getBoundingClientRect().y;
+                        }
+                        taskTag.setAttribute("height", "40");
+                        taskTag.setAttribute("width", "60");
+                        taskTag.setAttribute("fill", "red");
                     }
                     else {
-                        taskTag.className = "task";
-                        taskTag.style.top = Math.random() * milestoneWrapper.offsetHeight + "px";
-                        taskTag.style.left = milestoneWrapper.offsetLeft + (Math.random() * milestoneWrapper.offsetWidth) + "px";
+                        taskTag.setAttribute("x", "" + (Math.floor(Math.random() * milestoneWrapper.getBoundingClientRect().x) + startX));
+                        taskTag.setAttribute("y", "" + (Math.floor(Math.random() * milestoneWrapper.getBoundingClientRect().y) + startX));
+                        if (task.milestoneId !== this.tasks[""+(index + 1)].milestoneId) {
+                            startX = milestoneWrapper.getBoundingClientRect().x;
+                            startY = milestoneWrapper.getBoundingClientRect().y;
+                        }
+                        taskTag.setAttribute("height", "40");
+                        taskTag.setAttribute("width", "60");
+                        taskTag.setAttribute("fill", "green");
                     }
                     taskTag.addEventListener("click", () => {
                         const taskField = document.createElement("div");
@@ -134,7 +176,7 @@
 
                     const result = this.milestones.find(milestone => milestone.milestoneID === task.milestoneId);
                     if (result.show === true) {
-                        milestoneWrapper.appendChild(taskTag);
+                        storyboard.appendChild(taskTag);
                     }
 
 

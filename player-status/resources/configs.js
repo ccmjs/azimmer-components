@@ -9,10 +9,10 @@ ccm.files['configs.js'] = {
     "local": {
 
         "key": "local",
-        "css.1": "resources/default.css",
+        "css.1": "./player-status/resources/default.css",
         "progressbar": [
             "ccm.instance",
-            "../progressbar/ccm.progressbar.js",
+            "./progressbar/ccm.progressbar.js",
             {
                 min: 0,
                 max: 100,
@@ -23,10 +23,10 @@ ccm.files['configs.js'] = {
         ],
         "badges": [
             "ccm.instance",
-            "../badges/ccm.badges.js",
+            "./badges/ccm.badges.js",
             {"badges":[
                 {
-                    "icon": "../badges/resources/podium.svg",
+                    "icon": "./badges/resources/podium.svg",
                     "show": false,
                     "title": "Loop Master",
                     "badgesid": "badges1"
@@ -35,17 +35,17 @@ ccm.files['configs.js'] = {
         ],
         "achievement": [
             "ccm.instance",
-            "../achievements/ccm.achievements.js",
+            "./achievements/ccm.achievements.js",
             {"achievements":[
                 {
-                    "icon": "../achievements/resources/podium.svg",
+                    "icon": "./achievements/resources/podium.svg",
                     "show": false,
                     "title": "Level over 10!!!",
                     "achievementid": "achievement1",
                     "condition": {"level": 10}
                 },
                 {
-                    "icon": "../achievements/resources/podium.svg",
+                    "icon": "./achievements/resources/podium.svg",
                     "show": false,
                     "title": "Level over 20!!!",
                     "achievementid": "achievement2",

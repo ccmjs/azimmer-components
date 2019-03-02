@@ -30,7 +30,7 @@
                     }
                 ]
             },
-            "css": ["ccm.load", "../badges/resources/default.css"],
+            "css": ["ccm.load", "./badges/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
         },
 
