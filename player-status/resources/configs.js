@@ -38,14 +38,14 @@ ccm.files['configs.js'] = {
             "./achievements/ccm.achievements.js",
             {"achievements":[
                 {
-                    "icon": "./achievements/resources/podium.svg",
+                    "icon": "./resources/podium.svg",
                     "show": false,
                     "title": "Level over 10!!!",
                     "achievementid": "achievement1",
                     "condition": {"level": 10}
                 },
                 {
-                    "icon": "./achievements/resources/podium.svg",
+                    "icon": "./resources/podium.svg",
                     "show": false,
                     "title": "Level over 20!!!",
                     "achievementid": "achievement2",

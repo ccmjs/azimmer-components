@@ -131,33 +131,27 @@
 
             this.renderTasks = () => {
                 const storyboard = this.element.querySelector("svg");
-                let startX = 1;
                 let startY = 1;
 
                 this.tasks.forEach((task, index) => {
                     const taskTag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
                     const milestoneWrapper = this.element.querySelector("#" + task.milestoneId);
                     taskTag.id = task.taskId;
+                    if (index % 2 === 0) {
+                        taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 60));
+                    }
+                    else if (index % 2 === 1) {
+                        taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + 90));
+                    }
+
+                    taskTag.setAttribute("y", "" + (Math.floor(Math.random() * milestoneWrapper.getBoundingClientRect().y) + startY));
+
+                    taskTag.setAttribute("height", "30");
+                    taskTag.setAttribute("width", "40");
                     if (task.challenge) {
-                        taskTag.setAttribute("x", "" + (Math.floor(Math.random() * milestoneWrapper.getBoundingClientRect().x) + startX));
-                        taskTag.setAttribute("y", "" + (Math.floor(Math.random() * milestoneWrapper.getBoundingClientRect().y) + startX));
-                        if (task.milestoneId !== this.tasks[""+(index + 1)].milestoneId) {
-                            startX = milestoneWrapper.getBoundingClientRect().x;
-                            startY = milestoneWrapper.getBoundingClientRect().y;
-                        }
-                        taskTag.setAttribute("height", "40");
-                        taskTag.setAttribute("width", "60");
                         taskTag.setAttribute("fill", "red");
                     }
                     else {
-                        taskTag.setAttribute("x", "" + (Math.floor(Math.random() * milestoneWrapper.getBoundingClientRect().x) + startX));
-                        taskTag.setAttribute("y", "" + (Math.floor(Math.random() * milestoneWrapper.getBoundingClientRect().y) + startX));
-                        if (task.milestoneId !== this.tasks[""+(index + 1)].milestoneId) {
-                            startX = milestoneWrapper.getBoundingClientRect().x;
-                            startY = milestoneWrapper.getBoundingClientRect().y;
-                        }
-                        taskTag.setAttribute("height", "40");
-                        taskTag.setAttribute("width", "60");
                         taskTag.setAttribute("fill", "green");
                     }
                     taskTag.addEventListener("click", () => {

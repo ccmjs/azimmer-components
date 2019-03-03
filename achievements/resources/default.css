@@ -4,6 +4,7 @@
 
 .achievement-content {
     display: inline-block;
+    margin: 10px;
 }
 
 .achievement-icon {

@@ -51,11 +51,6 @@
                             "tag": "div",
                             "class": "progress-bar",
                             "inner": ""
-                        },
-                        {
-                            "tag": "button",
-                            "class": "btn",
-                            "inner": "Test"
                         }
                     ]
                 }
@@ -112,7 +107,7 @@
                             }
                         };
                         this.store.set(initalPlayerObj);
-                        this.start();
+                        location.reload(true);
                     });
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.player));
                 let playersName = this.element.querySelector(".player-name").querySelector("h1");
@@ -135,8 +130,6 @@
                 progressbarContainer.appendChild(this.progressbar.root);
                 badgesContainer.appendChild(this.badges.root);
                 achievementsContainer.appendChild(this.achievement.root);
-                let button = this.element.querySelector(".btn");
-                button.addEventListener("click", () => this.setProgress(30));
 
             };
 

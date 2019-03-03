@@ -10,6 +10,16 @@ ccm.files['configs.js'] = {
 
         "key": "local",
         "css.1": "./resources/default.css",
+        "achievements": [
+            {
+                "icon": "./resources/podium.svg",
+                "show": false,
+                "title": "Level over 10!!!",
+                "achievementid": "achievement1",
+                "condition": {"level":10}
+            }
+        ],
+        "testButton": false
     },
 
     "demo": {
@@ -17,7 +27,7 @@ ccm.files['configs.js'] = {
         "key": "demo",
         "achievements": [
             {
-                "icon": "./resources/podium.svg",
+                "icon": "../resources/podium.svg",
                 "show": false,
                 "title": "Level over 10!!!",
                 "achievementid": "achievement1",
