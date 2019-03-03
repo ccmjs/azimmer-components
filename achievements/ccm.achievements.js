@@ -30,7 +30,7 @@
                     }
                 ]
             },
-            "css": ["ccm.load", "./achievements/resources/default.css"],
+            "css": ["ccm.load", "./resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
         },
 

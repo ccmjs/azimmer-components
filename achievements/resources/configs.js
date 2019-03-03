@@ -27,7 +27,7 @@ ccm.files['configs.js'] = {
         "key": "demo",
         "achievements": [
             {
-                "icon": "../resources/podium.svg",
+                "icon": "./resources/podium.svg",
                 "show": false,
                 "title": "Level over 10!!!",
                 "achievementid": "achievement1",

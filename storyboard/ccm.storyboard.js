@@ -1,5 +1,5 @@
 /**
- * @overview ccm component forcreating a player
+ * @overview ccm component for creating a player
  * @author Arthur Zimmermann 2018
  * @license MIT License
  * @version 1.0.0
@@ -23,7 +23,7 @@
                     "inner": [],
                 }
             },
-            "css": ["ccm.load", "./storyboard/resources/default.css"],
+            "css": ["ccm.load", "../storyboard/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
         },
 
@@ -161,7 +161,7 @@
                         const testButton = document.createElement("button");
                         testButton.innerHTML = "Test Aufgaben button";
                         testButton.addEventListener("click", () => {
-                            console.log("Hurray")
+                            this.parent.playerStatus.setProgress(30);
                         });
                         taskField.appendChild(testButton);
                         this.element.appendChild(taskField);

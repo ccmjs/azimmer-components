@@ -1,5 +1,5 @@
 /**
- * @overview ccm component forcreating a player
+ * @overview ccm component for creating a player
  * @author Arthur Zimmermann 2018
  * @license MIT License
  * @version 1.0.0
@@ -11,7 +11,7 @@
 
     const component = {
 
-        name: "player-status",
+        name: "playerstatus",
 
         ccm: "https://ccmjs.github.io/ccm/ccm.js",
 
@@ -51,11 +51,16 @@
                             "tag": "div",
                             "class": "progress-bar",
                             "inner": ""
+                        },
+                        {
+                            "tag": "div",
+                            "class": "storyboard-container",
+                            "inner": ""
                         }
                     ]
                 }
             },
-            "css": ["ccm.load", "./player-status/resources/default.css"],
+            "css": ["ccm.load", "../player-status/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
         },
 
@@ -119,10 +124,12 @@
                 let progressbarContainer = this.element.querySelector(".progress-bar");
                 let badgesContainer = this.element.querySelector(".badges-container");
                 let achievementsContainer = this.element.querySelector(".achievement-container");
+                let storyboardContainer = this.element.querySelector(".storyboard-container");
 
                 await this.progressbar.start();
                 await this.badges.start();
                 await this.achievement.start();
+                //await this.storyboard.start();
                 this.progressbar.setComplete(this.player.exp);
 
 
@@ -130,6 +137,7 @@
                 progressbarContainer.appendChild(this.progressbar.root);
                 badgesContainer.appendChild(this.badges.root);
                 achievementsContainer.appendChild(this.achievement.root);
+                //storyboardContainer.appendChild(this.storyboard.root);
 
             };
 

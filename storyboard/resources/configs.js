@@ -111,7 +111,6 @@ ccm.files['configs.js'] = {
     },
 
     "demo": {
-        "css.1": "./resources/default.css",
         "key": "demo",
         "milestones": [
             {
