@@ -30,7 +30,7 @@
                     }
                 ]
             },
-            "css": ["ccm.load", "./resources/default.css"],
+            "css": ["ccm.load", "../achievements/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
         },
 
@@ -84,12 +84,14 @@
                 await this.store.get("game").then(result => playerStatus = result.value);
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.achievement));
                 this.renderAchievement();
+
                 if(this.testButton){
                     let testButton = document.createElement("button");
                     testButton.innerText="Fireing Events";
                     testButton.addEventListener("click",()=>this.addAchievement("achievement1"));
                     this.element.appendChild(testButton);
                 }
+
                 await this.store.get("game").then(result => {
                     this.achievements.forEach(achievement => {
                         Object.keys(achievement.condition).forEach(e =>{

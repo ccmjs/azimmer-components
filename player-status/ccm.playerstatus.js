@@ -33,8 +33,8 @@
                             "tag": "div",
                             "class": "level-container",
                             "inner": [
-                                {"tag":"h2","class":"level-headline","inner":"Level: "},
-                                {"tag":"div","class":"level-number","inner":""}
+                                {"tag": "h2", "class": "level-headline", "inner": "Level: "},
+                                {"tag": "div", "class": "level-number", "inner": ""}
                             ]
                         },
                         {
@@ -51,11 +51,6 @@
                             "tag": "div",
                             "class": "progress-bar",
                             "inner": ""
-                        },
-                        {
-                            "tag": "div",
-                            "class": "storyboard-container",
-                            "inner": ""
                         }
                     ]
                 }
@@ -65,34 +60,43 @@
         },
 
         Instance: function () {
-
+            this.renderAchievement = async () => {
+                const achievementsContainer = this.element.querySelector(".achievement-container");
+                await this.achievement.start();
+                await achievementsContainer.appendChild(this.achievement.root);
+            };
+            this.renderBadges = async () => {
+                const badgesContainer = this.element.querySelector(".badges-container");
+                await this.badges.start();
+                await badgesContainer.appendChild(this.badges.root);
+            };
+            this.renderProgressbar = async () => {
+                const progressbarContainer = this.element.querySelector(".progress-bar");
+                await this.progressbar.start();
+                await progressbarContainer.appendChild(this.progressbar.root);
+                await this.progressbar.setComplete(this.player.exp);
+            };
             this.setProgress = exp => {
                 let counter = this.progressbar.getComplete();
                 for (let i = 0; i < exp; i++) {
                     this.progressbar.setComplete(counter += 1);
                     if (this.progressbar.getComplete() <= this.progressbar.max) {
                         this.player.exp = this.progressbar.getComplete();
-                    } else {
+                    } else if (this.player.exp >= this.progressbar.max) {
                         this.addLevel();
-                        this.progressbar.start(this.progressbarConfig);
                         counter = this.progressbar.getComplete() + 1;
                     }
                 }
                 this.store.set({"key": "game", "value": this.player});
             };
-            this.addLevel = async () => {
+            this.addLevel = () => {
                 this.player.level++;
                 let playersLevel = this.element.querySelector(".level-number");
                 playersLevel.innerHTML = this.player.level;
-                await this.start();
+                this.renderProgressbar();
+                this.renderAchievement();
             };
-            this.progressbarConfig = {
-                min: 0,
-                max: 100,
-                sign: "exp",
-                complete: 0,
-                showText: true
-            };
+
             this.start = async () => {
                 await this.store.get("game")
                     .then(result => {
@@ -121,23 +125,9 @@
                 let playersLevel = this.element.querySelector(".level-number");
                 playersLevel.innerHTML = this.player.level;
 
-                let progressbarContainer = this.element.querySelector(".progress-bar");
-                let badgesContainer = this.element.querySelector(".badges-container");
-                let achievementsContainer = this.element.querySelector(".achievement-container");
-                let storyboardContainer = this.element.querySelector(".storyboard-container");
-
-                await this.progressbar.start();
-                await this.badges.start();
-                await this.achievement.start();
-                //await this.storyboard.start();
-                this.progressbar.setComplete(this.player.exp);
-
-
-
-                progressbarContainer.appendChild(this.progressbar.root);
-                badgesContainer.appendChild(this.badges.root);
-                achievementsContainer.appendChild(this.achievement.root);
-                //storyboardContainer.appendChild(this.storyboard.root);
+                await this.renderProgressbar();
+                await this.renderAchievement();
+                await this.renderBadges()
 
             };
 

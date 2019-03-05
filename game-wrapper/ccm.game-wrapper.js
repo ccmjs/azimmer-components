@@ -40,9 +40,9 @@
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.gamewrapper));
                 const player = this.element.querySelector(".player-container");
                 const storyboard = this.element.querySelector(".storyboard-container");
-                await this.playerStatus.start();
+                this.playerStatus.start();
                 player.appendChild(this.playerStatus.root);
-                await this.storyboard.start();
+                this.storyboard.start();
                 storyboard.appendChild(this.storyboard.root);
 
             };

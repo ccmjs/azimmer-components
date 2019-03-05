@@ -28,13 +28,10 @@
         },
 
         Instance: function () {
-
-
             this.start = async () => {
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.storyboard));
                 const svgPic = document.createElementNS("http://www.w3.org/2000/svg", "svg");
                 const storyboard = this.element.querySelector(".storyboard");
-                svgPic.className = "svg";
                 svgPic.setAttribute("width", "100%");
                 svgPic.setAttribute("height", "100%");
                 await storyboard.appendChild(svgPic);
@@ -131,7 +128,6 @@
 
             this.renderTasks = () => {
                 const storyboard = this.element.querySelector("svg");
-                let startY = 1;
 
                 this.tasks.forEach((task, index) => {
                     const taskTag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -139,12 +135,12 @@
                     taskTag.id = task.taskId;
                     if (index % 2 === 0) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 60));
+                        taskTag.setAttribute("y", "" + (milestoneWrapper.getBoundingClientRect().y - (50*index)));
                     }
                     else if (index % 2 === 1) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + 90));
+                        taskTag.setAttribute("y", "" + (milestoneWrapper.getBoundingClientRect().y + (50*index)));
                     }
-
-                    taskTag.setAttribute("y", "" + (Math.floor(Math.random() * milestoneWrapper.getBoundingClientRect().y) + startY));
 
                     taskTag.setAttribute("height", "30");
                     taskTag.setAttribute("width", "40");
@@ -161,7 +157,7 @@
                         const testButton = document.createElement("button");
                         testButton.innerHTML = "Test Aufgaben button";
                         testButton.addEventListener("click", () => {
-                            this.parent.playerStatus.setProgress(30);
+                            this.parent.playerStatus.setProgress(task.exp);
                         });
                         taskField.appendChild(testButton);
                         this.element.appendChild(taskField);
