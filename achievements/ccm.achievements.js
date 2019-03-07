@@ -36,19 +36,20 @@
 
         Instance: function () {
             let playerStatus;
-            this.addAchievement = achievementid => {
+            this.addAchievement = async achievementid => {
+                await this.store.get("game").then(result => playerStatus = result.value);
                 this.achievements.forEach(achievement => {
                     if(achievement.achievementid === achievementid){
                         achievement.show = true;
                         playerStatus.achievement.forEach(element => {
-                            if (element.achievementid != achievementid){
+                            if (element.achievementid !== achievementid){
                                 playerStatus.achievement.push(achievement);
                             }
                         });
                         if(playerStatus.achievement.length === 0){
                             playerStatus.achievement.push(achievement);
                         }
-                        this.store.set({"key":"game", "value":playerStatus})
+                        this.store.set({"key":"game", "value":playerStatus}).then(result => console.log(result));
                     }
                 });
                 this.renderAchievement();

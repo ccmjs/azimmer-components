@@ -126,7 +126,7 @@
                 return path;
             };
 
-            this.renderTasks = () => {
+            this.renderTasks =  () => {
                 const storyboard = this.element.querySelector("svg");
 
                 this.tasks.forEach((task, index) => {
@@ -156,8 +156,11 @@
 
                         const testButton = document.createElement("button");
                         testButton.innerHTML = "Test Aufgaben button";
-                        testButton.addEventListener("click", () => {
-                            this.parent.playerStatus.setProgress(task.exp);
+                        testButton.addEventListener("click", async () => {
+                            await this.parent.playerStatus.setProgress(task.exp);
+                            if(task.reward) {
+                                this.parent.playerStatus.badges.addBadge(task.reward);
+                            }
                         });
                         taskField.appendChild(testButton);
                         this.element.appendChild(taskField);

@@ -37,19 +37,20 @@
         Instance: function () {
             let playerStatus;
 
-            this.addBadge = badgeid => {
+            this.addBadge = async badgeid => {
+                this.store.get("game").then(result => playerStatus = result.value);
                 this.badges.forEach(badge => {
                     if(badge.badgesid === badgeid){
                         badge.show = true;
                         playerStatus.badges.forEach(element => {
-                            if (element.badgesid != badgeid){
+                            if (element.badgesid !== badgeid){
                                 playerStatus.badges.push(badge);
                             }
                         });
                         if(playerStatus.badges.length === 0){
                             playerStatus.badges.push(badge);
                         }
-                        this.store.set({"key":"game", "value":playerStatus})
+                        this.store.set({"key":"game", "value":playerStatus});
                     }
                 });
                 this.renderBadges();
@@ -59,7 +60,7 @@
                 oldBadges.forEach(element => {
                     element.parentNode.removeChild(element);
                 });
-                this.badges.forEach(badge => {
+                playerStatus.badges.forEach(badge => {
                     if(badge.show){
                         let badgesContent = this.element.querySelector(".badges-content");
 
@@ -83,10 +84,9 @@
             };
             this.start = async () => {
                 await this.store.get("game").then(result => playerStatus = result.value);
+
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.badges));
-                playerStatus.badges.forEach(element => {
-                    this.addBadge(element.badgesid);
-                });
+                this.renderBadges();
                 if(this.testButton){
                     let testButton = document.createElement("button");
                     testButton.innerText="Fireing Events";
