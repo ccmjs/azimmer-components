@@ -35,56 +35,64 @@
         },
 
         Instance: function () {
-            let playerStatus;
+            let achviementArray = [];
             this.addAchievement = async achievementid => {
-                await this.store.get("game").then(result => playerStatus = result.value);
-                this.achievements.forEach(achievement => {
-                    if(achievement.achievementid === achievementid){
-                        achievement.show = true;
-                        playerStatus.achievement.forEach(element => {
-                            if (element.achievementid !== achievementid){
-                                playerStatus.achievement.push(achievement);
+                await this.store.get("achievements").then(result =>{
+                    this.achievements.forEach(achievement => {
+                        if(achievement.achievementid === achievementid){
+                            achievement.show = true;
+                            result.value.forEach(element => {
+                                if (element.achievementid !== achievementid){
+                                    result.value.push(achievement);
+                                    this.store.set({"key": "achievements", "value": result.value});
+                                }
+                            });
+                            if(result.value.length === 0){
+                                result.value.push(achievement);
+                                this.store.set({"key": "achievements", "value": result.value});
                             }
-                        });
-                        if(playerStatus.achievement.length === 0){
-                            playerStatus.achievement.push(achievement);
                         }
-                        this.store.set({"key":"game", "value":playerStatus}).then(result => console.log(result));
-                    }
-                });
-                this.renderAchievement();
+                    });
+
+                }).then(() => this.renderAchievement());
+
             };
             this.renderAchievement = () => {
                 let oldAchievement =  this.element.querySelectorAll(".achievement-wrapper");
                 oldAchievement.forEach(element => {
                     element.parentNode.removeChild(element);
                 });
-                playerStatus.achievement.forEach(achievement => {
-                    if(achievement.show){
-                        let achievementContent = this.element.querySelector(".achievement-content");
+                this.store.get("achievements").then(result => {
+                    result.value.forEach(achievement => {
+                        if (achievement.show) {
+                            let achievementContent = this.element.querySelector(".achievement-content");
 
-                        let achievementWrapper = document.createElement("figure");
-                        achievementWrapper.className = "achievement-wrapper";
+                            let achievementWrapper = document.createElement("figure");
+                            achievementWrapper.className = "achievement-wrapper";
 
-                        let achievementIcon = document.createElement("img");
-                        achievementIcon.className = "achievement-icon";
-                        achievementIcon.src = achievement.icon;
+                            let achievementIcon = document.createElement("img");
+                            achievementIcon.className = "achievement-icon";
+                            achievementIcon.src = achievement.icon;
 
-                        let achievementTitle = document.createElement("figcaption");
-                        achievementTitle.className = "achievement-title";
-                        achievementTitle.innerText = achievement.title;
+                            let achievementTitle = document.createElement("figcaption");
+                            achievementTitle.className = "achievement-title";
+                            achievementTitle.innerText = achievement.title;
 
-                        achievementWrapper.appendChild(achievementIcon);
-                        achievementWrapper.appendChild(achievementTitle);
+                            achievementWrapper.appendChild(achievementIcon);
+                            achievementWrapper.appendChild(achievementTitle);
 
-                        achievementContent.appendChild(achievementWrapper);
-                    }
+                            achievementContent.appendChild(achievementWrapper);
+                        }
+                    })
                 })
             };
             this.start = async () => {
-                await this.store.get("game").then(result => playerStatus = result.value);
+                await this.store.get("achievements").then(result => {
+                    achviementArray = result.value;
+                }).catch(error => {
+                    this.store.set({"key": "achievements", "value": []});
+                });
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.achievement));
-                this.renderAchievement();
 
                 if(this.testButton){
                     let testButton = document.createElement("button");

@@ -124,8 +124,6 @@
                             "value": {
                                 "name": name,
                                 "level": 1,
-                                "badges": [],
-                                "achievement": [],
                                 "exp": 0,
                                 "task_done": []
                             }
