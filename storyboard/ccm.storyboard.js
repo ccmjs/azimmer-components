@@ -28,7 +28,20 @@
         },
 
         Instance: function () {
+            let tasksDone = [];
             this.start = async () => {
+                await this.store.get("tasksdone").then(result => {
+                    tasksDone = result.value;
+                    this.tasks.forEach(element => {
+                        result.value.forEach(e => {
+                            if (e.taskId === element.taskId) {
+                                element.taskDone = e.taskDone;
+                            }
+                        })
+                    })
+                }).catch(error => {
+                    this.store.set({"key": "tasksdone", "value": []});
+                });
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.storyboard));
                 const svgPic = document.createElementNS("http://www.w3.org/2000/svg", "svg");
                 const storyboard = this.element.querySelector(".storyboard");
@@ -126,45 +139,41 @@
                 return path;
             };
 
-            this.renderTasks =  () => {
+            this.renderTasks = () => {
                 const storyboard = this.element.querySelector("svg");
-
+                /*y is a mutable variable that is adding the y coordinate based on the height*/
+                let y = 0;
+                /* tmp variable to store which milestone is now looked at */
+                let tmp = "";
                 this.tasks.forEach((task, index) => {
+                    console.log(task.taskDone);
+                    /* Setting the y coordinate to 0 when new milestone is in the task*/
+                    if (tmp !== task.milestoneId) {
+                        y = 0;
+                    }
+                    tmp = task.milestoneId;
                     const taskTag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
                     const milestoneWrapper = this.element.querySelector("#" + task.milestoneId);
+
                     taskTag.id = task.taskId;
+                    taskTag.setAttribute("height", "20px");
+                    taskTag.setAttribute("width", "20px");
+
                     if (index % 2 === 0) {
-                        taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 60));
-                        taskTag.setAttribute("y", "" + (milestoneWrapper.getBoundingClientRect().y - (50*index)));
+                        taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 30));
+                        taskTag.setAttribute("y", "" + (y += 30));
                     }
                     else if (index % 2 === 1) {
-                        taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + 90));
-                        taskTag.setAttribute("y", "" + (milestoneWrapper.getBoundingClientRect().y + (50*index)));
+                        taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
+                        taskTag.setAttribute("y", "" + (y += 30));
                     }
-
-                    taskTag.setAttribute("height", "30");
-                    taskTag.setAttribute("width", "40");
                     if (task.challenge) {
                         taskTag.setAttribute("fill", "red");
                     }
                     else {
                         taskTag.setAttribute("fill", "green");
                     }
-                    taskTag.addEventListener("click", () => {
-                        const taskField = document.createElement("div");
-                        taskField.className = "taskfield";
-
-                        const testButton = document.createElement("button");
-                        testButton.innerHTML = "Test Aufgaben button";
-                        testButton.addEventListener("click", async () => {
-                            await this.parent.playerStatus.setProgress(task.exp);
-                            if(task.reward) {
-                                this.parent.playerStatus.badges.addBadge(task.reward);
-                            }
-                        });
-                        taskField.appendChild(testButton);
-                        this.element.appendChild(taskField);
-                    });
+                    taskTag.addEventListener("click", () => this.renderTaskField(task));
                     taskTag.innerHTML = task.task.title;
 
                     const result = this.milestones.find(milestone => milestone.milestoneID === task.milestoneId);
@@ -174,6 +183,36 @@
 
 
                 })
+            };
+            this.renderTaskField = (task) => {
+                let oldTask = this.element.querySelectorAll(".taskfield");
+                oldTask.forEach(element => {
+                    element.parentNode.removeChild(element);
+                });
+                const taskField = document.createElement("div");
+                taskField.className = "taskfield";
+
+                const testButton = document.createElement("button");
+                testButton.innerHTML = "Test Aufgaben button";
+                if (task.task.task === "test") {
+                    testButton.addEventListener("click", async () => {
+                        if (!task.taskDone) {
+                            await this.parent.playerStatus.setProgress(task.exp);
+                            if (task.reward) {
+                                this.parent.playerStatus.badges.addBadge(task.reward);
+                                task.taskDone = true;
+                                tasksDone.push(task);
+                                this.store.set({"key": "tasksdone", "value": tasksDone});
+                            }
+                        }
+                    });
+                }
+
+                console.log(task.task.task);
+                task.task.task.onfinish=()=>console.log("Done");
+                task.task.task.start();
+                taskField.appendChild(task.task.task.root);
+                this.element.appendChild(taskField);
             }
 
         }

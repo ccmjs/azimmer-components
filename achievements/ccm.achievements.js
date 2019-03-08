@@ -35,7 +35,6 @@
         },
 
         Instance: function () {
-            let achviementArray = [];
             this.addAchievement = async achievementid => {
                 await this.store.get("achievements").then(result =>{
                     this.achievements.forEach(achievement => {
@@ -88,12 +87,12 @@
             };
             this.start = async () => {
                 await this.store.get("achievements").then(result => {
-                    achviementArray = result.value;
+                    achievementArray = result.value;
                 }).catch(error => {
                     this.store.set({"key": "achievements", "value": []});
                 });
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.achievement));
-
+                this.renderAchievement();
                 if(this.testButton){
                     let testButton = document.createElement("button");
                     testButton.innerText="Fireing Events";

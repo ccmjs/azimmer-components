@@ -119,7 +119,12 @@ ccm.files['configs.js'] = {
                         "taskId": "task1",
                         "exp": 20,
                         "reward": "badges1",
-                        "task": {"title": "Task 1", "task": "test"},
+                        "task": {"title": "Task 1",
+                            "task": ["ccm.instance", "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-3.0.2.js", ["ccm.get", {
+                                "name": "quiz",
+                                "url": "https://ccm2.inf.h-brs.de"
+                            }, "1552084314450X168642239821156"]]
+                        },
                         "taskDone": false,
                         "challenge": false,
                         "milestoneId": "ms1"

@@ -104,6 +104,7 @@
                 playersLevel.innerHTML = this.player.level;
                 this.renderProgressbar();
                 this.renderAchievement();
+                this.parent.storyboard.start();
             };
             this.progressConfig = {
                 complete: 0,
@@ -125,7 +126,6 @@
                                 "name": name,
                                 "level": 1,
                                 "exp": 0,
-                                "task_done": []
                             }
                         };
                         this.store.set(initalPlayerObj);
