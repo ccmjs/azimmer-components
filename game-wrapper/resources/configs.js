@@ -15,6 +15,11 @@ ccm.files['configs.js'] = {
     "demo": {
         "css.1": "./resources/default.css",
         "key": "demo",
+        "comparegame":[
+            "ccm.instance",
+            "../comparegame/ccm.comparegame.js",
+            {}
+        ],
         "playerStatus": [
             "ccm.instance",
             "../player-status/ccm.playerstatus.js",

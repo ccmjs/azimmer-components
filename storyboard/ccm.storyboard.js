@@ -57,6 +57,10 @@
                     .then(result => {
                         this.player = result.value;
                     });
+                await this.store.get("tasksdone")
+                    .then(result => {
+                        this.taskdone = result.value;
+                    });
                 const numberOfMilestones = this.milestones.length;
                 let pathCoordinates = [];
                 const storyboard = this.element.querySelector("svg");
@@ -70,7 +74,7 @@
                     const milestoneCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                     milestoneCircle.setAttribute("fill", "gray");
                     milestoneCircle.setAttribute("stroke", "0");
-                    milestoneCircle.setAttribute("r", "50");
+                    milestoneCircle.setAttribute("r", "" + (storyboard.getBoundingClientRect().width * 0.03));
                     milestoneCircle.id = milestone.milestoneID;
 
                     const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -80,7 +84,7 @@
                     text.setAttribute("text-anchor", "middle");
 
 
-                    if (milestone.conditions.level <= this.player.level) {
+                    if (milestone.conditions.level <= this.player.level && this.checkDoneTasks(milestone.conditions.tasksDone, this.taskdone)) {
                         milestoneCircle.setAttribute("fill", "black");
                         milestone.show = true;
                     }
@@ -121,6 +125,27 @@
                 });
                 storyboard.appendChild(this.drawPath(pathCoordinates));
             };
+            this.checkDoneTasks = (_arr1, _arr2) => {
+
+                if (!Array.isArray(_arr1) || !Array.isArray(_arr2))
+                    return false;
+
+                if (_arr1.length === 0){
+                    return true;
+                }
+                let arr1 = _arr1.concat().sort();
+                let arr2 = _arr2.concat().sort();
+
+                for (let i = 0; i < arr1.length; i++) {
+
+                    if (arr1[i].taskId !== arr2[i].taskId)
+                        return false;
+
+                }
+
+                return true;
+
+            };
             this.drawPath = (coordinates) => {
                 const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
                 let pathString = "";
@@ -146,7 +171,6 @@
                 /* tmp variable to store which milestone is now looked at */
                 let tmp = "";
                 this.tasks.forEach((task, index) => {
-                    console.log(task.taskDone);
                     /* Setting the y coordinate to 0 when new milestone is in the task*/
                     if (tmp !== task.milestoneId) {
                         y = 0;
@@ -159,13 +183,25 @@
                     taskTag.setAttribute("height", "20px");
                     taskTag.setAttribute("width", "20px");
 
+                    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+
+                    text.setAttribute("font-family", "sans-serif");
+                    text.setAttribute("fill", "black");
+
+                    text.innerHTML = task.task.title;
+
                     if (index % 2 === 0) {
-                        taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 30));
+                        taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
                         taskTag.setAttribute("y", "" + (y += 30));
+                        text.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
+                        text.setAttribute("y", "" + (y += 40));
+                        text.setAttribute("text-anchor", "middle");
                     }
                     else if (index % 2 === 1) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
                         taskTag.setAttribute("y", "" + (y += 30));
+                        text.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
+                        text.setAttribute("y", "" + (y += 40));
                     }
                     if (task.challenge) {
                         taskTag.setAttribute("fill", "red");
@@ -179,6 +215,7 @@
                     const result = this.milestones.find(milestone => milestone.milestoneID === task.milestoneId);
                     if (result.show === true) {
                         storyboard.appendChild(taskTag);
+                        storyboard.appendChild(text)
                     }
 
 
@@ -192,6 +229,11 @@
                 const taskField = document.createElement("div");
                 taskField.className = "taskfield";
 
+                const taskTitle = document.createElement("h2");
+                taskTitle.className = "tasktitle";
+                taskTitle.innerHTML = task.task.title;
+                taskField.appendChild(taskTitle);
+
                 const testButton = document.createElement("button");
                 testButton.innerHTML = "Test Aufgaben button";
                 if (task.task.task === "test") {
@@ -203,15 +245,18 @@
                                 task.taskDone = true;
                                 tasksDone.push(task);
                                 this.store.set({"key": "tasksdone", "value": tasksDone});
+                                this.parent.comparegame.addTasksdone(tasksDone);
                             }
                         }
                     });
-                }
+                    taskField.appendChild(testButton);
+                } else {
 
-                console.log(task.task.task);
-                task.task.task.onfinish=()=>console.log("Done");
-                task.task.task.start();
-                taskField.appendChild(task.task.task.root);
+                    console.log(task.task.task);
+                    //task.task.task.onfinish=()=>console.log("Done");
+                    task.task.task.start();
+                    taskField.appendChild(task.task.task.root);
+                }
                 this.element.appendChild(taskField);
             }
 

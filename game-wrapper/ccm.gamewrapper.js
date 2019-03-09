@@ -11,13 +11,18 @@
 
     const component = {
 
-        name: "game-wrapper",
+        name: "gamewrapper",
 
         ccm: "https://ccmjs.github.io/ccm/ccm.js",
 
         config: {
             "html": {
                 "gamewrapper": [
+                    {
+                        "tag": "div",
+                        "class": "comparegame-container",
+                        "inner": "",
+                    },
                     {
                         "tag": "div",
                         "class": "player-container",
@@ -40,6 +45,9 @@
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.gamewrapper));
                 const player = this.element.querySelector(".player-container");
                 const storyboard = this.element.querySelector(".storyboard-container");
+                const comparegame = this.element.querySelector(".comparegame-container");
+                this.comparegame.start();
+                comparegame.appendChild(this.comparegame.root);
                 this.playerStatus.start();
                 player.appendChild(this.playerStatus.root);
                 this.storyboard.start();

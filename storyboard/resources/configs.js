@@ -9,7 +9,7 @@ ccm.files['configs.js'] = {
     "local": {
 
         "key": "local",
-        "css.1": "./storyboard/resources/default.css",
+        "css.1": "../storyboard/resources/default.css",
         "milestones": [
             {
                 "conditions": {
