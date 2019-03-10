@@ -245,7 +245,7 @@
                                 task.taskDone = true;
                                 tasksDone.push(task);
                                 this.store.set({"key": "tasksdone", "value": tasksDone});
-                                this.parent.comparegame.addTasksdone(tasksDone);
+                                this.parent.comparegame.addTasksdone(task);
                             }
                         }
                     });

@@ -22,21 +22,22 @@
                     "class": "compare-window",
                     "inner": [
                         {
-                            "tag":"h1",
-                            "inner":"Andere Spieler"
+                            "tag": "h1",
+                            "inner": "Andere Spieler"
                         },
                         {
-                            "tag":"table",
-                            "class":"compare-table",
-                            "inner":{
-                                "tag":"tr",
+                            "tag": "table",
+                            "class": "compare-table",
+                            "id": "myTable",
+                            "inner": {
+                                "tag": "tr",
                                 "inner": [
-                                    {"tag":"th", "class":"header-rank", "inner":"Rank"},
-                                    {"tag":"th", "class":"header-name", "inner":"Name"},
-                                    {"tag":"th", "class":"header-level", "inner":"Level"},
-                                    {"tag":"th", "class":"header-badges", "inner":"Anzahl Abzeichen"},
-                                    {"tag":"th", "class":"header-achievements", "inner":"Anzahl Errungenschaften"},
-                                    {"tag":"th", "class":"header-tasks", "inner":"Anzahl abgeschlossener Aufgaben"}
+                                    {"tag": "th", "class": "header-rank", "inner": "Rank"},
+                                    {"tag": "th", "class": "header-name", "inner": "Name"},
+                                    {"tag": "th", "class": "header-level", "inner": "Level"},
+                                    {"tag": "th", "class": "header-badges", "inner": "Anzahl Abzeichen"},
+                                    {"tag": "th", "class": "header-achievements", "inner": "Anzahl Errungenschaften"},
+                                    {"tag": "th", "class": "header-tasks", "inner": "Anzahl abgeschlossener Aufgaben"}
                                 ]
                             }
                         }
@@ -44,20 +45,34 @@
                 }
             },
             "css": ["ccm.load", "../comparegame/resources/default.css"],
-            "store": ["ccm.store", {store: 'playerstatus', url: 'wss://ccm.inf.h-brs.de'}]
+            "store": ["ccm.store", {"name": "azimme2s_playerstatus", url: "wss://ccm2.inf.h-brs.de"}],
+            "localStore": ["ccm.store", {"name": "player"}]
         },
 
         Instance: function () {
-            const _ = {_:{
-                creator: "azimme2s",
-                realm: "hbrsinfkaul",
-                access: {
-                    get:"all",
-                    set: "all",
-                    del: "creator"
+            const _ = {
+                _: {
+                    creator: "azimme2s",
+                    realm: "hbrsinfkaul",
+                    access: {
+                        get: "all",
+                        set: "all",
+                        del: "creator"
+                    }
                 }
-            }};
+            };
+
+            let player = {
+                name: "",
+                level: 0,
+                exp: 0,
+                badges: [],
+                achievements: [],
+                taskDone: []
+            };
+            let localPlayer;
             this.start = async () => {
+                await this.localStore.get("game").then(result => localPlayer = result.value).catch(error => console.log(error));
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.comparegame));
 
                 const headerRank = this.element.querySelector(".header-rank");
@@ -68,34 +83,109 @@
                 const headerTasks = this.element.querySelector(".header-tasks");
                 headerRank.addEventListener("click", () => this.sortTable(0));
                 headerName.addEventListener("click", () => this.sortTable(1));
-                headerLevel.addEventListener("click",() => this.sortTable(2));
+                headerLevel.addEventListener("click", () => this.sortTable(2));
                 headerBadges.addEventListener("click", () => this.sortTable(3));
                 headerAchievements.addEventListener("click", () => this.sortTable(4));
                 headerTasks.addEventListener("click", () => this.sortTable(5));
                 this.renderPlayerStatus();
             };
             this.renderPlayerStatus = () => {
-                this.store.get("game").then(result=> console.log(result)).catch(error=> console.log(error));
-                this.store.get("badges").then(result=> console.log(result)).catch(error=> console.log(error));
-                this.store.get("achievements").then(result=> console.log(result)).catch(error=> console.log(error));
-                this.store.get("tasksdone").then(result=> console.log(result)).catch(error=> console.log(error));
+                //this.store.del(localPlayer.name);
+                this.store.get().then(result => {
+                    console.log(result);
+                    result.forEach(element => {
+                        if (element.key === localPlayer.name) {
+                            player = element.value;
+                        }
+                    });
+                    console.log(player);
+                    result.forEach((element, index) => {
+                        console.log(element);
+                        const tableRow = document.createElement("tr");
+                        const tableElementRank = document.createElement("td");
+                        tableElementRank.innerHTML = index + 1;
+                        const tableElementName = document.createElement("td");
+                        tableElementName.innerHTML = element.value.name;
+                        const tableElementLevel = document.createElement("td");
+                        tableElementLevel.innerHTML = element.value.level;
+                        const tableElementBadge = document.createElement("td");
+                        tableElementBadge.innerHTML = element.value.badges.length;
+                        const tableElementAchievement = document.createElement("td");
+                        tableElementAchievement.innerHTML = element.value.achievements.length;
+                        const tableElementTask = document.createElement("td");
+                        tableElementTask.innerHTML = element.value.taskDone.length;
+                        tableRow.appendChild(tableElementRank);
+                        tableRow.appendChild(tableElementName);
+                        tableRow.appendChild(tableElementLevel);
+                        tableRow.appendChild(tableElementBadge);
+                        tableRow.appendChild(tableElementAchievement);
+                        tableRow.appendChild(tableElementTask);
+
+                        const table = this.element.querySelector(".compare-table");
+                        table.appendChild(tableRow);
+                    });
+                }).catch(error => console.log(error));
+
             };
             this.addGamme = game => {
-              this.store.set({"key":"game", "value":Object.assign({},game,_)}).catch(error => console.log(error));
+
+                player.name = game.name;
+                player.level = game.level;
+                player.exp = game.exp;
+                this.store.set({"key": localPlayer.name, "value": player}).catch(error => console.log(error));
             };
             this.addBadges = badges => {
-                this.store.set({"key":"badges", "value":Object.assign({},badges,_)}).catch(error => console.log(error));
+                console.log(badges);
+                if (player.badges.length === 0) {
+                    console.log("player.badges is empty");
+                    player.badges.push(badges);
+                } else {
+                    player.badges.forEach(element => {
+                        if (element !== badges) {
+                            console.log("True");
+                            player.badges.push(badges);
+                        }
+                    });
+                }
+                console.log(player);
+                this.store.set({
+                    "key": localPlayer.name,
+                    "value": player
+                }).catch(error => console.log(error));
             };
             this.addAchievements = achievements => {
-                this.store.set({"key":"achievements", "value":Object.assign({},achievements,_)}).catch(error => console.log(error));
+                player.achievements.forEach(element => {
+                    if (element !== achievements) {
+                        player.achievements.push(achievements);
+                    }
+                });
+
+                this.store.set({
+                    "key": localPlayer.name,
+                    "value": player
+                }).catch(error => console.log(error));
             };
             this.addTasksdone = tasksdone => {
-                console.log({...tasksdone,..._});
-                this.store.set({"key":"tasksdone", "value":Object.assign({},tasksdone,_)}).then(result => console.log(result)).catch(error => console.log(error));
+                console.log(tasksdone);
+                if (player.taskDone.length === 0) {
+                    console.log("player.taskDone is empty");
+                    player.taskDone.push(tasksdone);
+                } else {
+                    player.taskDone.forEach(element => {
+                        if (element !== tasksdone) {
+                            player.taskDone.push(tasksdone);
+                        }
+                    });
+                }
+                console.log(player);
+                this.store.set({
+                    "key": localPlayer.name,
+                    "value": player
+                }).then(result => console.log(result)).catch(error => console.log(error));
             };
             this.sortTable = (n) => {
                 let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-                table = document.getElementById("myTable");
+                table = this.element.querySelector("#myTable");
                 switching = true;
                 //Set the sorting direction to ascending:
                 dir = "asc";
@@ -119,7 +209,7 @@
                         if (dir === "asc") {
                             if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
                                 //if so, mark as a switch and break the loop:
-                                shouldSwitch= true;
+                                shouldSwitch = true;
                                 break;
                             }
                         } else if (dir === "desc") {
@@ -136,7 +226,7 @@
                         rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
                         switching = true;
                         //Each time a switch is done, increase this count by 1:
-                        switchcount ++;
+                        switchcount++;
                     } else {
                         /*If no switching has been done AND the direction is "asc",
                         set the direction to "desc" and run the while loop again.*/

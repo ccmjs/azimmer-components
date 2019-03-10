@@ -45,11 +45,13 @@
                                 if (element.badgesid !== badgeid) {
                                     result.value.push(badge);
                                     this.store.set({"key": "badges", "value": result.value});
+                                    this.parent.parent.comparegame.addBadges(badge);
                                 }
                             });
                             if (result.value.length === 0) {
                                 result.value.push(badge);
                                 this.store.set({"key": "badges", "value": result.value});
+                                this.parent.parent.comparegame.addBadges(badge);
                             }
                         }
                     })

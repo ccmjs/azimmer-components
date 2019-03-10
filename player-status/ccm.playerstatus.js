@@ -86,11 +86,13 @@
                         if (this.progressbar.getComplete() <= this.progressbar.max) {
                             this.player.exp = this.progressbar.getComplete();
                             this.store.set({"key": "game", "value": this.player});
+                            this.parent.comparegame.addGamme(this.player);
                         }
                         else {
                             this.addLevel();
                             this.player.exp = this.progressbar.getComplete();
                             this.store.set({"key": "game", "value": this.player});
+                            this.parent.comparegame.addGamme(this.player);
                             counter = this.progressbar.getComplete() + 1;
 
                         }
@@ -102,6 +104,7 @@
                 this.player.level++;
                 let playersLevel = this.element.querySelector(".level-number");
                 playersLevel.innerHTML = this.player.level;
+                this.parent.comparegame.addGamme(this.player);
                 this.renderProgressbar();
                 this.renderAchievement();
                 this.parent.storyboard.start();

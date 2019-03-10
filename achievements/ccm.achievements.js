@@ -44,11 +44,13 @@
                                 if (element.achievementid !== achievementid){
                                     result.value.push(achievement);
                                     this.store.set({"key": "achievements", "value": result.value});
+                                    this.parent.parent.comparegame.addAchievements(result.value);
                                 }
                             });
                             if(result.value.length === 0){
                                 result.value.push(achievement);
                                 this.store.set({"key": "achievements", "value": result.value});
+                                this.parent.parent.comparegame.addAchievements(result.value);
                             }
                         }
                     });
