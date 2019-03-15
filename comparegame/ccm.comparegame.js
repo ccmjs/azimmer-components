@@ -32,7 +32,6 @@
                             "inner": {
                                 "tag": "tr",
                                 "inner": [
-                                    {"tag": "th", "class": "header-rank", "inner": "Rank"},
                                     {"tag": "th", "class": "header-name", "inner": "Name"},
                                     {"tag": "th", "class": "header-level", "inner": "Level"},
                                     {"tag": "th", "class": "header-badges", "inner": "Anzahl Abzeichen"},
@@ -75,35 +74,29 @@
                 await this.localStore.get("game").then(result => localPlayer = result.value).catch(error => console.log(error));
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.comparegame));
 
-                const headerRank = this.element.querySelector(".header-rank");
                 const headerName = this.element.querySelector(".header-name");
                 const headerLevel = this.element.querySelector(".header-level");
                 const headerBadges = this.element.querySelector(".header-badges");
                 const headerAchievements = this.element.querySelector(".header-achievements");
                 const headerTasks = this.element.querySelector(".header-tasks");
-                headerRank.addEventListener("click", () => this.sortTable(0));
-                headerName.addEventListener("click", () => this.sortTable(1));
-                headerLevel.addEventListener("click", () => this.sortTable(2));
-                headerBadges.addEventListener("click", () => this.sortTable(3));
-                headerAchievements.addEventListener("click", () => this.sortTable(4));
-                headerTasks.addEventListener("click", () => this.sortTable(5));
+                headerName.addEventListener("click", () => this.sortTable(0));
+                headerLevel.addEventListener("click", () => this.sortTable(1));
+                headerBadges.addEventListener("click", () => this.sortTable(2));
+                headerAchievements.addEventListener("click", () => this.sortTable(3));
+                headerTasks.addEventListener("click", () => this.sortTable(4));
                 this.renderPlayerStatus();
             };
             this.renderPlayerStatus = () => {
                 //this.store.del(localPlayer.name);
                 this.store.get().then(result => {
-                    console.log(result);
                     result.forEach(element => {
                         if (element.key === localPlayer.name) {
                             player = element.value;
                         }
                     });
-                    console.log(player);
                     result.forEach((element, index) => {
-                        console.log(element);
                         const tableRow = document.createElement("tr");
-                        const tableElementRank = document.createElement("td");
-                        tableElementRank.innerHTML = index + 1;
+
                         const tableElementName = document.createElement("td");
                         tableElementName.innerHTML = element.value.name;
                         const tableElementLevel = document.createElement("td");
@@ -114,7 +107,6 @@
                         tableElementAchievement.innerHTML = element.value.achievements.length;
                         const tableElementTask = document.createElement("td");
                         tableElementTask.innerHTML = element.value.taskDone.length;
-                        tableRow.appendChild(tableElementRank);
                         tableRow.appendChild(tableElementName);
                         tableRow.appendChild(tableElementLevel);
                         tableRow.appendChild(tableElementBadge);

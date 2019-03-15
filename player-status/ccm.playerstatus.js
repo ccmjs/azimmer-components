@@ -56,7 +56,8 @@
                 }
             },
             "css": ["ccm.load", "../player-status/resources/default.css"],
-            "store": ["ccm.store", {"name": "player"}]
+            "store": ["ccm.store", {"name": "player"}],
+            "remoteStore": ["ccm.store", {"name": "azimme2s_playerstatus", url: "wss://ccm2.inf.h-brs.de"}],
         },
 
         Instance: function () {
@@ -116,23 +117,69 @@
                 min: 0,
                 max: 100,
             };
-            this.start = async () => {
-                await this.store.get("game")
-                    .then(result => {
-                        this.player = result.value;
-                    })
-                    .catch(error => {
-                        let name = prompt("Bitte Namen des Spielers eingeben:", "Spieler1");
+            this.checkForExistingPlayer = name => {
+                let newName = name;
+                this.remoteStore.get(name).then(r => {
+                    console.log(r);
+                    if (r === null) {
                         const initalPlayerObj = {
                             "key": "game",
                             "value": {
-                                "name": name,
+                                "name": newName,
                                 "level": 1,
                                 "exp": 0,
                             }
                         };
                         this.store.set(initalPlayerObj);
+                        this.remoteStore.set({
+                            "key": newName, "value": {
+                                "name": newName,
+                                "level": 1,
+                                "exp": 0,
+                                "achievements": [],
+                                "badges": [],
+                                "taskDone": []
+                            }
+                        });
                         location.reload(true);
+                    }
+                    else {
+                        newName = prompt("Spieler existiert bereits, bitte neuen Spielernamen angeben:", "Spieler1");
+                        this.checkForExistingPlayer(newName);
+                    }
+                }).catch(err => {
+                    console.log(err);
+                    const initalPlayerObj = {
+                        "key": "game",
+                        "value": {
+                            "name": newName,
+                            "level": 1,
+                            "exp": 0,
+                        }
+                    };
+                    this.store.set(initalPlayerObj);
+                    this.remoteStore.set({
+                        "key": newName, "value": {
+                            "name": newName,
+                            "level": 1,
+                            "exp": 0,
+                            "achievements": [],
+                            "badges": [],
+                            "taskDone": []
+                        }
+                    });
+                    location.reload(true);
+                });
+            };
+            this.start = async () => {
+                await this.store.get("game")
+                    .then(result => {
+                        this.player = result.value;
+                    })
+                    .catch(async error => {
+                        let name = prompt("Bitte Namen des Spielers eingeben:", "Spieler1");
+                        await this.checkForExistingPlayer(name);
+
                     });
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.player));
                 let playersName = this.element.querySelector(".player-name").querySelector("h1");
