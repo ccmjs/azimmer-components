@@ -1,19 +1,21 @@
 /**
- * @overview ccm component for showing and saving badges
+ * @overview ccm component for progress bar
  * @author Arthur Zimmermann 2018
  * @license MIT License
  * @version 1.0.0
  * @changes
- * version 1.0.0 (20.01.2019)
+ * version 1.0.0 (12.10.2018)
  */
 
-(function () {
+( function () {
 
     const component = {
 
-        name: "badges",
+        name: 'badges',
 
-        ccm: "https://ccmjs.github.io/ccm/ccm.js",
+        version: [ 1, 0, 0 ],
+
+        ccm: 'https://ccmjs.github.io/ccm/versions/ccm-18.0.0.js',
 
         config: {
             "html": {
