@@ -86,20 +86,17 @@
 
                         if (this.progressbar.getComplete() <= this.progressbar.max) {
                             this.player.exp = this.progressbar.getComplete();
-                            this.store.set({"key": "game", "value": this.player});
-                            this.parent.comparegame.addGamme(this.player);
                         }
                         else {
                             this.addLevel();
                             this.player.exp = this.progressbar.getComplete();
-                            this.store.set({"key": "game", "value": this.player});
-                            this.parent.comparegame.addGamme(this.player);
                             counter = this.progressbar.getComplete() + 1;
 
                         }
                     }, 50 * i);
                 }
-
+                this.store.set({"key": "game", "value": this.player});
+                this.parent.comparegame.addGamme(this.player);
             };
             this.addLevel = async () => {
                 this.player.level++;

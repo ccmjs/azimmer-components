@@ -127,19 +127,15 @@
                 this.store.set({"key": localPlayer.name, "value": player}).catch(error => console.log(error));
             };
             this.addBadges = badges => {
-                console.log(badges);
                 if (player.badges.length === 0) {
-                    console.log("player.badges is empty");
                     player.badges.push(badges);
                 } else {
                     player.badges.forEach(element => {
                         if (element !== badges) {
-                            console.log("True");
                             player.badges.push(badges);
                         }
                     });
                 }
-                console.log(player);
                 this.store.set({
                     "key": localPlayer.name,
                     "value": player
@@ -158,9 +154,7 @@
                 }).catch(error => console.log(error));
             };
             this.addTasksdone = tasksdone => {
-                console.log(tasksdone);
                 if (player.taskDone.length === 0) {
-                    console.log("player.taskDone is empty");
                     player.taskDone.push(tasksdone);
                 } else {
                     player.taskDone.forEach(element => {

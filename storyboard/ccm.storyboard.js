@@ -237,9 +237,9 @@
                 const testButton = document.createElement("button");
                 testButton.innerHTML = "Test Aufgaben button";
                 if (task.task.task === "test") {
-                    testButton.addEventListener("click", async () => {
+                    testButton.addEventListener("click", () => {
                         if (!task.taskDone) {
-                            await this.parent.playerStatus.setProgress(task.exp);
+                            this.parent.playerStatus.setProgress(task.exp);
                             if (task.reward) {
                                 this.parent.playerStatus.badges.addBadge(task.reward);
                                 task.taskDone = true;
@@ -253,7 +253,7 @@
                 } else {
 
                     console.log(task.task.task);
-                    //task.task.task.onfinish=()=>console.log("Done");
+                    task.task.task.onfinish = quiz => { console.log(quiz.getValue())};
                     task.task.task.start();
                     taskField.appendChild(task.task.task.root);
                 }
