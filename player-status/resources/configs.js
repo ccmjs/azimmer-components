@@ -10,6 +10,13 @@ ccm.files['configs.js'] = {
 
         "key": "local",
         "css.1": "../player-status/resources/default.css",
+        "user": [
+            "ccm.instance",
+            "https://ccmjs.github.io/akless-components/user/versions/ccm.user-8.3.1.js", ["ccm.get", {
+                "name": "user",
+                "url": "https://ccm2.inf.h-brs.de"
+            }, "1553463749330X8832057611960438"]
+        ],
         "progressbar": [
             "ccm.instance",
             "../progressbar/ccm.progressbar.js",

@@ -20,6 +20,57 @@
                 "gamewrapper": [
                     {
                         "tag": "div",
+                        "class": "menu-container",
+                        "inner": [
+                            {
+                                "tag": "div",
+                                "class": "game-menu",
+                                "inner": [
+                                    {
+                                        "tag": "img",
+                                        "src": "./resources/home-icon-silhouette.svg",
+                                        "class": "game-menu-icon"
+                                    },
+                                    {
+                                        "tag": "span",
+                                        "inner": "Spiel Übersicht"
+                                    }
+                                ]
+                            },
+                            {
+                                "tag": "div",
+                                "class": "players-menu",
+                                "inner": [
+                                    {
+                                        "tag": "img",
+                                        "src": "./resources/group-of-people.svg",
+                                        "class": "players-menu-icon"
+                                    },
+                                    {
+                                        "tag": "span",
+                                        "inner": "Anderer Spieler"
+                                    }
+                                ]
+                            },
+                            {
+                                "tag": "div",
+                                "class": "settings-menu",
+                                "inner": [
+                                    {
+                                        "tag": "img",
+                                        "src": "./resources/settings.svg",
+                                        "class": "settings-menu-icon"
+                                    },
+                                    {
+                                        "tag": "span",
+                                        "inner": "Spiel Einstellung"
+                                    }
+                                ]
+                            }
+                        ],
+                    },
+                    {
+                        "tag": "div",
                         "class": "comparegame-container",
                         "inner": "",
                     },
@@ -46,12 +97,34 @@
                 const player = this.element.querySelector(".player-container");
                 const storyboard = this.element.querySelector(".storyboard-container");
                 const comparegame = this.element.querySelector(".comparegame-container");
-                this.comparegame.start();
-                comparegame.appendChild(this.comparegame.root);
+
+                const gameMenu = this.element.querySelector(".game-menu");
+                const playersMenu = this.element.querySelector(".players-menu");
+                const settingsMenu = this.element.querySelector(".settings-menu");
+
                 this.playerStatus.start();
                 player.appendChild(this.playerStatus.root);
                 this.storyboard.start();
                 storyboard.appendChild(this.storyboard.root);
+
+                gameMenu.addEventListener("click", () => {
+                    player.parentNode.removeChild(player);
+                    storyboard.parentNode.removeChild(storyboard);
+                    comparegame.parentNode.removeChild(comparegame);
+                    this.playerStatus.start();
+                    player.appendChild(this.playerStatus.root);
+                    this.storyboard.start();
+                    storyboard.appendChild(this.storyboard.root);
+                });
+                playersMenu.addEventListener("click", () => {
+                    player.parentNode.removeChild(player);
+                    storyboard.parentNode.removeChild(storyboard);
+                    comparegame.parentNode.removeChild(comparegame);
+                    this.comparegame.start();
+                    comparegame.appendChild(this.comparegame.root);
+                });
+                settingsMenu.addEventListener("click", () =>{})
+
 
             };
         }

@@ -1,0 +1,36 @@
+.players-menu{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.players-menu-icon{
+    width:60px;
+    height:50px;
+}
+.game-menu{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.game-menu-icon{
+    width:60px;
+    height:50px;
+}
+.settings-menu{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.settings-menu-icon{
+    width:60px;
+    height:50px;
+}
+.menu-container{
+    display:flex;
+    flex:1;
+    flex-direction: row;
+    justify-content: space-around;
+}

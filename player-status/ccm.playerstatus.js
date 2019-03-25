@@ -31,6 +31,11 @@
                         },
                         {
                             "tag": "div",
+                            "class": "login",
+                            "inner": {}
+                        },
+                        {
+                            "tag": "div",
                             "class": "level-container",
                             "inner": [
                                 {"tag": "h2", "class": "level-headline", "inner": "Level: "},
@@ -174,6 +179,10 @@
                         this.player = result.value;
                     })
                     .catch(async error => {
+                        console.log(this.user);
+                        //const login = this.element.querySelector(".login");
+                        //this.user.start();
+                        //login.appendChild(this.user.root);
                         let name = prompt("Bitte Namen des Spielers eingeben:", "Spieler1");
                         await this.checkForExistingPlayer(name);
 

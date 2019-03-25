@@ -15,7 +15,7 @@ ccm.files['configs.js'] = {
     "demo": {
         "css.1": "./resources/default.css",
         "key": "demo",
-        "comparegame":[
+        "comparegame": [
             "ccm.instance",
             "../comparegame/ccm.comparegame.js",
             {}
@@ -24,6 +24,13 @@ ccm.files['configs.js'] = {
             "ccm.instance",
             "../player-status/ccm.playerstatus.js",
             {
+                "user": [
+                    "ccm.instance",
+                    "https://ccmjs.github.io/akless-components/user/versions/ccm.user-8.3.1.js", ["ccm.get", {
+                        "name": "user",
+                        "url": "https://ccm2.inf.h-brs.de"
+                    }, "1553463749330X8832057611960438"]
+                ],
                 "progressbar": [
                     "ccm.instance",
                     "../progressbar/ccm.progressbar.js",
@@ -124,7 +131,8 @@ ccm.files['configs.js'] = {
                         "taskId": "task1",
                         "exp": 20,
                         "reward": "badges1",
-                        "task": {"title": "Task 1",
+                        "task": {
+                            "title": "Task 1",
                             "task": ["ccm.instance", "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-3.0.2.js", ["ccm.get", {
                                 "name": "quiz",
                                 "url": "https://ccm2.inf.h-brs.de"
