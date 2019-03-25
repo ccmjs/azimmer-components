@@ -83,6 +83,11 @@
                         "tag": "div",
                         "class": "storyboard-container",
                         "inner": "",
+                    },
+                    {
+                        "tag": "div",
+                        "class": "settings-container",
+                        "inner": "",
                     }
                 ]
             },
@@ -108,22 +113,49 @@
                 storyboard.appendChild(this.storyboard.root);
 
                 gameMenu.addEventListener("click", () => {
-                    player.parentNode.removeChild(player);
-                    storyboard.parentNode.removeChild(storyboard);
-                    comparegame.parentNode.removeChild(comparegame);
-                    this.playerStatus.start();
+                
+                    const oldPlayerStatus = this.element.querySelector('#'+this.playerStatus.index);
+                    if(oldPlayerStatus === null)player.appendChild(this.playerStatus.root); else oldPlayerStatus.parentNode.removeChild(oldPlayerStatus);
+                    const oldStoryboard = this.element.querySelector('#'+this.storyboard.index);
+                    if(oldStoryboard === null) storyboard.appendChild(this.storyboard.root); else oldStoryboard.parentNode.removeChild(oldStoryboard);
+                    const oldComparegame = this.element.querySelector('#'+this.comparegame.index);
+                    if(oldComparegame !== null) oldComparegame.parentNode.removeChild(oldComparegame);
+                    const oldDeleteBtn = this.element.querySelector('.delete-btn');
+                    if(oldDeleteBtn !== null) oldDeleteBtn.parentNode.removeChild(oldDeleteBtn);
                     player.appendChild(this.playerStatus.root);
-                    this.storyboard.start();
                     storyboard.appendChild(this.storyboard.root);
                 });
                 playersMenu.addEventListener("click", () => {
-                    player.parentNode.removeChild(player);
-                    storyboard.parentNode.removeChild(storyboard);
-                    comparegame.parentNode.removeChild(comparegame);
-                    this.comparegame.start();
-                    comparegame.appendChild(this.comparegame.root);
+                    const oldPlayerStatus = this.element.querySelector('#'+this.playerStatus.index);
+                    if(oldPlayerStatus !== null) oldPlayerStatus.parentNode.removeChild(oldPlayerStatus);
+                    const oldStoryboard = this.element.querySelector('#'+this.storyboard.index);
+                    if(oldPlayerStatus !== null) oldStoryboard.parentNode.removeChild(oldStoryboard);
+                    const oldDeleteBtn = this.element.querySelector('.delete-btn');
+                    if(oldDeleteBtn !== null) oldDeleteBtn.parentNode.removeChild(oldDeleteBtn);
+                    const oldComparegame = this.element.querySelector('#'+this.comparegame.index);
+                    if(oldComparegame === null) {
+                        this.comparegame.start();
+                        comparegame.appendChild(this.comparegame.root);
+                    } else oldComparegame.parentNode.removeChild(oldComparegame);
+                    
+                    
                 });
-                settingsMenu.addEventListener("click", () =>{})
+                settingsMenu.addEventListener("click", () =>{
+                    const deleteBtn= document.createElement("button");
+                    deleteBtn.className = "delete-btn";
+                    deleteBtn.innerHTML = "Spiel von vorne Beginnen"
+                    deleteBtn.onclick = () => {};
+                    const settingContainer = this.element.querySelector(".settings-container");
+
+                    const oldPlayerStatus = this.element.querySelector('#'+this.playerStatus.index);
+                    if(oldPlayerStatus !== null) oldPlayerStatus.parentNode.removeChild(oldPlayerStatus);
+                    const oldStoryboard = this.element.querySelector('#'+this.storyboard.index);
+                    if(oldPlayerStatus !== null) oldStoryboard.parentNode.removeChild(oldStoryboard);
+                    const oldComparegame = this.element.querySelector('#'+this.comparegame.index);
+                    if(oldComparegame !== null) oldComparegame.parentNode.removeChild(oldComparegame);
+                    settingContainer.appendChild(deleteBtn);
+                    
+                })
 
 
             };

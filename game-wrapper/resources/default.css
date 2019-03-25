@@ -34,3 +34,14 @@
     flex-direction: row;
     justify-content: space-around;
 }
+.settings-container{
+    display: flex;
+    flex:1;
+    justify-content: center
+}
+.delete-btn{
+    background-color: crimson;
+    font-size: 3em;
+    margin: 1em;
+    border-radius: 25px;
+}
