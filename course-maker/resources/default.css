@@ -1,0 +1,62 @@
+.player-status{
+    font-family: Arial sans-serif;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.level-headline{
+    display: inline-block;
+    padding-right: 20px;
+}
+.level-number{
+    display: inline-block;
+    font-family: Arial sans-serif;
+    font-size: 24px;
+}
+.players-menu{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.players-menu-icon{
+    width:60px;
+    height:50px;
+}
+.game-menu{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.game-menu-icon{
+    width:60px;
+    height:50px;
+}
+.settings-menu{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.settings-menu-icon{
+    width:60px;
+    height:50px;
+}
+.menu-container{
+    display:flex;
+    flex:1;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.settings-container{
+    display: flex;
+    flex:1;
+    justify-content: center
+}
+.delete-btn{
+    background-color: crimson;
+    font-size: 3em;
+    margin: 1em;
+    border-radius: 25px;
+}
