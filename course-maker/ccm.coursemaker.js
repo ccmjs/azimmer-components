@@ -80,47 +80,49 @@
                         {
                             "tag": "div",
                             "class": "player-container",
-                            "inner": [{
-                                "tag": "div",
-                                "class": "player-name",
-                                "inner": {
-                                    "tag": "h1",
+                            "inner": [
+                                {
+                                    "tag": "div",
+                                    "class": "player-name",
+                                    "inner": {
+                                        "tag": "h1",
+                                        "inner": ""
+                                    }
+                                },
+                                {
+                                    "tag": "div",
+                                    "class": "login",
+                                    "inner": {}
+                                },
+                                {
+                                    "tag": "div",
+                                    "class": "level-container",
+                                    "inner": [
+                                        {"tag": "h2", "class": "level-headline", "inner": "Level: "},
+                                        {"tag": "div", "class": "level-number", "inner": ""}
+                                    ]
+                                },
+                                {
+                                    "tag": "div",
+                                    "class": "badges-container",
                                     "inner": ""
-                                }
-                            },
-                            {
-                                "tag": "div",
-                                "class": "login",
-                                "inner": {}
-                            },
-                            {
-                                "tag": "div",
-                                "class": "level-container",
-                                "inner": [
-                                    {"tag": "h2", "class": "level-headline", "inner": "Level: "},
-                                    {"tag": "div", "class": "level-number", "inner": ""}
-                                ]
-                            },
-                            {
-                                "tag": "div",
-                                "class": "badges-container",
-                                "inner": ""
-                            },
-                            {
-                                "tag": "div",
-                                "class": "achievement-container",
-                                "inner": ""
-                            },
-                            {
-                                "tag": "div",
-                                "class": "progress-bar",
-                                "inner": ""
-                            },
-                            {
-                                "tag": "div",
-                                "class": "storyboard-container",
-                                "inner": "",
-                            },]
+                                },
+                                {
+                                    "tag": "div",
+                                    "class": "achievement-container",
+                                    "inner": ""
+                                },
+                                {
+                                    "tag": "div",
+                                    "class": "progress-bar",
+                                    "inner": ""
+                                },
+                                {
+                                    "tag": "div",
+                                    "class": "storyboard-container",
+                                    "inner": "",
+                                },
+                            ]
                         },
                         {
                             "tag": "div",
@@ -276,50 +278,44 @@
                 storyboard.appendChild(this.storyboard.root);
 
                 gameMenu.addEventListener("click", () => {
-                
-                    const oldPlayerStatus = this.element.querySelector('#'+this.element.index);
-                    if(oldPlayerStatus === null)player.appendChild(this.element.root); else oldPlayerStatus.parentNode.removeChild(oldPlayerStatus);
-                    const oldStoryboard = this.element.querySelector('#'+this.storyboard.index);
-                    if(oldStoryboard === null) storyboard.appendChild(this.storyboard.root); else oldStoryboard.parentNode.removeChild(oldStoryboard);
-                    const oldComparegame = this.element.querySelector('#'+this.comparegame.index);
-                    if(oldComparegame !== null) oldComparegame.parentNode.removeChild(oldComparegame);
+
+                    const oldPlayerStatus = this.element.querySelector(".player-container");
+                    if (oldPlayerStatus === null) this.element.appendChild(player); else oldPlayerStatus.parentNode.removeChild(player);
+                    const oldComparegame = this.element.querySelector('#' + this.comparegame.index);
+                    if (oldComparegame !== null) oldComparegame.parentNode.removeChild(oldComparegame);
                     const oldDeleteBtn = this.element.querySelector('.delete-btn');
-                    if(oldDeleteBtn !== null) oldDeleteBtn.parentNode.removeChild(oldDeleteBtn);
-                    player.appendChild(this.root);
+                    if (oldDeleteBtn !== null) oldDeleteBtn.parentNode.removeChild(oldDeleteBtn);
+                    this.element.appendChild(player);
                     storyboard.appendChild(this.storyboard.root);
                 });
                 playersMenu.addEventListener("click", () => {
-                    const oldPlayerStatus = this.element.querySelector('#'+this.index);
-                    if(oldPlayerStatus !== null) oldPlayerStatus.parentNode.removeChild(oldPlayerStatus);
-                    const oldStoryboard = this.element.querySelector('#'+this.storyboard.index);
-                    if(oldPlayerStatus !== null) oldStoryboard.parentNode.removeChild(oldStoryboard);
+                    const oldPlayerStatus = this.element.querySelector(".player-container");
+                    if (oldPlayerStatus !== null) oldPlayerStatus.parentNode.removeChild(player);
                     const oldDeleteBtn = this.element.querySelector('.delete-btn');
-                    if(oldDeleteBtn !== null) oldDeleteBtn.parentNode.removeChild(oldDeleteBtn);
-                    const oldComparegame = this.element.querySelector('#'+this.comparegame.index);
-                    if(oldComparegame === null) {
+                    if (oldDeleteBtn !== null) oldDeleteBtn.parentNode.removeChild(oldDeleteBtn);
+                    const oldComparegame = this.element.querySelector('#' + this.comparegame.index);
+                    if (oldComparegame === null) {
                         this.comparegame.start();
                         comparegame.appendChild(this.comparegame.root);
                     } else oldComparegame.parentNode.removeChild(oldComparegame);
-                    
-                    
+
+
                 });
-                settingsMenu.addEventListener("click", () =>{
-                    const deleteBtn= document.createElement("button");
+                settingsMenu.addEventListener("click", () => {
+                    const deleteBtn = document.createElement("button");
                     deleteBtn.className = "delete-btn";
-                    deleteBtn.innerHTML = "Spiel von vorne Beginnen"
-                    deleteBtn.onclick = () => {};
+                    deleteBtn.innerHTML = "Spiel von vorne Beginnen";
+                    deleteBtn.onclick = () => {
+                    };
                     const settingContainer = this.element.querySelector(".settings-container");
 
-                    const oldPlayerStatus = this.element.querySelector('#'+this.index);
-                    if(oldPlayerStatus !== null) oldPlayerStatus.parentNode.removeChild(oldPlayerStatus);
-                    const oldStoryboard = this.element.querySelector('#'+this.storyboard.index);
-                    if(oldPlayerStatus !== null) oldStoryboard.parentNode.removeChild(oldStoryboard);
-                    const oldComparegame = this.element.querySelector('#'+this.comparegame.index);
-                    if(oldComparegame !== null) oldComparegame.parentNode.removeChild(oldComparegame);
+                    const oldPlayerStatus = this.element.querySelector(".player-container");
+                    if (oldPlayerStatus !== null) oldPlayerStatus.parentNode.removeChild(player);
+                    const oldComparegame = this.element.querySelector('#' + this.comparegame.index);
+                    if (oldComparegame !== null) oldComparegame.parentNode.removeChild(oldComparegame);
                     settingContainer.appendChild(deleteBtn);
-                    
-                })
 
+                });
 
 
                 await this.renderProgressbar();
