@@ -138,7 +138,7 @@
         },
 
         Instance: function () {
-            this.renderAchievement = async () => {
+            this.renderAchievement = () => {
                 const achievementsContainer = this.element.querySelector(".achievement-container");
                 this.achievement.start();
                 achievementsContainer.appendChild(this.achievement.root);
@@ -155,34 +155,36 @@
                 await this.progressbar.setComplete(this.player.exp);
             };
             this.setProgress = exp => {
+                return new Promise(resolve => {
+                    let counter = this.progressbar.getComplete();
+                    for (let i = 0; i < exp; i++) {
+                        setTimeout(() => {
+                            this.progressbar.setComplete(counter += 1);
 
-                let counter = this.progressbar.getComplete();
-                for (let i = 0; i < exp; i++) {
-                    setTimeout(() => {
-                        this.progressbar.setComplete(counter += 1);
+                            if (this.progressbar.getComplete() <= this.progressbar.max) {
+                                this.player.exp = this.progressbar.getComplete();
+                                this.store.set({"key": "game", "value": this.player});
+                                resolve(this.player);
+                            }
+                            else {
+                                this.addLevel();
+                                this.player.exp = this.progressbar.getComplete();
+                                resolve(this.player);
+                                counter = this.progressbar.getComplete() + 1;
 
-                        if (this.progressbar.getComplete() <= this.progressbar.max) {
-                            this.player.exp = this.progressbar.getComplete();
-                        }
-                        else {
-                            this.addLevel();
-                            this.player.exp = this.progressbar.getComplete();
-                            counter = this.progressbar.getComplete() + 1;
-
-                        }
-                    }, 50 * i);
-                }
-                this.store.set({"key": "game", "value": this.player});
-                this.parent.comparegame.addGamme(this.player);
+                            }
+                        }, 50 * i);
+                    }
+                });
             };
             this.addLevel = async () => {
                 this.player.level++;
                 let playersLevel = this.element.querySelector(".level-number");
                 playersLevel.innerHTML = this.player.level;
-                this.parent.comparegame.addGamme(this.player);
+                this.comparegame.addGame(this.player);
                 this.renderProgressbar();
                 this.renderAchievement();
-                this.parent.storyboard.start();
+                this.storyboard.start();
             };
             this.progressConfig = {
                 complete: 0,
@@ -246,20 +248,19 @@
                 });
             };
             this.start = async () => {
+                this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.player));
                 await this.store.get("game")
                     .then(result => {
                         this.player = result.value;
                     })
                     .catch(async error => {
-                        console.log(this.user);
-                        //const login = this.element.querySelector(".login");
-                        //this.user.start();
-                        //login.appendChild(this.user.root);
-                        let name = prompt("Bitte Namen des Spielers eingeben:", "Spieler1");
-                        await this.checkForExistingPlayer(name);
+                        const login = this.element.querySelector(".login");
+                        await this.user.start();
+                        await login.appendChild(this.user.root);
+                        await this.user.login();
+                        await this.checkForExistingPlayer(this.user.data().user);
 
                     });
-                this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.player));
                 let playersName = this.element.querySelector(".player-name").querySelector("h1");
                 playersName.innerHTML = this.player.name;
 
@@ -273,7 +274,7 @@
                 const gameMenu = this.element.querySelector(".game-menu");
                 const playersMenu = this.element.querySelector(".players-menu");
                 const settingsMenu = this.element.querySelector(".settings-menu");
-
+                this.comparegame.start();
                 this.storyboard.start();
                 storyboard.appendChild(this.storyboard.root);
 
@@ -286,6 +287,7 @@
                     const oldDeleteBtn = this.element.querySelector('.delete-btn');
                     if (oldDeleteBtn !== null) oldDeleteBtn.parentNode.removeChild(oldDeleteBtn);
                     this.element.appendChild(player);
+                    this.storyboard.start();
                     storyboard.appendChild(this.storyboard.root);
                 });
                 playersMenu.addEventListener("click", () => {
@@ -306,6 +308,11 @@
                     deleteBtn.className = "delete-btn";
                     deleteBtn.innerHTML = "Spiel von vorne Beginnen";
                     deleteBtn.onclick = () => {
+                        const gameKeys = ["game","achievements","badges","taskdone"];
+                        gameKeys.map(e => this.store.del(e));
+                        this.store.del();
+                        this.remoteStore.del(this.player.name).then().catch(error => console.log(error));
+                        this.start();
                     };
                     const settingContainer = this.element.querySelector(".settings-container");
 

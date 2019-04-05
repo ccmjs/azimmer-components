@@ -60,6 +60,7 @@ ccm.files['configs.js'] = {
                 "task": {"title":"Task 1", "task":"test"},
                 "taskDone":false,
                 "challenge":false,
+                "color": "green",
                 "milestoneId": "ms1"
             },
             {
@@ -69,6 +70,7 @@ ccm.files['configs.js'] = {
                 "task": {"title":"Task 1", "task":"test"},
                 "taskDone":false,
                 "challenge":false,
+                "color": "green",
                 "milestoneId": "ms1"
             },
             {
@@ -78,6 +80,7 @@ ccm.files['configs.js'] = {
                 "task": {"title":"Task 1", "task":"test"},
                 "taskDone":false,
                 "challenge":false,
+                "color": "green",
                 "milestoneId": "ms1"
             },
             {
@@ -87,6 +90,7 @@ ccm.files['configs.js'] = {
                 "task": {"title":"Task 1", "task":"test"},
                 "taskDone":false,
                 "challenge":false,
+                "color": "green",
                 "milestoneId": "ms2"
             },
             {
@@ -96,6 +100,7 @@ ccm.files['configs.js'] = {
                 "task": {"title":"Task 1", "task":"test"},
                 "taskDone":false,
                 "challenge":true,
+                "color": "red",
                 "milestoneId": "ms2"
             },
             {
@@ -105,6 +110,7 @@ ccm.files['configs.js'] = {
                 "task": {"title":"Task 1", "task":"test"},
                 "taskDone":false,
                 "challenge":false,
+                "color": "green",
                 "milestoneId": "ms5"
             }
         ]

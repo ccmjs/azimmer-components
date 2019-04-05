@@ -36,34 +36,38 @@ ccm.files['configs.js'] = {
         "badges": [
             "ccm.instance",
             "../badges/ccm.badges.js",
-            {"badges":[
-                {
-                    "icon": "../badges/resources/podium.svg",
-                    "show": false,
-                    "title": "Loop Master",
-                    "badgesid": "badges1"
-                }
-            ]}
+            {
+                "badges": [
+                    {
+                        "icon": "../badges/resources/podium.svg",
+                        "show": false,
+                        "title": "Loop Master",
+                        "badgesid": "badges1"
+                    }
+                ]
+            }
         ],
         "achievement": [
             "ccm.instance",
             "../achievements/ccm.achievements.js",
-            {"achievements":[
-                {
-                    "icon": "../resources/podium.svg",
-                    "show": false,
-                    "title": "Level over 10!!!",
-                    "achievementid": "achievement1",
-                    "condition": {"level": 10}
-                },
-                {
-                    "icon": "../resources/podium.svg",
-                    "show": false,
-                    "title": "Level over 20!!!",
-                    "achievementid": "achievement2",
-                    "condition": {"level": 20}
-                }
-            ]}
+            {
+                "achievements": [
+                    {
+                        "icon": "../resources/podium.svg",
+                        "show": false,
+                        "title": "Level over 10!!!",
+                        "achievementid": "achievement1",
+                        "condition": {"level": 10}
+                    },
+                    {
+                        "icon": "../resources/podium.svg",
+                        "show": false,
+                        "title": "Level over 20!!!",
+                        "achievementid": "achievement2",
+                        "condition": {"level": 20}
+                    }
+                ]
+            }
         ],
         "storyboard": [
             "ccm.instance",
@@ -116,15 +120,10 @@ ccm.files['configs.js'] = {
                         "taskId": "task1",
                         "exp": 20,
                         "reward": "badges1",
-                        "task": {
-                            "title": "Task 1",
-                            "task": ["ccm.instance", "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-3.0.2.js", ["ccm.get", {
-                                "name": "quiz",
-                                "url": "https://ccm2.inf.h-brs.de"
-                            }, "1552084314450X168642239821156"]]
-                        },
+                        "task": {"title": "Task 1", "task": "test"},
                         "taskDone": false,
                         "challenge": false,
+                        "color": "green",
                         "milestoneId": "ms1"
                     },
                     {
@@ -134,6 +133,7 @@ ccm.files['configs.js'] = {
                         "task": {"title": "Task 1", "task": "test"},
                         "taskDone": false,
                         "challenge": false,
+                        "color": "green",
                         "milestoneId": "ms1"
                     },
                     {
@@ -143,6 +143,7 @@ ccm.files['configs.js'] = {
                         "task": {"title": "Task 1", "task": "test"},
                         "taskDone": false,
                         "challenge": false,
+                        "color": "green",
                         "milestoneId": "ms1"
                     },
                     {
@@ -152,6 +153,7 @@ ccm.files['configs.js'] = {
                         "task": {"title": "Task 1", "task": "test"},
                         "taskDone": false,
                         "challenge": false,
+                        "color": "green",
                         "milestoneId": "ms2"
                     },
                     {
@@ -161,6 +163,7 @@ ccm.files['configs.js'] = {
                         "task": {"title": "Task 1", "task": "test"},
                         "taskDone": false,
                         "challenge": true,
+                        "color": "red",
                         "milestoneId": "ms2"
                     },
                     {
@@ -170,6 +173,7 @@ ccm.files['configs.js'] = {
                         "task": {"title": "Task 1", "task": "test"},
                         "taskDone": false,
                         "challenge": false,
+                        "color": "green",
                         "milestoneId": "ms5"
                     }
                 ]

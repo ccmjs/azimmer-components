@@ -51,7 +51,7 @@
                             if (result.value.length === 0) {
                                 result.value.push(badge);
                                 this.store.set({"key": "badges", "value": result.value});
-                                this.parent.parent.comparegame.addBadges(badge);
+                                this.parent.comparegame.addBadges(badge);
                             }
                         }
                     })

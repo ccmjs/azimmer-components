@@ -239,21 +239,21 @@
                 if (task.task.task === "test") {
                     testButton.addEventListener("click", () => {
                         if (!task.taskDone) {
-                            this.parent.playerStatus.setProgress(task.exp);
-                            if (task.reward) {
-                                this.parent.playerStatus.badges.addBadge(task.reward);
+                            this.parent.setProgress(task.exp).then(result => {
+                                this.parent.comparegame.addGame(result);
+                                if (task.reward) {
+                                    this.parent.badges.addBadge(task.reward);
+                                }
                                 task.taskDone = true;
                                 tasksDone.push(task);
                                 this.store.set({"key": "tasksdone", "value": tasksDone});
                                 this.parent.comparegame.addTasksdone(task);
-                            }
+                            });
                         }
                     });
                     taskField.appendChild(testButton);
                 } else {
-
-                    console.log(task.task.task);
-                    task.task.task.onfinish = quiz => { console.log(quiz.getValue())};
+                    task.task.task.onfinish = quiz => { console.log(quiz)};
                     task.task.task.start();
                     taskField.appendChild(task.task.task.root);
                 }
