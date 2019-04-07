@@ -253,7 +253,22 @@
                     });
                     taskField.appendChild(testButton);
                 } else {
-                    task.task.task.onfinish = quiz => { console.log(quiz)};
+                    task.task.task.onfinish = currentTask => {
+                        if(currentTask.getValue().correct === task.task.correct){
+                            if (!task.taskDone) {
+                                this.parent.setProgress(task.exp).then(result => {
+                                    this.parent.comparegame.addGame(result);
+                                    if (task.reward) {
+                                        this.parent.badges.addBadge(task.reward);
+                                    }
+                                    task.taskDone = true;
+                                    tasksDone.push(task);
+                                    this.store.set({"key": "tasksdone", "value": tasksDone});
+                                    this.parent.comparegame.addTasksdone(task);
+                                });
+                            }
+                        }
+                    };
                     task.task.task.start();
                     taskField.appendChild(task.task.task.root);
                 }
