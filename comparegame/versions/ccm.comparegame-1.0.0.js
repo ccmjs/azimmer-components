@@ -73,7 +73,7 @@
             };
             let localPlayer;
             this.start = async () => {
-                await this.localStore.get("game").then(result => localPlayer = result.value).catch(error => console.log(error));
+                this.localStore.get("game").then(result => localPlayer = result.value).catch(error => console.log(error));
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.comparegame));
 
                 const headerName = this.element.querySelector(".header-name");
@@ -121,7 +121,7 @@
                 }).catch(error => console.log(error));
 
             };
-            this.addGamme = game => {
+            this.addGame = game => {
 
                 player.name = game.name;
                 player.level = game.level;
@@ -129,19 +129,15 @@
                 this.store.set({"key": localPlayer.name, "value": player}).catch(error => console.log(error));
             };
             this.addBadges = badges => {
-                console.log(badges);
                 if (player.badges.length === 0) {
-                    console.log("player.badges is empty");
                     player.badges.push(badges);
                 } else {
                     player.badges.forEach(element => {
                         if (element !== badges) {
-                            console.log("True");
                             player.badges.push(badges);
                         }
                     });
                 }
-                console.log(player);
                 this.store.set({
                     "key": localPlayer.name,
                     "value": player
@@ -160,9 +156,7 @@
                 }).catch(error => console.log(error));
             };
             this.addTasksdone = tasksdone => {
-                console.log(tasksdone);
                 if (player.taskDone.length === 0) {
-                    console.log("player.taskDone is empty");
                     player.taskDone.push(tasksdone);
                 } else {
                     player.taskDone.forEach(element => {
@@ -171,11 +165,10 @@
                         }
                     });
                 }
-                console.log(player);
                 this.store.set({
                     "key": localPlayer.name,
                     "value": player
-                }).then(result => console.log(result)).catch(error => console.log(error));
+                }).then(result => console.log(result.value)).catch(error => console.log(error));
             };
             this.sortTable = (n) => {
                 let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
