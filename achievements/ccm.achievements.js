@@ -101,16 +101,17 @@
                     testButton.addEventListener("click",()=>this.addAchievement("achievement1"));
                     this.element.appendChild(testButton);
                 }
-
-                await this.store.get("game").then(result => {
-                    this.achievements.forEach(achievement => {
-                        Object.keys(achievement.condition).forEach(e =>{
-                            if(result.value[e] === achievement.condition[e]){
-                                this.addAchievement(achievement.achievementid);
-                            }
-                        })
+                else{
+                    await this.store.get("game").then(result => {
+                        this.achievements.forEach(achievement => {
+                            Object.keys(achievement.condition).forEach(e =>{
+                                if(result.value[e] === achievement.condition[e]){
+                                    this.addAchievement(achievement.achievementid);
+                                }
+                            })
+                        });
                     });
-                });
+                }
             };
 
 

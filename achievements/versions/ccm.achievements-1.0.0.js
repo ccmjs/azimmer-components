@@ -102,17 +102,18 @@
                     testButton.innerText="Fireing Events";
                     testButton.addEventListener("click",()=>this.addAchievement("achievement1"));
                     this.element.appendChild(testButton);
-                }
+                }else{
 
-                await this.store.get("game").then(result => {
-                    this.achievements.forEach(achievement => {
-                        Object.keys(achievement.condition).forEach(e =>{
-                            if(result.value[e] === achievement.condition[e]){
-                                this.addAchievement(achievement.achievementid);
-                            }
-                        })
+                    await this.store.get("game").then(result => {
+                        this.achievements.forEach(achievement => {
+                            Object.keys(achievement.condition).forEach(e =>{
+                                if(result.value[e] === achievement.condition[e]){
+                                    this.addAchievement(achievement.achievementid);
+                                }
+                            })
+                        });
                     });
-                });
+                }
             };
 
 

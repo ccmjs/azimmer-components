@@ -13,7 +13,7 @@
 
         name: 'progressbar',
 
-        version: [ 1, 0, 2 ],
+        version: [ 1, 0, 3 ],
 
         ccm: 'https://ccmjs.github.io/ccm/versions/ccm-18.0.0.js',
 
