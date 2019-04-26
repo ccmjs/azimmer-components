@@ -161,7 +161,7 @@
                         setTimeout(() => {
                             this.progressbar.setComplete(counter += 1);
 
-                            if (this.progressbar.getComplete() <= this.progressbar.max) {
+                            if (this.progressbar.getComplete() < this.progressbar.max) {
                                 this.player.exp = this.progressbar.getComplete();
                                 this.store.set({"key": "game", "value": this.player});
                                 resolve(this.player);
@@ -179,6 +179,7 @@
             };
             this.addLevel = async () => {
                 this.player.level++;
+                this.store.set({"key": "game", "value": this.player});
                 let playersLevel = this.element.querySelector(".level-number");
                 playersLevel.innerHTML = this.player.level;
                 this.comparegame.addGame(this.player);
@@ -308,7 +309,7 @@
                     deleteBtn.className = "delete-btn";
                     deleteBtn.innerHTML = "Spiel von vorne Beginnen";
                     deleteBtn.onclick = () => {
-                        const gameKeys = ["game","achievements","badges","taskdone"];
+                        const gameKeys = ["game","achievements","badges","tasksdone"];
                         gameKeys.map(e => this.store.del(e));
                         this.store.del();
                         this.remoteStore.del(this.player.name).then().catch(error => console.log(error));

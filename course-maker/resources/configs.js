@@ -302,7 +302,7 @@ ccm.files['configs.js'] = {
                 "tasks": [
                     {
                         "taskId": "task1",
-                        "exp": 200,
+                        "exp": 80,
                         "reward": "badges1",
                         "task": {
                             "title": "task 1",
@@ -322,7 +322,7 @@ ccm.files['configs.js'] = {
                     },
                     {
                         "taskId": "task2",
-                        "exp": 300,
+                        "exp": 80,
                         "reward": "badges1",
                         "task": {"title": "Task 1", "task": "test"},
                         "taskDone": false,
@@ -332,7 +332,7 @@ ccm.files['configs.js'] = {
                     },
                     {
                         "taskId": "task3",
-                        "exp": 300,
+                        "exp": 80,
                         "reward": "badges1",
                         "task": {"title": "Task 1", "task": "test"},
                         "taskDone": false,
