@@ -17,11 +17,18 @@
 
         config: {
             "html": {
-                "storyboard": {
+                "storyboard":[ 
+                    {
+                        "tag":"div",
+                        "class":"legend",
+                        "inner":""
+                    },
+                    {
                     "tag": "div",
                     "class": "storyboard",
                     "inner": [],
-                }
+                    }
+                ]
             },
             "css": ["ccm.load", "../storyboard/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
@@ -43,6 +50,20 @@
                     this.store.set({"key": "tasksdone", "value": []});
                 });
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.storyboard));
+                const legendWrapper = this.element.querySelector(".legend");
+                this.legend.forEach(element => {
+                   const taskLegendIcon =  document.createElement("div");
+                   taskLegendIcon.className = "legends-icon"
+                   taskLegendIcon.style.backgroundColor = element.color;
+
+                   
+                   const taskLegendTitle =  document.createElement("span");
+                   taskLegendTitle.className = "legends-title"
+                   taskLegendTitle.innerHTML = element.difficulty;
+
+                   legendWrapper.appendChild(taskLegendIcon);
+                   legendWrapper.appendChild(taskLegendTitle);
+                });
                 const svgPic = document.createElementNS("http://www.w3.org/2000/svg", "svg");
                 const storyboard = this.element.querySelector(".storyboard");
                 svgPic.setAttribute("width", "100%");
@@ -180,42 +201,25 @@
                     const milestoneWrapper = this.element.querySelector("#" + task.milestoneId);
 
                     taskTag.id = task.taskId;
-                    taskTag.setAttribute("height", "20px");
-                    taskTag.setAttribute("width", "20px");
+                    taskTag.setAttribute("height", "30px");
+                    taskTag.setAttribute("width", "30px");
 
-                    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-
-                    text.setAttribute("font-family", "sans-serif");
-                    text.setAttribute("fill", "black");
-
-                    text.innerHTML = task.task.title;
 
                     if (index % 2 === 0) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
                         taskTag.setAttribute("y", "" + (y += 30));
-                        text.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
-                        text.setAttribute("y", "" + (y += 40));
-                        text.setAttribute("text-anchor", "middle");
                     }
                     else if (index % 2 === 1) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
                         taskTag.setAttribute("y", "" + (y += 30));
-                        text.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
-                        text.setAttribute("y", "" + (y += 40));
                     }
-                    if (task.challenge) {
-                        taskTag.setAttribute("fill", "red");
-                    }
-                    else {
-                        taskTag.setAttribute("fill", "green");
-                    }
+                        taskTag.setAttribute("fill", task.color);
                     taskTag.addEventListener("click", () => this.renderTaskField(task));
                     taskTag.innerHTML = task.task.title;
 
                     const result = this.milestones.find(milestone => milestone.milestoneID === task.milestoneId);
                     if (result.show === true) {
                         storyboard.appendChild(taskTag);
-                        storyboard.appendChild(text)
                     }
 
 

@@ -10,6 +10,20 @@ ccm.files['configs.js'] = {
 
         "key": "local",
         "css.1": "../storyboard/resources/default.css",
+        "legend": [
+            {
+                "color":"red",
+                "difficulty":"hot"
+            },
+            {
+                "color":"green",
+                "difficulty":"mild"
+            },
+            {
+                "color":"yellow",
+                "difficulty":"medium"
+            }
+        ],
         "milestones": [
             {
                 "conditions": {

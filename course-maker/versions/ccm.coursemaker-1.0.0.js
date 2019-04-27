@@ -134,7 +134,7 @@
                     ]
                 }
             },
-            "css": ["ccm.load", "https://ccmjs.github.io/azimmer-components/course-maker/resources/default.css"],
+            "css": ["ccm.load", "../course-maker/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}],
             "remoteStore": ["ccm.store", {"name": "azimme2s_playerstatus", url: "wss://ccm2.inf.h-brs.de"}],
         },
@@ -163,7 +163,7 @@
                         setTimeout(() => {
                             this.progressbar.setComplete(counter += 1);
 
-                            if (this.progressbar.getComplete() <= this.progressbar.max) {
+                            if (this.progressbar.getComplete() < this.progressbar.max) {
                                 this.player.exp = this.progressbar.getComplete();
                                 this.store.set({"key": "game", "value": this.player});
                                 resolve(this.player);
@@ -181,6 +181,7 @@
             };
             this.addLevel = async () => {
                 this.player.level++;
+                this.store.set({"key": "game", "value": this.player});
                 let playersLevel = this.element.querySelector(".level-number");
                 playersLevel.innerHTML = this.player.level;
                 this.comparegame.addGame(this.player);
@@ -310,7 +311,7 @@
                     deleteBtn.className = "delete-btn";
                     deleteBtn.innerHTML = "Spiel von vorne Beginnen";
                     deleteBtn.onclick = () => {
-                        const gameKeys = ["game","achievements","badges","taskdone"];
+                        const gameKeys = ["game","achievements","badges","tasksdone"];
                         gameKeys.map(e => this.store.del(e));
                         this.store.del();
                         this.remoteStore.del(this.player.name).then().catch(error => console.log(error));

@@ -73,6 +73,20 @@ ccm.files['configs.js'] = {
             "ccm.instance",
             "../storyboard/ccm.storyboard.js",
             {
+                "legend": [
+                    {
+                        "color":"green",
+                        "difficulty":"mild"
+                    },
+                    {
+                        "color":"yellow",
+                        "difficulty":"medium"
+                    },
+                    {
+                        "color":"red",
+                        "difficulty":"hot"
+                    }
+                ],
                 "milestones": [
                     {
                         "conditions": {
@@ -132,7 +146,6 @@ ccm.files['configs.js'] = {
                             "correct": 2
                         },
                         "taskDone": false,
-                        "challenge": false,
                         "color": "green",
                         "milestoneId": "ms1"
                     },
@@ -142,7 +155,6 @@ ccm.files['configs.js'] = {
                         "reward": "badges1",
                         "task": {"title": "Task 1", "task": "test"},
                         "taskDone": false,
-                        "challenge": false,
                         "color": "green",
                         "milestoneId": "ms1"
                     },
@@ -152,7 +164,6 @@ ccm.files['configs.js'] = {
                         "reward": "badges1",
                         "task": {"title": "Task 1", "task": "test"},
                         "taskDone": false,
-                        "challenge": false,
                         "color": "green",
                         "milestoneId": "ms1"
                     },
@@ -162,7 +173,6 @@ ccm.files['configs.js'] = {
                         "reward": "badges5",
                         "task": {"title": "Task 1", "task": "test"},
                         "taskDone": false,
-                        "challenge": false,
                         "color": "green",
                         "milestoneId": "ms2"
                     },
@@ -172,7 +182,6 @@ ccm.files['configs.js'] = {
                         "reward": "badges1",
                         "task": {"title": "Task 1", "task": "test"},
                         "taskDone": false,
-                        "challenge": true,
                         "color": "red",
                         "milestoneId": "ms2"
                     },
@@ -182,7 +191,6 @@ ccm.files['configs.js'] = {
                         "reward": "badges1",
                         "task": {"title": "Task 1", "task": "test"},
                         "taskDone": false,
-                        "challenge": false,
                         "color": "green",
                         "milestoneId": "ms5"
                     }
@@ -257,6 +265,20 @@ ccm.files['configs.js'] = {
             "ccm.instance",
             "../storyboard/ccm.storyboard.js",
             {
+                "legend": [
+                    {
+                        "color":"red",
+                        "difficulty":"hot"
+                    },
+                    {
+                        "color":"green",
+                        "difficulty":"mild"
+                    },
+                    {
+                        "color":"yellow",
+                        "difficulty":"medium"
+                    }
+                ],
                 "milestones": [
                     {
                         "conditions": {

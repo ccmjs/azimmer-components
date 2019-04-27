@@ -13,6 +13,22 @@
 .tasktitle {
     margin: 5px;
 }
+.legend {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.legends-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.legends-title {
+    margin-right: 20px;
+    margin-left: 10px;
+    flex-direction: column;
+    align-self: center;
+}
 
 .task {
     position: relative;
