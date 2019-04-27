@@ -1,0 +1,69 @@
+{"tasks": [
+                    {
+                        "taskId": "task1",
+                        "exp": 30,
+                        "reward": "badges1",
+                        "task": {
+                            "title": "Orientation Plagiarism",
+                            "task": [
+                                "ccm.instance",
+                                "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js", ["ccm.get", {
+                                    "name": "quiz",
+                                    "url": "https://ccm2.inf.h-brs.de"
+                                }, "1551095237102X9208292849944242"]
+                            ],
+                            "correct": 6
+                        },
+                        "taskDone": false,
+                        "color": "red",
+                        "milestoneId": "ms1"
+                    },
+                    {
+                        "taskId": "task2",
+                        "exp": 300,
+                        "reward": "badges1",
+                        "task": {"title": "Task 1", "task": "test"},
+                        "taskDone": false,
+                        "color": "green",
+                        "milestoneId": "ms1"
+                    },
+                    {
+                        "taskId": "task3",
+                        "exp": 300,
+                        "reward": "badges1",
+                        "task": {"title": "Task 1", "task": "test"},
+                        "taskDone": false,
+                        "color": "green",
+                        "milestoneId": "ms1"
+                    },
+                    {
+                        "taskId": "task4",
+                        "exp": 300,
+                        "reward": "badges5",
+                        "task": {"title": "Task 1", "task": "test"},
+                        "taskDone": false,
+                        "color": "green",
+                        "milestoneId": "ms2"
+                    },
+                    {
+                        "taskId": "task5",
+                        "exp": 20,
+                        "reward": "badges1",
+                        "task": {"title": "Task 1", "task": "test"},
+                        "taskDone": false,
+                        "color": "red",
+                        "milestoneId": "ms2"
+                    },
+                    {
+                        "taskId": "task6",
+                        "exp": 20,
+                        "reward": "badges1",
+                        "task": {"title": "Task 1", "task": "test"},
+                        "taskDone": false,
+                        "color": "green",
+                        "milestoneId": "ms5"
+                    }
+                ]}
+
+
+<script src="https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-3.0.2.js"></script><ccm-quiz-3-0-2 key='["ccm.get",{"name":"quiz","url":"https://ccm2.inf.h-brs.de"},"1551095237102X9208292849944242"]'></ccm-quiz-3-0-2>

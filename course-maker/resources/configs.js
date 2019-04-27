@@ -132,21 +132,21 @@ ccm.files['configs.js'] = {
                 "tasks": [
                     {
                         "taskId": "task1",
-                        "exp": 200,
+                        "exp": 30,
                         "reward": "badges1",
                         "task": {
-                            "title": "task 1",
+                            "title": "Orientation Plagiarism",
                             "task": [
                                 "ccm.instance",
                                 "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js", ["ccm.get", {
                                     "name": "quiz",
                                     "url": "https://ccm2.inf.h-brs.de"
-                                }, "1554676049039X26462158435937555"],
+                                }, "1551095237102X9208292849944242"],
                             ],
-                            "correct": 2
+                            "correct": 6
                         },
                         "taskDone": false,
-                        "color": "green",
+                        "color": "red",
                         "milestoneId": "ms1"
                     },
                     {
@@ -191,6 +191,7 @@ ccm.files['configs.js'] = {
                         "reward": "badges1",
                         "task": {"title": "Task 1", "task": "test"},
                         "taskDone": false,
+
                         "color": "green",
                         "milestoneId": "ms5"
                     }
