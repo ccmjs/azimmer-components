@@ -10,490 +10,469 @@ ccm.files['configs.js'] = {
 
         "key": "local",
         "css.1": "../course-maker/resources/default.css",
-        "comparegame": [
+        "comparegame":[
             "ccm.instance",
-            "../comparegame/ccm.comparegame.js",
-            {}
+            "https://ccmjs.github.io/azimmer-components/comparegame/versions/ccm.comparegame-1.0.0.js",
+            [
+                "ccm.get",
+                {
+                    "name":"comparegame",
+                    "url":"https://ccm2.inf.h-brs.de"
+                },
+                "1556458215033X8312817882420207"
+            ]
         ],
-        "user": [
+        "user":[
             "ccm.instance",
-            "https://ccmjs.github.io/akless-components/user/versions/ccm.user-8.3.1.js", ["ccm.get", {
-                "name": "user",
-                "url": "https://ccm2.inf.h-brs.de"
-            }, "1553463749330X8832057611960438"]
+            "https://ccmjs.github.io/akless-components/user/versions/ccm.user-8.3.1.js",
+            [
+                "ccm.get",
+                {
+                    "name":"user",
+                    "url":"https://ccm2.inf.h-brs.de"
+                },
+                "1553463749330X8832057611960438"
+            ]
         ],
-        "progressbar": [
+        "progressbar":[
             "ccm.instance",
-            "../progressbar/ccm.progressbar.js",
-            {
-                min: 0,
-                max: 100,
-                sign: 'exp',
-                complete: 0,
-                showText: false
-            }
+            "https://ccmjs.github.io/azimmer-components/progressbar/versions/ccm.progressbar-1.0.3.js",
+            [
+                "ccm.get",
+                {
+                    "name":"progressbar",
+                    "url":"https://ccm2.inf.h-brs.de"
+                },
+                "1556460441633X5283624043550244"
+            ]
         ],
-        "badges": [
+        "badges":[
             "ccm.instance",
             "../badges/ccm.badges.js",
             {
-                "badges": [
+                "badges":[
                     {
-                        "icon": "https://img.icons8.com/color/48/000000/yoda.png",
-                        "show": false,
-                        "title": "Plagiarism, You understand",
-                        "badgesid": "badges1"
+                        "icon":"https://img.icons8.com/color/48/000000/yoda.png",
+                        "show":false,
+                        "title":"Plagiarism, You understand",
+                        "badgesid":"badges1"
                     },
                     {
-                        "icon": "https://img.icons8.com/dusk/64/000000/copyright.png",
-                        "show": false,
-                        "title": "Copyright",
-                        "badgesid": "badges2"
+                        "icon":"https://img.icons8.com/dusk/64/000000/copyright.png",
+                        "show":false,
+                        "title":"Copyright",
+                        "badgesid":"badges2"
                     },
                     {
-                        "icon": "https://img.icons8.com/dusk/64/000000/dictionary.png",
-                        "show": false,
-                        "title": "You got Synonyms!",
-                        "badgesid": "badges3"
+                        "icon":"https://img.icons8.com/dusk/64/000000/dictionary.png",
+                        "show":false,
+                        "title":"You got Synonyms!",
+                        "badgesid":"badges3"
                     },
                     {
-                        "icon": "https://img.icons8.com/dusk/64/000000/graduation-cap.png",
-                        "show": false,
-                        "title": "You write it Harvard Style!",
-                        "badgesid": "badges4"
+                        "icon":"https://img.icons8.com/dusk/64/000000/graduation-cap.png",
+                        "show":false,
+                        "title":"You write it Harvard Style!",
+                        "badgesid":"badges4"
                     },
                     {
-                        "icon": "https://img.icons8.com/dusk/64/000000/business.png",
-                        "show": false,
-                        "title": "You know the Business Terms",
-                        "badgesid": "badges5"
+                        "icon":"https://img.icons8.com/dusk/64/000000/business.png",
+                        "show":false,
+                        "title":"You know the Business Terms",
+                        "badgesid":"badges5"
                     }
                 ]
             }
         ],
-        "achievement": [
+        "achievement":[
             "ccm.instance",
             "../achievements/ccm.achievements.js",
             {
-                "achievements": [
+                "achievements":[
                     {
-                        "icon": "https://img.icons8.com/dusk/64/000000/prize.png",
-                        "show": false,
-                        "title": "You've achieved the last Level",
-                        "achievementid": "achievement1",
-                        "condition": {"level": 5}
+                        "icon":"https://img.icons8.com/dusk/64/000000/prize.png",
+                        "show":false,
+                        "title":"You've achieved the last Level",
+                        "achievementid":"achievement1",
+                        "condition":{
+                            "level":5
+                        }
                     },
                     {
-                        "icon": "https://img.icons8.com/dusk/64/000000/prize.png",
-                        "show": false,
-                        "title": "You are half way throug",
-                        "achievementid": "achievement2",
-                        "condition": {"tasksdone": 7}
+                        "icon":"https://img.icons8.com/dusk/64/000000/prize.png",
+                        "show":false,
+                        "title":"You are half way throug",
+                        "achievementid":"achievement2",
+                        "condition":{
+                            "tasksdone":7
+                        }
                     }
                 ]
-            }],
-        "storyboard": [
+            }
+        ],
+        "storyboard":[
             "ccm.instance",
             "../storyboard/ccm.storyboard.js",
             {
-                "legend": [
+                "legend":[
                     {
-                        "color": "green",
-                        "difficulty": "mild"
+                        "color":"green",
+                        "difficulty":"mild"
                     },
                     {
-                        "color": "yellow",
-                        "difficulty": "medium"
+                        "color":"yellow",
+                        "difficulty":"medium"
                     },
                     {
-                        "color": "red",
-                        "difficulty": "hot"
+                        "color":"red",
+                        "difficulty":"hot"
                     }
                 ],
-                "milestones": [
+                "milestones":[
                     {
-                        "conditions": {
-                            "level": 1,
-                            "tasksDone": []
+                        "conditions":{
+                            "level":1,
+                            "tasksDone":[
+
+                            ]
                         },
-                        "milestoneID": "ms1",
-                        "show": false
+                        "milestoneID":"ms1",
+                        "show":false
                     },
                     {
-                        "conditions": {
-                            "level": 2,
-                            "tasksDone": []
+                        "conditions":{
+                            "level":2,
+                            "tasksDone":[
+
+                            ]
                         },
-                        "milestoneID": "ms2",
-                        "show": false
+                        "milestoneID":"ms2",
+                        "show":false
                     },
                     {
-                        "conditions": {
-                            "level": 3,
-                            "tasksDone": []
+                        "conditions":{
+                            "level":3,
+                            "tasksDone":[
+
+                            ]
                         },
-                        "milestoneID": "ms3",
-                        "show": false
+                        "milestoneID":"ms3",
+                        "show":false
                     },
                     {
-                        "conditions": {
-                            "level": 5,
-                            "tasksDone": []
+                        "conditions":{
+                            "level":5,
+                            "tasksDone":[
+
+                            ]
                         },
-                        "milestoneID": "ms4",
-                        "show": false
+                        "milestoneID":"ms4",
+                        "show":false
                     }
                 ],
-                 "tasks": [
-                     {
-                         "taskId": "task1",
-                         "exp": 20,
-                         "task": {
-                             "title": "Orientation Synonyms for Business",
-                             "task": [
-                                 "ccm.instance",
-                                 "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js",
-                                 [
-                                     "ccm.get",
-                                     {
-                                         "name": "quiz",
-                                         "url": "https://ccm2.inf.h-brs.de"
-                                     },
-                                     "1556396234646X10217328111669488"
-                                 ]
-                             ],
-                             "correct": 4
-                         },
-                         "taskDone": false,
-                         "color": "green",
-                         "milestoneId": "ms1"
-                     },
+                "tasks":[
                     {
-                        "taskId": "task2",
-                        "exp": 60,
-                        "reward": "badges1",
-                        "task": {
-                            "title": "Orientation Plagiarism",
-                            "task": [
+                        "taskId":"task1",
+                        "exp":20,
+                        "task":{
+                            "title":"Orientation Synonyms for Business",
+                            "task":[
                                 "ccm.instance",
                                 "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js",
                                 [
                                     "ccm.get",
                                     {
-                                        "name": "quiz",
-                                        "url": "https://ccm2.inf.h-brs.de"
+                                        "name":"quiz",
+                                        "url":"https://ccm2.inf.h-brs.de"
+                                    },
+                                    "1556396234646X10217328111669488"
+                                ]
+                            ],
+                            "correct":4
+                        },
+                        "taskDone":false,
+                        "color":"green",
+                        "milestoneId":"ms1"
+                    },
+                    {
+                        "taskId":"task2",
+                        "exp":60,
+                        "reward":"badges1",
+                        "task":{
+                            "title":"Orientation Plagiarism",
+                            "task":[
+                                "ccm.instance",
+                                "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js",
+                                [
+                                    "ccm.get",
+                                    {
+                                        "name":"quiz",
+                                        "url":"https://ccm2.inf.h-brs.de"
                                     },
                                     "1556397545116X1106977153682338"
                                 ]
                             ],
-                            "correct": 6
+                            "correct":6
                         },
-                        "taskDone": false,
-                        "color": "red",
-                        "milestoneId": "ms1"
+                        "taskDone":false,
+                        "color":"red",
+                        "milestoneId":"ms1"
                     },
                     {
-                        "taskId": "task3",
-                        "exp": 60,
-                        "reward": "badges2",
-                        "task": {
-                            "title": "Copyright Quiz",
-                            "task": [
+                        "taskId":"task3",
+                        "exp":60,
+                        "reward":"badges2",
+                        "task":{
+                            "title":"Copyright Quiz",
+                            "task":[
                                 "ccm.instance",
                                 "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js",
                                 [
                                     "ccm.get",
                                     {
-                                        "name": "ws_quiz",
-                                        "url": "https://ccm2.inf.h-brs.de"
+                                        "name":"ws_quiz",
+                                        "url":"https://ccm2.inf.h-brs.de"
                                     },
                                     "1551102800727X03369537420166302"
                                 ]
                             ],
-                            "correct": 4
+                            "correct":4
                         },
-                        "taskDone": false,
-                        "color": "red",
-                        "milestoneId": "ms2"
+                        "taskDone":false,
+                        "color":"red",
+                        "milestoneId":"ms2"
                     },
                     {
-                        "taskId": "task4",
-                        "exp": 20,
-                        "task": {
-                            "title": "Prepositions",
-                            "task": [
+                        "taskId":"task4",
+                        "exp":20,
+                        "task":{
+                            "title":"Prepositions",
+                            "task":[
                                 "ccm.instance",
                                 "https://ccmjs.github.io/akless-components/cloze/versions/ccm.cloze-5.0.3.js",
                                 [
                                     "ccm.get",
                                     {
-                                        "name": "ws_cloze",
-                                        "url": "https://ccm2.inf.h-brs.de"
+                                        "name":"ws_cloze",
+                                        "url":"https://ccm2.inf.h-brs.de"
                                     },
                                     "1532619098174X18358119379539728"
                                 ]
                             ],
-                            "correct": 4
+                            "correct":4
                         },
-                        "taskDone": false,
-                        "color": "green",
-                        "milestoneId": "ms1"
+                        "taskDone":false,
+                        "color":"green",
+                        "milestoneId":"ms1"
                     },
                     {
-                        "taskId": "task5",
-                        "exp": 40,
-                        "task": {
-                            "title": "Environmental Impacts",
-                            "task": [
+                        "taskId":"task5",
+                        "exp":40,
+                        "task":{
+                            "title":"Environmental Impacts",
+                            "task":[
                                 "ccm.instance",
                                 "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js",
                                 [
                                     "ccm.get",
                                     {
-                                        "name": "ws_quiz",
-                                        "url": "https://ccm2.inf.h-brs.de"
+                                        "name":"ws_quiz",
+                                        "url":"https://ccm2.inf.h-brs.de"
                                     },
                                     "1551866884232X5944570782214909"
                                 ]
                             ],
-                            "correct": 4
+                            "correct":4
                         },
-                        "taskDone": false,
-                        "color": "yellow",
-                        "milestoneId": "ms1"
+                        "taskDone":false,
+                        "color":"yellow",
+                        "milestoneId":"ms1"
                     },
                     {
-                        "taskId": "task6",
-                        "exp": 40,
-                        "task": {
-                            "title": "Sustainable Development Goals",
-                            "task": [
+                        "taskId":"task6",
+                        "exp":40,
+                        "task":{
+                            "title":"Sustainable Development Goals",
+                            "task":[
                                 "ccm.instance",
                                 "https://ccmjs.github.io/akless-components/cloze/versions/ccm.cloze-5.0.3.js",
                                 [
                                     "ccm.get",
                                     {
-                                        "name": "ws_cloze",
-                                        "url": "https://ccm2.inf.h-brs.de"
+                                        "name":"ws_cloze",
+                                        "url":"https://ccm2.inf.h-brs.de"
                                     },
                                     "1518692517201X6052264284794366"
                                 ]
                             ],
-                            "correct": 4
+                            "correct":4
                         },
-                        "taskDone": false,
-                        "color": "yellow",
-                        "milestoneId": "ms2"
+                        "taskDone":false,
+                        "color":"yellow",
+                        "milestoneId":"ms2"
                     },
                     {
-                        "taskId": "task7",
-                        "exp": 40,
-                        "task": {
-                            "title": "Department and Their Functions",
-                            "task": [
+                        "taskId":"task7",
+                        "exp":40,
+                        "task":{
+                            "title":"Department and Their Functions",
+                            "task":[
                                 "ccm.instance",
                                 "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js",
                                 [
                                     "ccm.get",
                                     {
-                                        "name": "ws_quiz",
-                                        "url": "https://ccm2.inf.h-brs.de"
+                                        "name":"ws_quiz",
+                                        "url":"https://ccm2.inf.h-brs.de"
                                     },
                                     "1551176559802X7680942826300261"
                                 ]
                             ],
-                            "correct": 10
+                            "correct":10
                         },
-                        "taskDone": false,
-                        "color": "yellow",
-                        "milestoneId": "ms2"
+                        "taskDone":false,
+                        "color":"yellow",
+                        "milestoneId":"ms2"
                     },
                     {
-                        "taskId": "task8",
-                        "exp": 40,
-                        "task": {
-                            "title": "Academic Writing - Writing a Paper",
-                            "task": [
+                        "taskId":"task8",
+                        "exp":40,
+                        "task":{
+                            "title":"Academic Writing - Writing a Paper",
+                            "task":[
                                 "ccm.instance",
                                 "https://ccmjs.github.io/akless-components/quick_decide/versions/ccm.quick_decide-1.4.0.js",
                                 [
                                     "ccm.get",
                                     {
-                                        "name": "ws_quiz",
-                                        "url": "https://ccm2.inf.h-brs.de"
+                                        "name":"ws_quiz",
+                                        "url":"https://ccm2.inf.h-brs.de"
                                     },
                                     "1551878888102X5009422687917278"
                                 ]
                             ],
-                            "correct": 4
+                            "correct":4
                         },
-                        "taskDone": false,
-                        "color": "yellow",
-                        "milestoneId": "ms2"
+                        "taskDone":false,
+                        "color":"yellow",
+                        "milestoneId":"ms2"
                     },
                     {
-                        "taskId": "task9",
-                        "exp": 40,
-                        "task": {
-                            "title": "Academic Writing - Elements of a report",
-                            "task": [
+                        "taskId":"task9",
+                        "exp":40,
+                        "task":{
+                            "title":"Academic Writing - Elements of a report",
+                            "task":[
                                 "ccm.instance",
                                 "https://ccmjs.github.io/akless-components/quick_decide/versions/ccm.quick_decide-1.4.0.js",
                                 [
                                     "ccm.get",
                                     {
-                                        "name": "ws_quiz",
-                                        "url": "https://ccm2.inf.h-brs.de"
+                                        "name":"ws_quiz",
+                                        "url":"https://ccm2.inf.h-brs.de"
                                     },
                                     "1551880826597X5991063326769972"
                                 ]
                             ],
-                            "correct": 5
+                            "correct":5
                         },
-                        "taskDone": false,
-                        "color": "yellow",
-                        "milestoneId": "ms3"
+                        "taskDone":false,
+                        "color":"yellow",
+                        "milestoneId":"ms3"
                     },
                     {
-                        "taskId": "task10",
-                        "exp": 60,
-                        "reward": "badges3",
-                        "task": {
-                            "title": "Academic Writing - Synonyms 1",
-                            "task": [
+                        "taskId":"task10",
+                        "exp":60,
+                        "reward":"badges3",
+                        "task":{
+                            "title":"Academic Writing - Synonyms 1",
+                            "task":[
                                 "ccm.instance",
                                 "https://ccmjs.github.io/akless-components/quick_decide/versions/ccm.quick_decide-1.4.0.js",
                                 [
                                     "ccm.get",
                                     {
-                                        "name": "ws_quick_decide",
-                                        "url": "https://ccm2.inf.h-brs.de"
+                                        "name":"ws_quick_decide",
+                                        "url":"https://ccm2.inf.h-brs.de"
                                     },
                                     "1551882889279X5113713024043782"
                                 ]
                             ],
-                            "correct": 6
+                            "correct":6
                         },
-                        "taskDone": false,
-                        "color": "red",
-                        "milestoneId": "ms2"
+                        "taskDone":false,
+                        "color":"red",
+                        "milestoneId":"ms2"
                     },
                     {
-                        "taskId": "task11",
-                        "exp": 60,
-                        "reward": "badges4",
-                        "task": {
-                            "title": "Harvard Style Guide",
-                            "task": [
+                        "taskId":"task11",
+                        "exp":60,
+                        "reward":"badges4",
+                        "task":{
+                            "title":"Harvard Style Guide",
+                            "task":[
                                 "ccm.instance",
                                 "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js",
                                 [
                                     "ccm.get",
                                     {
-                                        "name": "ws_quiz",
-                                        "url": "https://ccm2.inf.h-brs.de"
+                                        "name":"ws_quiz",
+                                        "url":"https://ccm2.inf.h-brs.de"
                                     },
                                     "1551954507918X022385292349272223"
                                 ]
                             ],
-                            "correct": 9
+                            "correct":9
                         },
-                        "taskDone": false,
-                        "color": "red",
-                        "milestoneId": "ms3"
+                        "taskDone":false,
+                        "color":"red",
+                        "milestoneId":"ms3"
                     },
                     {
-                        "taskId": "task12",
-                        "exp": 40,
-                        "task": {
-                            "title": "Academic Writing - Proofreading",
-                            "task": [
+                        "taskId":"task12",
+                        "exp":40,
+                        "task":{
+                            "title":"Academic Writing - Proofreading",
+                            "task":[
                                 "ccm.instance",
                                 "https://ccmjs.github.io/tkless-components/mark_words/versions/ccm.mark_words-3.2.0.js",
                                 [
                                     "ccm.get",
                                     {
-                                        "name": "ws_mark_words",
-                                        "url": "https://ccm2.inf.h-brs.de"
+                                        "name":"ws_mark_words",
+                                        "url":"https://ccm2.inf.h-brs.de"
                                     },
                                     "1552295520898X4332962398806641"
                                 ]
                             ],
-                            "correct": 4
+                            "correct":4
                         },
-                        "taskDone": false,
-                        "color": "yellow",
-                        "milestoneId": "ms3"
+                        "taskDone":false,
+                        "color":"yellow",
+                        "milestoneId":"ms3"
                     },
-                    // {
-                    //     "taskId": "task13",
-                    //     "exp": 40,
-                    //     "task": {
-                    //         "title": "Academic Writing - Academic Spelling Bee",
-                    //         "task": [
-                    //             "ccm.instance",
-                    //             "https://ccmjs.github.io/akless-components/quick_decide/versions/ccm.quick_decide-1.4.0.js",
-                    //             [
-                    //                 "ccm.get",
-                    //                 {
-                    //                     "name": "ws_quick_decide",
-                    //                     "url": "https://ccm2.inf.h-brs.de"
-                    //                 },
-                    //                 "1556453231580X038228139192896915"
-                    //             ]
-                    //         ],
-                    //         "correct": 6
-                    //     },
-                    //     "taskDone": false,
-                    //     "color": "yellow",
-                    //     "milestoneId": "ms3"
-                    // },
-                    // {
-                    //     "taskId": "task14",
-                    //     "exp": 60,
-                    //     "reward": "badges5",
-                    //     "task": {
-                    //         "title": "Review Business Terms",
-                    //         "task": [
-                    //             "ccm.instance",
-                    //             "https://ccmjs.github.io/akless-components/quick_decide/versions/ccm.quick_decide-1.4.0.js",
-                    //             [
-                    //                 "ccm.get",
-                    //                 {
-                    //                     "name": "ws_quick_decide",
-                    //                     "url": "https://ccm2.inf.h-brs.de"
-                    //                 },
-                    //                 "1551959989122X6152264371537035"
-                    //             ]
-                    //         ],
-                    //         "correct": 6
-                    //     },
-                    //     "taskDone": false,
-                    //     "color": "red",
-                    //     "milestoneId": "ms2"
-                    // },
                     {
-                        "taskId": "task15",
-                        "exp": 40,
-                        "task": {
-                            "title": "Differentiating Adverbs and Adjectives",
-                            "task": [
+                        "taskId":"task15",
+                        "exp":40,
+                        "task":{
+                            "title":"Differentiating Adverbs and Adjectives",
+                            "task":[
                                 "ccm.instance",
                                 "https://ccmjs.github.io/akless-components/cloze/versions/ccm.cloze-5.0.3.js",
                                 [
                                     "ccm.get",
                                     {
-                                        "name": "ws_cloze",
-                                        "url": "https://ccm2.inf.h-brs.de"
+                                        "name":"ws_cloze",
+                                        "url":"https://ccm2.inf.h-brs.de"
                                     },
                                     "1532002466475X8703464196203523"
                                 ]
                             ],
-                            "correct": 4
+                            "correct":4
                         },
-                        "taskDone": false,
-                        "color": "yellow",
-                        "milestoneId": "ms3"
+                        "taskDone":false,
+                        "color":"yellow",
+                        "milestoneId":"ms3"
                     }
                 ]
             }
