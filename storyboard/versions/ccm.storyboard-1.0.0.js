@@ -131,13 +131,13 @@
                         pathCoordinates.push({X: startX, Y: startY / 2});
 
                     }
-                    else if (index % 2 === 1 && index !== 0) {
+                    else if (index % 2 === 1 && index !== 0 && index !== numberOfMilestones - 1) {
                         milestoneCircle.setAttribute("cx", "" + startX);
                         milestoneCircle.setAttribute("cy", "" + startY * 1.50);
                         pathCoordinates.push({X: startX, Y: startY * 1.50});
 
                     }
-                    else if (index === numberOfMilestones - 1) {
+                    else if (index === numberOfMilestones-1) {
                         milestoneCircle.setAttribute("cx", "" + startX);
                         milestoneCircle.setAttribute("cy", "" + startY);
                         pathCoordinates.push({X: startX, Y: startY});
@@ -213,11 +213,11 @@
 
                     if (index % 2 === 0) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
-                        taskTag.setAttribute("y", "" + (y += 30));
+                        taskTag.setAttribute("y", "" + (y += 35));
                     }
                     else if (index % 2 === 1) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
-                        taskTag.setAttribute("y", "" + (y += 30));
+                        taskTag.setAttribute("y", "" + (y += 35));
                     }
                     taskTag.setAttribute("fill", task.color);
                     taskTag.addEventListener("click", () => this.renderTaskField(task));
