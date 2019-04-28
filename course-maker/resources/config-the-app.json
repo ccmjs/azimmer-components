@@ -47,7 +47,7 @@
           "show": false,
           "title": "You've achieved the last Level",
           "achievementid": "achievement1",
-          "condition": {"level": 10}
+          "condition": {"level": 5}
         },
         {
           "icon": "https://img.icons8.com/dusk/64/000000/prize.png",
@@ -95,7 +95,7 @@
   "tasks": [
     {
       "taskId": "task1",
-      "exp": 10,
+      "exp": 20,
       "task": {
         "title": "Orientation Synonyms for Business",
         "task": [
@@ -118,7 +118,7 @@
     },
     {
       "taskId": "task2",
-      "exp": 30,
+      "exp": 60,
       "reward": "badges1",
       "task": {
         "title": "Orientation Plagiarism",
@@ -142,7 +142,7 @@
     },
     {
       "taskId": "task3",
-      "exp": 30,
+      "exp": 60,
       "reward": "badges2",
       "task": {
         "title": "Copyright Quiz",
@@ -162,11 +162,11 @@
       },
       "taskDone": false,
       "color": "red",
-      "milestoneId": "ms1"
+      "milestoneId": "ms2"
     },
     {
       "taskId": "task4",
-      "exp": 10,
+      "exp": 20,
       "task": {
         "title": "Prepositions",
         "task": [
@@ -189,7 +189,7 @@
     },
     {
       "taskId": "task5",
-      "exp": 20,
+      "exp": 40,
       "task": {
         "title": "Environmental Impacts",
         "task": [
@@ -212,7 +212,7 @@
     },
     {
       "taskId": "task6",
-      "exp": 20,
+      "exp": 40,
       "task": {
         "title": "Sustainable Development Goals",
         "task": [
@@ -231,11 +231,11 @@
       },
       "taskDone": false,
       "color": "yellow",
-      "milestoneId": "ms1"
+      "milestoneId": "ms2"
     },
     {
       "taskId": "task7",
-      "exp": 20,
+      "exp": 40,
       "task": {
         "title": "Department and Their Functions",
         "task": [
@@ -254,16 +254,16 @@
       },
       "taskDone": false,
       "color": "yellow",
-      "milestoneId": "ms1"
+      "milestoneId": "ms2"
     },
     {
       "taskId": "task8",
-      "exp": 20,
+      "exp": 40,
       "task": {
         "title": "Academic Writing - Writing a Paper",
         "task": [
           "ccm.instance",
-          "Academic Writing - Elements of a report",
+          "https://ccmjs.github.io/akless-components/quick_decide/versions/ccm.quick_decide-1.4.0.js",
           [
             "ccm.get",
             {
@@ -277,16 +277,16 @@
       },
       "taskDone": false,
       "color": "yellow",
-      "milestoneId": "ms1"
+      "milestoneId": "ms2"
     },
     {
       "taskId": "task9",
-      "exp": 20,
+      "exp": 40,
       "task": {
         "title": "Academic Writing - Elements of a report",
         "task": [
           "ccm.instance",
-          "Academic Writing - Elements of a report",
+          "https://ccmjs.github.io/akless-components/quick_decide/versions/ccm.quick_decide-1.4.0.js",
           [
             "ccm.get",
             {
@@ -300,11 +300,11 @@
       },
       "taskDone": false,
       "color": "yellow",
-      "milestoneId": "ms1"
+      "milestoneId": "ms3"
     },
     {
       "taskId": "task10",
-      "exp": 30,
+      "exp": 60,
       "reward": "badges3",
       "task": {
         "title": "Academic Writing - Synonyms 1",
@@ -324,17 +324,17 @@
       },
       "taskDone": false,
       "color": "red",
-      "milestoneId": "ms1"
+      "milestoneId": "ms2"
     },
     {
       "taskId": "task11",
-      "exp": 30,
+      "exp": 60,
       "reward": "badges4",
       "task": {
         "title": "Harvard Style Guide",
         "task": [
           "ccm.instance",
-          "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-3.0.2.js",
+          "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js",
           [
             "ccm.get",
             {
@@ -348,11 +348,11 @@
       },
       "taskDone": false,
       "color": "red",
-      "milestoneId": "ms1"
+      "milestoneId": "ms3"
     },
     {
       "taskId": "task12",
-      "exp": 20,
+      "exp": 40,
       "task": {
         "title": "Academic Writing - Proofreading",
         "task": [
@@ -371,11 +371,11 @@
       },
       "taskDone": false,
       "color": "yellow",
-      "milestoneId": "ms1"
+      "milestoneId": "ms3"
     },
     {
       "taskId": "task13",
-      "exp": 20,
+      "exp": 40,
       "task": {
         "title": "Academic Writing - Academic Spelling Bee",
         "task": [
@@ -394,11 +394,11 @@
       },
       "taskDone": false,
       "color": "yellow",
-      "milestoneId": "ms1"
+      "milestoneId": "ms3"
     },
     {
       "taskId": "task14",
-      "exp": 30,
+      "exp": 60,
       "reward": "badges5",
       "task": {
         "title": "Review Business Terms",
@@ -418,11 +418,11 @@
       },
       "taskDone": false,
       "color": "red",
-      "milestoneId": "ms1"
+      "milestoneId": "ms2"
     },
     {
       "taskId": "task15",
-      "exp": 20,
+      "exp": 40,
       "task": {
         "title": "Differentiating Adverbs and Adjectives",
         "task": [
@@ -441,11 +441,11 @@
       },
       "taskDone": false,
       "color": "yellow",
-      "milestoneId": "ms1"
+      "milestoneId": "ms3"
     },
     {
       "taskId": "task16",
-      "exp": 20,
+      "exp": 40,
       "reward": "badges1",
       "task": {
         "title": "Sustainable Development Goals",
@@ -469,7 +469,7 @@
     },
     {
       "taskId": "task17",
-      "exp": 20,
+      "exp": 40,
       "reward": "badges1",
       "task": {
         "title": "Sustainable Development Goals",
@@ -493,7 +493,7 @@
     },
     {
       "taskId": "task18",
-      "exp": 20,
+      "exp": 40,
       "reward": "badges1",
       "task": {
         "title": "Sustainable Development Goals",
@@ -517,7 +517,7 @@
     },
     {
       "taskId": "task19",
-      "exp": 20,
+      "exp": 40,
       "reward": "badges1",
       "task": {
         "title": "Sustainable Development Goals",
@@ -541,7 +541,7 @@
     },
     {
       "taskId": "task20",
-      "exp": 20,
+      "exp": 40,
       "reward": "badges1",
       "task": {
         "title": "Sustainable Development Goals",
@@ -565,7 +565,7 @@
     },
     {
       "taskId": "task21",
-      "exp": 20,
+      "exp": 40,
       "reward": "badges1",
       "task": {
         "title": "Sustainable Development Goals",
@@ -585,11 +585,11 @@
       },
       "taskDone": false,
       "color": "yellow",
-      "milestoneId": "ms1"
+      "milestoneId": "ms2"
     },
     {
       "taskId": "task22",
-      "exp": 20,
+      "exp": 40,
       "reward": "badges1",
       "task": {
         "title": "Sustainable Development Goals",
@@ -609,11 +609,11 @@
       },
       "taskDone": false,
       "color": "yellow",
-      "milestoneId": "ms1"
+      "milestoneId": "ms3"
     },
     {
       "taskId": "task23",
-      "exp": 20,
+      "exp": 40,
       "reward": "badges1",
       "task": {
         "title": "Sustainable Development Goals",
@@ -633,11 +633,11 @@
       },
       "taskDone": false,
       "color": "yellow",
-      "milestoneId": "ms1"
+      "milestoneId": "ms3"
     },
     {
       "taskId": "task24",
-      "exp": 20,
+      "exp": 40,
       "reward": "badges1",
       "task": {
         "title": "Sustainable Development Goals",
@@ -657,11 +657,11 @@
       },
       "taskDone": false,
       "color": "yellow",
-      "milestoneId": "ms1"
+      "milestoneId": "ms2"
     },
     {
       "taskId": "task25",
-      "exp": 20,
+      "exp": 40,
       "reward": "badges1",
       "task": {
         "title": "Sustainable Development Goals",

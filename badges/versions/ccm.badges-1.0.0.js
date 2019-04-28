@@ -39,30 +39,27 @@
         Instance: function () {
             let badgesArray = [];
             this.addBadge = async badgeid => {
-                console.log(this.element.querySelector("#"+badgeid));
-                if (this.element.querySelector("#"+badgeid) === null) {
-                    this.store.get("badges").then(result => {
-                        this.badges.forEach(badge => {
-                            if (badge.badgesid === badgeid) {
-                                badge.show = true;
-                                result.value.forEach(element => {
-                                    if (element.badgesid !== badgeid) {
-                                        result.value.push(badge);
-                                        this.store.set({"key": "badges", "value": result.value});
-                                        this.parent.parent.comparegame.addBadges(badge);
-                                    }
-                                });
-                                if (result.value.length === 0) {
+                this.store.get("badges").then(result => {
+                    this.badges.forEach(badge => {
+                        if (badge.badgesid === badgeid && !this.element.querySelector("#"+badgeid)) {
+                            badge.show = true;
+                            result.value.forEach(element => {
+                                if (element.badgesid !== badgeid) {
                                     result.value.push(badge);
                                     this.store.set({"key": "badges", "value": result.value});
                                     this.parent.comparegame.addBadges(badge);
                                 }
+                            });
+                            if (result.value.length === 0 && !this.element.querySelector("#"+badgeid)) {
+                                result.value.push(badge);
+                                this.store.set({"key": "badges", "value": result.value});
+                                this.parent.comparegame.addBadges(badge);
                             }
-                        })
-                    }).then(() => {
-                        this.renderBadges()
-                    });
-                }
+                        }
+                    })
+                }).then(() => {
+                    this.renderBadges()
+                });
             };
             this.renderBadges = () => {
                 let oldBadges = this.element.querySelectorAll(".badge-wrapper");
@@ -72,6 +69,10 @@
                 this.store.get("badges").then(result => {
                     result.value.forEach(badge => {
                         if (badge.show) {
+                            let oldBadges = this.element.querySelector("#"+badge.badgesid);
+                            if(oldBadges){
+                                oldBadges.parentNode.removeChild(oldBadges);
+                            }
                             let badgesContent = this.element.querySelector(".badges-content");
 
                             let badgeWrapper = document.createElement("figure");

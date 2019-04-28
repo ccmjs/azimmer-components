@@ -3,8 +3,10 @@
 }
 
 .badges-content {
-    display: inline-block;
-    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .badges-icon {
@@ -12,6 +14,8 @@
     height: 40px;
 }
 
-.badges-title {
-    display: block;
+.badges-wrapper {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
