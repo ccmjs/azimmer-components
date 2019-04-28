@@ -23,7 +23,7 @@
                     {
                         "tag": "h2",
                         "class": "badges-headline",
-                        "inner": "Abzeichen"
+                        "inner": "Abzeichen: "
                     },
                     {
                         "tag": "div",

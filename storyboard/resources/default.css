@@ -23,6 +23,7 @@
 .legends-icon {
     width: 40px;
     height: 40px;
+    margin-left: 10px;
 }
 
 .legends-title {
@@ -32,18 +33,3 @@
     align-self: center;
 }
 
-.task {
-    position: relative;
-    width: 60px;
-    height: 30px;
-    background-color: #8abb8c;
-    border-radius: 20%;
-}
-
-.challenge {
-    position: relative;
-    width: 60px;
-    height: 40px;
-    background-color: #bb8868;
-    border-radius: 20%;
-}
