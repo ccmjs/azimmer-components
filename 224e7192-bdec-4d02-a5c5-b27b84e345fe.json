@@ -1,0 +1,14 @@
+{
+  "metaFormat": "ccm-meta",
+  "metaVersion": "1.0.0",
+  "title": "Course Maker",
+  "version": "1.0.0",
+  "creator": "Artur Zimmermann",
+  "subject": "Prototyp for my master thesis",
+  "publisher": "Artur Zimmermann",
+  "date": "2019-04-28",
+  "identifier": "224e7192-bdec-4d02-a5c5-b27b84e345fe",
+  "path-component": "https://ccmjs.github.io/azimmer-components/course-maker/versions/ccm.coursemaker-1.0.0.js",
+  "path-config": "https://ccmjs.github.io/azimmer-components/course-maker/resources/configs.js",
+  "config-key": "local"
+}

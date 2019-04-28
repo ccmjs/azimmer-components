@@ -9,7 +9,7 @@ ccm.files['configs.js'] = {
     "local": {
 
         "key": "local",
-        "css.1": "../course-maker/resources/default.css",
+        "css.1": "./resources/default.css",
         "comparegame":[
             "ccm.instance",
             "https://ccmjs.github.io/azimmer-components/comparegame/versions/ccm.comparegame-1.0.0.js",
