@@ -39,7 +39,7 @@ ccm.files['configs.js'] = {
             {
                 "badges": [
                     {
-                        "icon": "../badges/resources/podium.svg",
+                        "icon": "https://img.icons8.com/dusk/64/000000/business.png",
                         "show": false,
                         "title": "Loop Master",
                         "badgesid": "badges1"
@@ -132,16 +132,45 @@ ccm.files['configs.js'] = {
                 "tasks": [
                     {
                         "taskId": "task1",
+                        "exp": 10,
+                        "reward": "badges1",
+                        "task": {
+                            "title": "Orientation Synonyms for Business",
+                            "task": [
+                                "ccm.instance",
+                                "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js",
+                                [
+                                    "ccm.get",
+                                    {
+                                        "name": "quiz",
+                                        "url": "https://ccm2.inf.h-brs.de"
+                                    },
+                                    "1556396234646X10217328111669488"
+                                ]
+                            ],
+                            "correct": 4
+                        },
+                        "taskDone": false,
+                        "color": "green",
+                        "milestoneId": "ms1"
+                    },
+                    {
+                        "taskId": "task2",
                         "exp": 30,
                         "reward": "badges1",
                         "task": {
                             "title": "Orientation Plagiarism",
                             "task": [
                                 "ccm.instance",
-                                "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js", ["ccm.get", {
-                                    "name": "quiz",
-                                    "url": "https://ccm2.inf.h-brs.de"
-                                }, "1551095237102X9208292849944242"],
+                                "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js",
+                                [
+                                    "ccm.get",
+                                    {
+                                        "name": "quiz",
+                                        "url": "https://ccm2.inf.h-brs.de"
+                                    },
+                                    "1556397545116X1106977153682338"
+                                ]
                             ],
                             "correct": 6
                         },
@@ -150,21 +179,27 @@ ccm.files['configs.js'] = {
                         "milestoneId": "ms1"
                     },
                     {
-                        "taskId": "task2",
-                        "exp": 300,
-                        "reward": "badges1",
-                        "task": {"title": "Task 1", "task": "test"},
-                        "taskDone": false,
-                        "color": "green",
-                        "milestoneId": "ms1"
-                    },
-                    {
                         "taskId": "task3",
-                        "exp": 300,
+                        "exp": 30,
                         "reward": "badges1",
-                        "task": {"title": "Task 1", "task": "test"},
+                        "task": {
+                            "title": "Copyright Quiz",
+                            "task": [
+                                "ccm.instance",
+                                "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js",
+                                [
+                                    "ccm.get",
+                                    {
+                                        "name": "ws_quiz",
+                                        "url": "https://ccm2.inf.h-brs.de"
+                                    },
+                                    "1551102800727X03369537420166302"
+                                ]
+                            ],
+                            "correct": 4
+                        },
                         "taskDone": false,
-                        "color": "green",
+                        "color": "red",
                         "milestoneId": "ms1"
                     },
                     {

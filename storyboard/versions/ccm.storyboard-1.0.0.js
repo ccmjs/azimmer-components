@@ -19,16 +19,20 @@
 
         config: {
             "html": {
-                "storyboard":[ 
+                "storyboard":[
                     {
                         "tag":"div",
                         "class":"legend",
-                        "inner":""
+                        "inner":{
+                            "tag": "h2",
+                            "class": "legend-headline",
+                            "inner": "Legende zu den Aufgaben"
+                        }
                     },
                     {
-                    "tag": "div",
-                    "class": "storyboard",
-                    "inner": [],
+                        "tag": "div",
+                        "class": "storyboard",
+                        "inner": [],
                     }
                 ]
             },
@@ -54,17 +58,17 @@
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.storyboard));
                 const legendWrapper = this.element.querySelector(".legend");
                 this.legend.forEach(element => {
-                   const taskLegendIcon =  document.createElement("div");
-                   taskLegendIcon.className = "legends-icon"
-                   taskLegendIcon.style.backgroundColor = element.color;
+                    const taskLegendIcon =  document.createElement("div");
+                    taskLegendIcon.className = "legends-icon"
+                    taskLegendIcon.style.backgroundColor = element.color;
 
-                   
-                   const taskLegendTitle =  document.createElement("span");
-                   taskLegendTitle.className = "legends-title"
-                   taskLegendTitle.innerHTML = element.difficulty;
 
-                   legendWrapper.appendChild(taskLegendIcon);
-                   legendWrapper.appendChild(taskLegendTitle);
+                    const taskLegendTitle =  document.createElement("span");
+                    taskLegendTitle.className = "legends-title"
+                    taskLegendTitle.innerHTML = element.difficulty;
+
+                    legendWrapper.appendChild(taskLegendIcon);
+                    legendWrapper.appendChild(taskLegendTitle);
                 });
                 const svgPic = document.createElementNS("http://www.w3.org/2000/svg", "svg");
                 const storyboard = this.element.querySelector(".storyboard");
@@ -215,7 +219,7 @@
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
                         taskTag.setAttribute("y", "" + (y += 30));
                     }
-                        taskTag.setAttribute("fill", task.color);
+                    taskTag.setAttribute("fill", task.color);
                     taskTag.addEventListener("click", () => this.renderTaskField(task));
                     taskTag.innerHTML = task.task.title;
 
@@ -260,7 +264,7 @@
                     taskField.appendChild(testButton);
                 } else {
                     task.task.task.onfinish = currentTask => {
-                        if(currentTask.getValue().correct === task.task.correct){
+                        if(currentTask.getValue().correct >= task.task.correct){
                             if (!task.taskDone) {
                                 this.parent.setProgress(task.exp).then(result => {
                                     this.parent.comparegame.addGame(result);

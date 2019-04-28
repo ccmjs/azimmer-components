@@ -21,7 +21,11 @@
                     {
                         "tag":"div",
                         "class":"legend",
-                        "inner":""
+                        "inner":{
+                            "tag": "h2",
+                            "class": "legend-headline",
+                            "inner": "Legende zu den Aufgaben"
+                        }
                     },
                     {
                     "tag": "div",
@@ -258,7 +262,7 @@
                     taskField.appendChild(testButton);
                 } else {
                     task.task.task.onfinish = currentTask => {
-                        if(currentTask.getValue().correct === task.task.correct){
+                        if(currentTask.getValue().correct >= task.task.correct){
                             if (!task.taskDone) {
                                 this.parent.setProgress(task.exp).then(result => {
                                     this.parent.comparegame.addGame(result);

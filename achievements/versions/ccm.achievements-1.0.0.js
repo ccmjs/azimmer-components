@@ -7,13 +7,13 @@
  * version 1.0.0 (12.10.2018)
  */
 
-( function () {
+(function () {
 
     const component = {
 
         name: 'achievements',
 
-        version: [ 1, 0, 0 ],
+        version: [1, 0, 0],
 
         ccm: 'https://ccmjs.github.io/ccm/versions/ccm-18.0.0.js',
 
@@ -32,24 +32,24 @@
                     }
                 ]
             },
-            "css": ["ccm.load", "https://ccmjs.github.io/azimmer-components/achievements/resources/default.css"],
+            "css": ["ccm.load", "../achievements/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
         },
 
         Instance: function () {
             this.addAchievement = async achievementid => {
-                await this.store.get("achievements").then(result =>{
+                await this.store.get("achievements").then(result => {
                     this.achievements.forEach(achievement => {
-                        if(achievement.achievementid === achievementid){
+                        if (achievement.achievementid === achievementid) {
                             achievement.show = true;
                             result.value.forEach(element => {
-                                if (element.achievementid !== achievementid){
+                                if (element.achievementid !== achievementid) {
                                     result.value.push(achievement);
                                     this.store.set({"key": "achievements", "value": result.value});
                                     this.parent.comparegame.addAchievements(result.value);
                                 }
                             });
-                            if(result.value.length === 0){
+                            if (result.value.length === 0) {
                                 result.value.push(achievement);
                                 this.store.set({"key": "achievements", "value": result.value});
                                 this.parent.comparegame.addAchievements(result.value);
@@ -61,7 +61,7 @@
 
             };
             this.renderAchievement = () => {
-                let oldAchievement =  this.element.querySelectorAll(".achievement-wrapper");
+                let oldAchievement = this.element.querySelectorAll(".achievement-wrapper");
                 oldAchievement.forEach(element => {
                     element.parentNode.removeChild(element);
                 });
@@ -97,22 +97,27 @@
                 });
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.achievement));
                 this.renderAchievement();
-                if(this.testButton){
+                if (this.testButton) {
                     let testButton = document.createElement("button");
-                    testButton.innerText="Fireing Events";
-                    testButton.addEventListener("click",()=>this.addAchievement("achievement1"));
+                    testButton.innerText = "Fireing Events";
+                    testButton.addEventListener("click", () => this.addAchievement("achievement1"));
                     this.element.appendChild(testButton);
-                }else{
-
+                }
+                else {
                     await this.store.get("game").then(result => {
                         this.achievements.forEach(achievement => {
-                            Object.keys(achievement.condition).forEach(e =>{
-                                if(result.value[e] === achievement.condition[e]){
-                                    this.addAchievement(achievement.achievementid);
-                                }
-                            })
+                            if (result.value.level === achievement.condition.level) {
+                                this.addAchievement(achievement.achievementid);
+                            }
                         });
                     });
+                    await this.store.get("tasksdone").then(result => {
+                        this.achievements.forEach(achievement => {
+                            if (result.value.length === achievement.condition.tasksdone) {
+                                this.addAchievement(achievement.achievementid);
+                            }
+                        });
+                    }).catch(error => console.log("No tasksdone dataset in the browser", error));
                 }
             };
 

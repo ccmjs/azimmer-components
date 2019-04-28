@@ -37,6 +37,8 @@
         Instance: function () {
             let badgesArray = [];
             this.addBadge = async badgeid => {
+                console.log(this.element.querySelector("#"+badgeid));
+                if (this.element.querySelector("#"+badgeid) === null) {
                 this.store.get("badges").then(result => {
                     this.badges.forEach(badge => {
                         if (badge.badgesid === badgeid) {
@@ -55,8 +57,10 @@
                             }
                         }
                     })
-                }).then(()=>{this.renderBadges()});
-
+                }).then(() => {
+                    this.renderBadges()
+                });
+            }
             };
             this.renderBadges = () => {
                 let oldBadges = this.element.querySelectorAll(".badge-wrapper");
@@ -70,6 +74,7 @@
 
                             let badgeWrapper = document.createElement("figure");
                             badgeWrapper.className = "badge-wrapper";
+                            badgeWrapper.id = badge.badgesid;
 
                             let badgeIcon = document.createElement("img");
                             badgeIcon.className = "badges-icon";

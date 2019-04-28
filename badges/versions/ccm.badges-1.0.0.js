@@ -32,33 +32,37 @@
                     }
                 ]
             },
-            "css": ["ccm.load", "https://ccmjs.github.io/azimmer-components/badges/resources/default.css"],
+            "css": ["ccm.load", "../badges/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
         },
 
         Instance: function () {
             let badgesArray = [];
             this.addBadge = async badgeid => {
-                this.store.get("badges").then(result => {
-                    this.badges.forEach(badge => {
-                        if (badge.badgesid === badgeid) {
-                            badge.show = true;
-                            result.value.forEach(element => {
-                                if (element.badgesid !== badgeid) {
+                console.log(this.element.querySelector("#"+badgeid));
+                if (this.element.querySelector("#"+badgeid) === null) {
+                    this.store.get("badges").then(result => {
+                        this.badges.forEach(badge => {
+                            if (badge.badgesid === badgeid) {
+                                badge.show = true;
+                                result.value.forEach(element => {
+                                    if (element.badgesid !== badgeid) {
+                                        result.value.push(badge);
+                                        this.store.set({"key": "badges", "value": result.value});
+                                        this.parent.parent.comparegame.addBadges(badge);
+                                    }
+                                });
+                                if (result.value.length === 0) {
                                     result.value.push(badge);
                                     this.store.set({"key": "badges", "value": result.value});
-                                    this.parent.parent.comparegame.addBadges(badge);
+                                    this.parent.comparegame.addBadges(badge);
                                 }
-                            });
-                            if (result.value.length === 0) {
-                                result.value.push(badge);
-                                this.store.set({"key": "badges", "value": result.value});
-                                this.parent.comparegame.addBadges(badge);
                             }
-                        }
-                    })
-                }).then(()=>{this.renderBadges()});
-
+                        })
+                    }).then(() => {
+                        this.renderBadges()
+                    });
+                }
             };
             this.renderBadges = () => {
                 let oldBadges = this.element.querySelectorAll(".badge-wrapper");
@@ -72,6 +76,7 @@
 
                             let badgeWrapper = document.createElement("figure");
                             badgeWrapper.className = "badge-wrapper";
+                            badgeWrapper.id = badge.badgesid;
 
                             let badgeIcon = document.createElement("img");
                             badgeIcon.className = "badges-icon";
