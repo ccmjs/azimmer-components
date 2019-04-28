@@ -86,9 +86,9 @@ ccm.files['configs.js'] = {
                     {
                         "icon": "https://img.icons8.com/dusk/64/000000/prize.png",
                         "show": false,
-                        "title": "You did all the Tasks",
+                        "title": "You are half way throug",
                         "achievementid": "achievement2",
-                        "condition": {"tasksdone": 15}
+                        "condition": {"tasksdone": 7}
                     }
                 ]
             }],
