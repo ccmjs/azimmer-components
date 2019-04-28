@@ -41,15 +41,20 @@
                 this.setComplete( this.min );
                 let _complete = this.getComplete();
 
-                for ( let i = this.min; i <= this.max; i++ )
-                    setTimeout( () => { _complete = i; this.setComplete( _complete ); }, 100 * i );
-
+                if(this.run_automatic) {
+                    for (let i = this.min; i <= this.max; i++)
+                        setTimeout(() => {
+                            _complete = i;
+                            this.setComplete(_complete);
+                        }, 100 * i);
+                }
             };
 
             this.setComplete = value => {
 
                 let newValue = value / this.max;
                 newValue *= 100;
+
                 let innerBar = this.element.querySelector( '.progress-bar-inner' );
                 if ( innerBar.style.width !== '100%' ) {
                     innerBar.style.width = newValue + '%';
@@ -61,6 +66,7 @@
                     if ( this.showText )
                         innerBar.innerHTML = value + this.sign;
                 }
+                this.complete = newValue;
 
             };
 
