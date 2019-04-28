@@ -308,11 +308,10 @@
                     const deleteBtn = document.createElement("button");
                     deleteBtn.className = "delete-btn";
                     deleteBtn.innerHTML = "Spiel von vorne Beginnen";
-                    deleteBtn.onclick = () => {
+                    deleteBtn.onclick = async () => {
                         const gameKeys = ["game","achievements","badges","tasksdone"];
                         gameKeys.map(e => this.store.del(e));
-                        this.store.del();
-                        this.remoteStore.del(this.player.name).then().catch(error => console.log(error));
+                        await this.remoteStore.del(this.player.name).then().catch(error => console.log(error));
                         this.start();
                     };
                     const settingContainer = this.element.querySelector(".settings-container");
