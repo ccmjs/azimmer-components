@@ -31,7 +31,7 @@
                                     "inner": [
                                         {
                                             "tag": "img",
-                                            "src": "./resources/home-icon-silhouette.svg",
+                                            "src": "https://ccmjs.github.io/azimmer-components/course-maker/resources/home-icon-silhouette.svg",
                                             "class": "game-menu-icon"
                                         },
                                         {
@@ -46,7 +46,7 @@
                                     "inner": [
                                         {
                                             "tag": "img",
-                                            "src": "./resources/group-of-people.svg",
+                                            "src": "https://ccmjs.github.io/azimmer-components/course-maker/resources/group-of-people.svg ",
                                             "class": "players-menu-icon"
                                         },
                                         {
@@ -61,7 +61,7 @@
                                     "inner": [
                                         {
                                             "tag": "img",
-                                            "src": "./resources/settings.svg",
+                                            "src": "https://ccmjs.github.io/azimmer-components/course-maker/resources/settings.svg",
                                             "class": "settings-menu-icon"
                                         },
                                         {
