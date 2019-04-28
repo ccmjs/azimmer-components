@@ -43,7 +43,7 @@
                     ]
                 }
             },
-            "css": ["ccm.load", "https://ccmjs.github.io/azimmer-components/achievement/resources/default.css"],
+            "css": ["ccm.load", "https://ccmjs.github.io/azimmer-components/comparegame/resources/default.css"],
             "store": ["ccm.store", {"name": "azimme2s_playerstatus", url: "wss://ccm2.inf.h-brs.de"}],
             "localStore": ["ccm.store", {"name": "player"}]
         },
