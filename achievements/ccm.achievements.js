@@ -21,7 +21,7 @@
                     {
                         "tag": "h2",
                         "class": "achievement-headline",
-                        "inner": "Errungenschaften"
+                        "inner": "Errungenschaften: "
                     },
                     {
                         "tag": "div",
