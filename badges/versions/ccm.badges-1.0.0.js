@@ -32,7 +32,7 @@
                     }
                 ]
             },
-            "css": ["ccm.load", "../badges/resources/default.css"],
+            "css": ["ccm.load", "https://ccmjs.github.io/azimmer-components/badges/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
         },
 

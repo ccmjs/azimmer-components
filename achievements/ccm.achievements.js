@@ -30,7 +30,7 @@
                     }
                 ]
             },
-            "css": ["ccm.load", "../achievements/resources/default.css"],
+            "css": ["ccm.load", "https://ccmjs.github.io/azimmer-components/achievement/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
         },
 

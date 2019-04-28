@@ -34,7 +34,7 @@
                     }
                 ]
             },
-            "css": ["ccm.load", "../storyboard/resources/default.css"],
+            "css": ["ccm.load", "https://ccmjs.github.io/azimmer-components/storyboard/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
         },
 

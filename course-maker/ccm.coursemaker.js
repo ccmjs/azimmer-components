@@ -132,7 +132,7 @@
                     ]
                 }
             },
-            "css": ["ccm.load", "../course-maker/resources/default.css"],
+            "css": ["ccm.load", "https://ccmjs.github.io/azimmer-components/course-maker/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}],
             "remoteStore": ["ccm.store", {"name": "azimme2s_playerstatus", url: "wss://ccm2.inf.h-brs.de"}],
         },
