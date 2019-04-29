@@ -121,7 +121,7 @@
                         milestoneCircle.setAttribute("cy", "" + startY);
 
                         text.setAttribute("x", "" + startX);
-                        text.setAttribute("y", "" + (startY + 80));
+                        text.setAttribute("y", "" + (startY + (storyboard.getBoundingClientRect().width * 0.03 + 40)));
                         text.innerHTML = "Start";
                         storyboard.appendChild(text);
                     }
@@ -143,7 +143,7 @@
                         pathCoordinates.push({X: startX, Y: startY});
 
                         text.setAttribute("x", "" + startX);
-                        text.setAttribute("y", "" + (startY + 80));
+                        text.setAttribute("y", "" + (startY + (storyboard.getBoundingClientRect().width * 0.03 + 40)));
                         text.innerHTML = "Ziel";
                         storyboard.appendChild(text);
                     }
@@ -253,21 +253,25 @@
 
                     if (index % 2 === 0) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
-                        taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height*(this.tasks.length/storyboard.getBoundingClientRect().height))));
+                        taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
                     }
                     else if (index % 2 === 1) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
-                        taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height*(this.tasks.length/storyboard.getBoundingClientRect().height))));
+                        taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
                     }
                     taskTag.setAttribute("fill", task.color);
                     taskTag.addEventListener("click", () =>{ 
-                        const allTasks = this.element.querySelectorAll("react");
+                        const allTasks = this.element.querySelectorAll("rect");
                         allTasks.forEach(element => {
-                            if(element.getAttribute("border")){
-                                element.setAttribute("border", "none");
+                            console.log(element);
+                            if(element.style.border){
+                                console.log("Wut?!");
+                                element.style.border = "none";
+                                storyboard.appendChild(element);
                             }
                         });
-                        taskTag.setAttribute("border", "1px");
+                        taskTag.style.border = "solid 3px black";
+                        storyboard.appendChild(taskTag);
                         this.renderTaskField(task);
                     });
                     taskTag.innerHTML = task.task.title;
