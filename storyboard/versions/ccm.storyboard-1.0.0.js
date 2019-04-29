@@ -231,59 +231,55 @@
 
                 })
             };
-            this.renderTaskField = (task) => {
-                let oldTask = this.element.querySelectorAll(".taskfield");
-                oldTask.forEach(element => {
-                    element.parentNode.removeChild(element);
-                });
-                const taskField = document.createElement("div");
-                taskField.className = "taskfield";
+            this.renderTasks = () => {
+                const storyboard = this.element.querySelector("svg");
+                /*y is a mutable variable that is adding the y coordinate based on the height*/
+                let y = 0;
+                /* tmp variable to store which milestone is now looked at */
+                let tmp = "";
+                this.tasks.forEach((task, index) => {
+                    /* Setting the y coordinate to 0 when new milestone is in the task*/
+                    if (tmp !== task.milestoneId) {
+                        y = 0;
+                    }
+                    tmp = task.milestoneId;
+                    const taskTag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                    const milestoneWrapper = this.element.querySelector("#" + task.milestoneId);
 
-                const taskTitle = document.createElement("h2");
-                taskTitle.className = "tasktitle";
-                taskTitle.innerHTML = task.task.title;
-                taskField.appendChild(taskTitle);
+                    taskTag.id = task.taskId;
+                    taskTag.setAttribute("height", "30px");
+                    taskTag.setAttribute("width", "30px");
 
-                const testButton = document.createElement("button");
-                testButton.innerHTML = "Test Aufgaben button";
-                if (task.task.task === "test") {
-                    testButton.addEventListener("click", () => {
-                        if (!task.taskDone) {
-                            this.parent.setProgress(task.exp).then(result => {
-                                this.parent.comparegame.addGame(result);
-                                if (task.reward) {
-                                    this.parent.badges.addBadge(task.reward);
-                                }
-                                task.taskDone = true;
-                                tasksDone.push(task);
-                                this.store.set({"key": "tasksdone", "value": tasksDone});
-                                this.parent.comparegame.addTasksdone(task);
-                            });
-                        }
-                    });
-                    taskField.appendChild(testButton);
-                } else {
-                    task.task.task.onfinish = currentTask => {
-                        if(currentTask.getValue().correct >= task.task.correct){
-                            if (!task.taskDone) {
-                                this.parent.setProgress(task.exp).then(result => {
-                                    this.parent.comparegame.addGame(result);
-                                    if (task.reward) {
-                                        this.parent.badges.addBadge(task.reward);
-                                    }
-                                    task.taskDone = true;
-                                    tasksDone.push(task);
-                                    this.store.set({"key": "tasksdone", "value": tasksDone});
-                                    this.parent.comparegame.addTasksdone(task);
-                                });
+
+                    if (index % 2 === 0) {
+                        taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
+                        taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height*(this.tasks.length/storyboard.getBoundingClientRect().height))));
+                    }
+                    else if (index % 2 === 1) {
+                        taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
+                        taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height*(this.tasks.length/storyboard.getBoundingClientRect().height))));
+                    }
+                    taskTag.setAttribute("fill", task.color);
+                    taskTag.addEventListener("click", () =>{ 
+                        const allTasks = this.element.querySelectorAll("react");
+                        allTasks.forEach(element => {
+                            if(element.getAttribute("border")){
+                                element.setAttribute("border", "none");
                             }
-                        }
-                    };
-                    task.task.task.start();
-                    taskField.appendChild(task.task.task.root);
-                }
-                this.element.appendChild(taskField);
-            }
+                        });
+                        taskTag.setAttribute("border", "1px");
+                        this.renderTaskField(task);
+                    });
+                    taskTag.innerHTML = task.task.title;
+
+                    const result = this.milestones.find(milestone => milestone.milestoneID === task.milestoneId);
+                    if (result.show === true) {
+                        storyboard.appendChild(taskTag);
+                    }
+
+
+                })
+            };
 
         }
 
