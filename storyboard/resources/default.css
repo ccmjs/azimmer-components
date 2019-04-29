@@ -33,3 +33,6 @@
     align-self: center;
 }
 
+rect:hover {
+    fill: rgba(33,33,33,.2); 
+}

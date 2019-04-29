@@ -217,8 +217,11 @@
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
                         taskTag.setAttribute("y", "" + (y += 35));
                     }
-                        taskTag.setAttribute("fill", task.color);
-                    taskTag.addEventListener("click", () => this.renderTaskField(task));
+                    taskTag.setAttribute("fill", task.color);
+                    taskTag.addEventListener("click", () =>{ 
+                        taskTag.setAttribute("border", "1px");
+                        this.renderTaskField(task);
+                    });
                     taskTag.innerHTML = task.task.title;
 
                     const result = this.milestones.find(milestone => milestone.milestoneID === task.milestoneId);
