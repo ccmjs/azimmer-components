@@ -211,14 +211,20 @@
 
                     if (index % 2 === 0) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
-                        taskTag.setAttribute("y", "" + (y += 35));
+                        taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height*(this.tasks.length/storyboard.getBoundingClientRect().height))));
                     }
                     else if (index % 2 === 1) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
-                        taskTag.setAttribute("y", "" + (y += 35));
+                        taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height*(this.tasks.length/storyboard.getBoundingClientRect().height))));
                     }
                     taskTag.setAttribute("fill", task.color);
                     taskTag.addEventListener("click", () =>{ 
+                        const allTasks = this.element.querySelectorAll("react");
+                        allTasks.forEach(element => {
+                            if(element.getAttribute("border")){
+                                element.setAttribute("border", "none");
+                            }
+                        });
                         taskTag.setAttribute("border", "1px");
                         this.renderTaskField(task);
                     });
