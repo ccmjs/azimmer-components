@@ -219,17 +219,6 @@
                     }
                     taskTag.setAttribute("fill", task.color);
                     taskTag.addEventListener("click", () =>{
-                        const allTasks = this.element.querySelectorAll("rect");
-                        allTasks.forEach(element => {
-                            console.log(element);
-                            if(element.style.border){
-                                console.log("Wut?!");
-                                element.style.border = "none";
-                                storyboard.appendChild(element);
-                            }
-                        });
-                        taskTag.style.border = "solid 3px black";
-                        storyboard.appendChild(taskTag);
                         this.renderTaskField(task);
                     });
                     taskTag.innerHTML = task.task.title;
