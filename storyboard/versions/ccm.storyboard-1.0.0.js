@@ -284,6 +284,59 @@
 
                 })
             };
+            this.renderTaskField = (task) => {
+                let oldTask = this.element.querySelectorAll(".taskfield");
+                oldTask.forEach(element => {
+                    element.parentNode.removeChild(element);
+                });
+                const taskField = document.createElement("div");
+                taskField.className = "taskfield";
+
+                const taskTitle = document.createElement("h2");
+                taskTitle.className = "tasktitle";
+                taskTitle.innerHTML = task.task.title;
+                taskField.appendChild(taskTitle);
+
+                const testButton = document.createElement("button");
+                testButton.innerHTML = "Test Aufgaben button";
+                if (task.task.task === "test") {
+                    testButton.addEventListener("click", () => {
+                        if (!task.taskDone) {
+                            this.parent.setProgress(task.exp).then(result => {
+                                this.parent.comparegame.addGame(result);
+                                if (task.reward) {
+                                    this.parent.badges.addBadge(task.reward);
+                                }
+                                task.taskDone = true;
+                                tasksDone.push(task);
+                                this.store.set({"key": "tasksdone", "value": tasksDone});
+                                this.parent.comparegame.addTasksdone(task);
+                            });
+                        }
+                    });
+                    taskField.appendChild(testButton);
+                } else {
+                    task.task.task.onfinish = currentTask => {
+                        if(currentTask.getValue().correct >= task.task.correct){
+                            if (!task.taskDone) {
+                                this.parent.setProgress(task.exp).then(result => {
+                                    this.parent.comparegame.addGame(result);
+                                    if (task.reward) {
+                                        this.parent.badges.addBadge(task.reward);
+                                    }
+                                    task.taskDone = true;
+                                    tasksDone.push(task);
+                                    this.store.set({"key": "tasksdone", "value": tasksDone});
+                                    this.parent.comparegame.addTasksdone(task);
+                                });
+                            }
+                        }
+                    };
+                    task.task.task.start();
+                    taskField.appendChild(task.task.task.root);
+                }
+                this.element.appendChild(taskField);
+            };
 
         }
 
