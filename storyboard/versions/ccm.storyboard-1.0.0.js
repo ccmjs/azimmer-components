@@ -260,18 +260,7 @@
                         taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
                     }
                     taskTag.setAttribute("fill", task.color);
-                    taskTag.addEventListener("click", () =>{ 
-                        const allTasks = this.element.querySelectorAll("rect");
-                        allTasks.forEach(element => {
-                            console.log(element);
-                            if(element.style.border){
-                                console.log("Wut?!");
-                                element.style.border = "none";
-                                storyboard.appendChild(element);
-                            }
-                        });
-                        taskTag.style.border = "solid 3px black";
-                        storyboard.appendChild(taskTag);
+                    taskTag.addEventListener("click", () =>{
                         this.renderTaskField(task);
                     });
                     taskTag.innerHTML = task.task.title;
