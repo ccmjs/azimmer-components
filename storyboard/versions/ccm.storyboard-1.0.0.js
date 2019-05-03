@@ -191,46 +191,7 @@
                 return path;
             };
 
-            this.renderTasks = () => {
-                const storyboard = this.element.querySelector("svg");
-                /*y is a mutable variable that is adding the y coordinate based on the height*/
-                let y = 0;
-                /* tmp variable to store which milestone is now looked at */
-                let tmp = "";
-                this.tasks.forEach((task, index) => {
-                    /* Setting the y coordinate to 0 when new milestone is in the task*/
-                    if (tmp !== task.milestoneId) {
-                        y = 0;
-                    }
-                    tmp = task.milestoneId;
-                    const taskTag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                    const milestoneWrapper = this.element.querySelector("#" + task.milestoneId);
-
-                    taskTag.id = task.taskId;
-                    taskTag.setAttribute("height", "30px");
-                    taskTag.setAttribute("width", "30px");
-
-
-                    if (index % 2 === 0) {
-                        taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
-                        taskTag.setAttribute("y", "" + (y += 35));
-                    }
-                    else if (index % 2 === 1) {
-                        taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
-                        taskTag.setAttribute("y", "" + (y += 35));
-                    }
-                    taskTag.setAttribute("fill", task.color);
-                    taskTag.addEventListener("click", () => this.renderTaskField(task));
-                    taskTag.innerHTML = task.task.title;
-
-                    const result = this.milestones.find(milestone => milestone.milestoneID === task.milestoneId);
-                    if (result.show === true) {
-                        storyboard.appendChild(taskTag);
-                    }
-
-
-                })
-            };
+           
             this.renderTasks = () => {
                 const storyboard = this.element.querySelector("svg");
                 /*y is a mutable variable that is adding the y coordinate based on the height*/
