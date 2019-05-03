@@ -204,6 +204,7 @@
                         yCoordinates[task.milestoneId] = 0
                     }
                     tmp = task.milestoneId;
+                    console.log(yCoordinates);
                     const taskTag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
                     const milestoneWrapper = this.element.querySelector("#" + task.milestoneId);
 
