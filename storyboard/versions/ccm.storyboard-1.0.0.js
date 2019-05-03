@@ -59,7 +59,7 @@
                 const legendWrapper = this.element.querySelector(".legend");
                 this.legend.forEach(element => {
                     const taskLegendIcon =  document.createElement("div");
-                    taskLegendIcon.className = "legends-icon"
+                    taskLegendIcon.className = "legends-icon";
                     taskLegendIcon.style.backgroundColor = element.color;
 
 
@@ -191,7 +191,7 @@
                 return path;
             };
 
-           
+
             this.renderTasks = () => {
                 const storyboard = this.element.querySelector("svg");
                 /*y is a mutable variable that is adding the y coordinate based on the height*/
@@ -211,6 +211,8 @@
                     taskTag.id = task.taskId;
                     taskTag.setAttribute("height", "30px");
                     taskTag.setAttribute("width", "30px");
+                    taskTag.setAttribute("rx", "5px");
+                    //taskTag.setAttribute("ry", "30px");
 
 
                     if (index % 2 === 0) {

@@ -57,7 +57,7 @@
                 const legendWrapper = this.element.querySelector(".legend");
                 this.legend.forEach(element => {
                    const taskLegendIcon =  document.createElement("div");
-                   taskLegendIcon.className = "legends-icon"
+                   taskLegendIcon.className = "legends-icon";
                    taskLegendIcon.style.backgroundColor = element.color;
 
                    
@@ -189,34 +189,37 @@
                 return path;
             };
 
+
             this.renderTasks = () => {
                 const storyboard = this.element.querySelector("svg");
                 /*y is a mutable variable that is adding the y coordinate based on the height*/
-                let y = 0;
+                let yCoordinates = {};
                 /* tmp variable to store which milestone is now looked at */
-                let tmp = "";
+                //let tmp = "";
                 this.tasks.forEach((task, index) => {
-                    console.log(y);
                     /* Setting the y coordinate to 0 when new milestone is in the task*/
-                    if (tmp !== task.milestoneId) {
-                        y = 0;
+                    if (!yCoordinates[task.milestoneId]) {
+                        yCoordinates[task.milestoneId] = 0
                     }
-                    tmp = task.milestoneId;
+                    //tmp = task.milestoneId;
+                    console.log(yCoordinates);
                     const taskTag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
                     const milestoneWrapper = this.element.querySelector("#" + task.milestoneId);
 
                     taskTag.id = task.taskId;
                     taskTag.setAttribute("height", "30px");
                     taskTag.setAttribute("width", "30px");
+                    taskTag.setAttribute("rx", "5px");
+                    //taskTag.setAttribute("ry", "30px");
 
 
                     if (index % 2 === 0) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
-                        taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
+                        taskTag.setAttribute("y", "" + (yCoordinates[task.milestoneId] += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
                     }
                     else if (index % 2 === 1) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
-                        taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
+                        taskTag.setAttribute("y", "" + (yCoordinates[task.milestoneId] += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
                     }
                     taskTag.setAttribute("fill", task.color);
                     taskTag.addEventListener("click", () =>{
@@ -276,7 +279,7 @@
                                     tasksDone.push(task);
                                     this.store.set({"key": "tasksdone", "value": tasksDone});
                                     this.parent.comparegame.addTasksdone(task);
-                                });
+                                }).catch(error => console.log(error));
                             }
                         }
                     };
