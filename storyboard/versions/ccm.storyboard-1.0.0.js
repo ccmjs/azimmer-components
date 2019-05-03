@@ -208,8 +208,8 @@
                     const milestoneWrapper = this.element.querySelector("#" + task.milestoneId);
 
                     taskTag.id = task.taskId;
-                    taskTag.setAttribute("height", "30px");
-                    taskTag.setAttribute("width", "30px");
+                    taskTag.setAttribute("height", "40px");
+                    taskTag.setAttribute("width", "40px");
                     taskTag.setAttribute("rx", "5px");
                     //taskTag.setAttribute("ry", "30px");
 
