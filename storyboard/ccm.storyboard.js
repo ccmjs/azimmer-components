@@ -196,6 +196,7 @@
                 /* tmp variable to store which milestone is now looked at */
                 let tmp = "";
                 this.tasks.forEach((task, index) => {
+                    console.log(y);
                     /* Setting the y coordinate to 0 when new milestone is in the task*/
                     if (tmp !== task.milestoneId) {
                         y = 0;

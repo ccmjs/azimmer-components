@@ -546,29 +546,6 @@
           "taskDone": false,
           "color": "green",
           "milestoneId": "ms2"
-        },
-        {
-          "taskId": "task18",
-          "exp": 40,
-          "task": {
-            "title": "Correct Word Partnerships",
-            "task": [
-              "ccm.instance",
-              "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.0.0.js",
-              [
-                "ccm.get",
-                {
-                  "name": "ws_quiz",
-                  "url": "https://ccm2.inf.h-brs.de"
-                },
-                "1551176559802X7680942826300261"
-              ]
-            ],
-            "correct": 10
-          },
-          "taskDone": false,
-          "color": "yellow",
-          "milestoneId": "ms1"
         }
       ]
     }

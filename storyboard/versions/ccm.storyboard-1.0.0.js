@@ -214,10 +214,12 @@
 
                     if (index % 2 === 0) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
+                        console.log(y);
                         taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
                     }
                     else if (index % 2 === 1) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
+                        console.log(y);
                         taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
                     }
                     taskTag.setAttribute("fill", task.color);
