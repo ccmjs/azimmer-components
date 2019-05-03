@@ -197,13 +197,13 @@
                 /*y is a mutable variable that is adding the y coordinate based on the height*/
                 let yCoordinates = {};
                 /* tmp variable to store which milestone is now looked at */
-                let tmp = "";
+                //let tmp = "";
                 this.tasks.forEach((task, index) => {
                     /* Setting the y coordinate to 0 when new milestone is in the task*/
-                    if (tmp !== task.milestoneId) {
+                    if (!yCoordinates[task.milestoneId]) {
                         yCoordinates[task.milestoneId] = 0
                     }
-                    tmp = task.milestoneId;
+                    //tmp = task.milestoneId;
                     console.log(yCoordinates);
                     const taskTag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
                     const milestoneWrapper = this.element.querySelector("#" + task.milestoneId);
