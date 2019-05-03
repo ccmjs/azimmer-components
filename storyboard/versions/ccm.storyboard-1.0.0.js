@@ -7,23 +7,23 @@
  * version 1.0.0 (12.10.2018)
  */
 
-( function () {
+(function () {
 
     const component = {
 
         name: 'storyboard',
 
-        version: [ 1, 0, 0 ],
+        version: [1, 0, 0],
 
         ccm: 'https://ccmjs.github.io/ccm/versions/ccm-20.1.0.js',
 
         config: {
             "html": {
-                "storyboard":[
+                "storyboard": [
                     {
-                        "tag":"div",
-                        "class":"legend",
-                        "inner":{
+                        "tag": "div",
+                        "class": "legend",
+                        "inner": {
                             "tag": "h2",
                             "class": "legend-headline",
                             "inner": "Legende zu den Aufgaben"
@@ -58,12 +58,12 @@
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.storyboard));
                 const legendWrapper = this.element.querySelector(".legend");
                 this.legend.forEach(element => {
-                    const taskLegendIcon =  document.createElement("div");
+                    const taskLegendIcon = document.createElement("div");
                     taskLegendIcon.className = "legends-icon";
                     taskLegendIcon.style.backgroundColor = element.color;
 
 
-                    const taskLegendTitle =  document.createElement("span");
+                    const taskLegendTitle = document.createElement("span");
                     taskLegendTitle.className = "legends-title"
                     taskLegendTitle.innerHTML = element.difficulty;
 
@@ -137,7 +137,7 @@
                         pathCoordinates.push({X: startX, Y: startY * 1.50});
 
                     }
-                    else if (index === numberOfMilestones-1) {
+                    else if (index === numberOfMilestones - 1) {
                         milestoneCircle.setAttribute("cx", "" + startX);
                         milestoneCircle.setAttribute("cy", "" + startY);
                         pathCoordinates.push({X: startX, Y: startY});
@@ -157,7 +157,7 @@
                 if (!Array.isArray(_arr1) || !Array.isArray(_arr2))
                     return false;
 
-                if (_arr1.length === 0){
+                if (_arr1.length === 0) {
                     return true;
                 }
                 let arr1 = _arr1.concat().sort();
@@ -216,14 +216,14 @@
 
                     if (index % 2 === 0) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
-                        taskTag.setAttribute("y", "" + (yCoordinates[task.milestoneId] += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
+                        taskTag.setAttribute("y", "" + (yCoordinates[task.milestoneId] += (storyboard.getBoundingClientRect().height / this.tasks.length) + 20));
                     }
                     else if (index % 2 === 1) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
-                        taskTag.setAttribute("y", "" + (yCoordinates[task.milestoneId] += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
+                        taskTag.setAttribute("y", "" + (yCoordinates[task.milestoneId] += (storyboard.getBoundingClientRect().height / this.tasks.length) + 20));
                     }
                     taskTag.setAttribute("fill", task.color);
-                    taskTag.addEventListener("click", () =>{
+                    taskTag.addEventListener("click", () => {
                         this.renderTaskField(task);
                     });
                     taskTag.innerHTML = task.task.title;
@@ -269,7 +269,7 @@
                     taskField.appendChild(testButton);
                 } else {
                     task.task.task.onfinish = currentTask => {
-                        if(currentTask.getValue().correct >= task.task.correct){
+                        if (currentTask.getValue().correct >= task.task.correct) {
                             if (!task.taskDone) {
                                 this.parent.setProgress(task.exp).then(result => {
                                     this.parent.comparegame.addGame(result);

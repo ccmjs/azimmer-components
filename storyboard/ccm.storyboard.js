@@ -215,11 +215,11 @@
 
                     if (index % 2 === 0) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
-                        taskTag.setAttribute("y", "" + (yCoordinates[task.milestoneId] += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
+                        taskTag.setAttribute("y", "" + (yCoordinates[task.milestoneId] += (storyboard.getBoundingClientRect().height/this.tasks.length)+20));
                     }
                     else if (index % 2 === 1) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
-                        taskTag.setAttribute("y", "" + (yCoordinates[task.milestoneId] += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
+                        taskTag.setAttribute("y", "" + (yCoordinates[task.milestoneId] += (storyboard.getBoundingClientRect().height/this.tasks.length)+20));
                     }
                     taskTag.setAttribute("fill", task.color);
                     taskTag.addEventListener("click", () =>{
