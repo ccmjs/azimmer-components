@@ -195,13 +195,13 @@
             this.renderTasks = () => {
                 const storyboard = this.element.querySelector("svg");
                 /*y is a mutable variable that is adding the y coordinate based on the height*/
-                let y = 0;
+                let yCoordinates = {};
                 /* tmp variable to store which milestone is now looked at */
                 let tmp = "";
                 this.tasks.forEach((task, index) => {
                     /* Setting the y coordinate to 0 when new milestone is in the task*/
                     if (tmp !== task.milestoneId) {
-                        y = 0;
+                        yCoordinates[task.milestoneId] = 0
                     }
                     tmp = task.milestoneId;
                     const taskTag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -214,13 +214,11 @@
 
                     if (index % 2 === 0) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
-                        console.log(y);
-                        taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
+                        taskTag.setAttribute("y", "" + (yCoordinates[task.milestoneId] += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
                     }
                     else if (index % 2 === 1) {
                         taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
-                        console.log(y);
-                        taskTag.setAttribute("y", "" + (y += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
+                        taskTag.setAttribute("y", "" + (yCoordinates[task.milestoneId] += (storyboard.getBoundingClientRect().height/this.tasks.length)+10));
                     }
                     taskTag.setAttribute("fill", task.color);
                     taskTag.addEventListener("click", () =>{
