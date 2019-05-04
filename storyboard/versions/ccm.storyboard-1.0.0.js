@@ -23,11 +23,18 @@
                     {
                         "tag": "div",
                         "class": "legend",
-                        "inner": {
-                            "tag": "h2",
-                            "class": "legend-headline",
-                            "inner": "Legende zu den Aufgaben"
-                        }
+                        "inner":
+                            {
+                                "tag": "h2",
+                                "class": "legend-headline",
+                                "inner": "Legende zu den Aufgaben"
+                            },
+
+                    },
+                    {
+                        "tag": "h3",
+                        "class": "legend-headline",
+                        "inner": "Klicken Sie auf einer der farbigen Kästchen im unteren Spielfeld um eine Aufgabe zu öffnen!"
                     },
                     {
                         "tag": "div",
@@ -205,32 +212,55 @@
                     }
                     //tmp = task.milestoneId;
                     const taskTag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                    const taskTitle = document.createElementNS("http://www.w3.org/2000/svg", "text");
                     const milestoneWrapper = this.element.querySelector("#" + task.milestoneId);
 
                     taskTag.id = task.taskId;
-                    taskTag.setAttribute("height", "40px");
-                    taskTag.setAttribute("width", "40px");
+                    const reactDimension = (storyboard.getBoundingClientRect().height/this.tasks.length) *2;
+                    taskTag.setAttribute("height", reactDimension + "px");
+                    taskTag.setAttribute("width", reactDimension + "px");
                     taskTag.setAttribute("rx", "5px");
-                    //taskTag.setAttribute("ry", "30px");
-
+                    taskTag.setAttribute("stroke", "rgb(0,0,0)");
+                    taskTitle.setAttribute("height", reactDimension/2 + "px");
+                    taskTitle.className.baseVal="task-title";
 
                     if (index % 2 === 0) {
-                        taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x - 40));
-                        taskTag.setAttribute("y", "" + (yCoordinates[task.milestoneId] += (storyboard.getBoundingClientRect().height / this.tasks.length) + 20));
+                        let x = milestoneWrapper.getBoundingClientRect().x - 80;
+                        if(x <= 0) x =0;
+                        if(index === 0 || index === 1) yCoordinates[task.milestoneId] = 10;
+                        taskTag.setAttribute("x", "" + x);
+                        taskTag.setAttribute("y", "" + yCoordinates[task.milestoneId]);
+                        yCoordinates[task.milestoneId] += reactDimension + 20;
+                        taskTitle.setAttribute("x", "" + x);
+                        taskTitle.setAttribute("y", "" + yCoordinates[task.milestoneId]);
+                        yCoordinates[task.milestoneId] += reactDimension/2 + 20;
+                        taskTitle.innerHTML = task.task.title;
                     }
                     else if (index % 2 === 1) {
-                        taskTag.setAttribute("x", "" + (milestoneWrapper.getBoundingClientRect().x + milestoneWrapper.getBoundingClientRect().width - 10));
-                        taskTag.setAttribute("y", "" + (yCoordinates[task.milestoneId] += (storyboard.getBoundingClientRect().height / this.tasks.length) + 20));
+                        let x = milestoneWrapper.getBoundingClientRect().x + reactDimension + 20;
+                        if(x <= 0) x =0;
+                        if(index === 0 || index === 1) yCoordinates[task.milestoneId] = 10;
+                        taskTag.setAttribute("x", "" + x);
+                        taskTag.setAttribute("y", "" + yCoordinates[task.milestoneId]);
+                        yCoordinates[task.milestoneId] += reactDimension + 20;
+                        taskTitle.setAttribute("x", "" + x);
+                        taskTitle.setAttribute("y", "" + yCoordinates[task.milestoneId]);
+                        yCoordinates[task.milestoneId] += reactDimension/2 + 20;
+                        taskTitle.innerHTML = task.task.title;
                     }
                     taskTag.setAttribute("fill", task.color);
-                    taskTag.addEventListener("click", () => {
+                    taskTag.addEventListener("click", () =>{
+                        const allTasks = this.element.querySelectorAll("rect");
+                        allTasks.forEach(element => element.removeAttribute("stroke-width"));
+                        taskTag.setAttribute("stroke-width", "5px");
                         this.renderTaskField(task);
                     });
-                    taskTag.innerHTML = task.task.title;
+
 
                     const result = this.milestones.find(milestone => milestone.milestoneID === task.milestoneId);
                     if (result.show === true) {
                         storyboard.appendChild(taskTag);
+                        storyboard.appendChild(taskTitle);
                     }
 
 

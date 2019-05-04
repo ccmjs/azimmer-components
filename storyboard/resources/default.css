@@ -32,3 +32,6 @@
     flex-direction: column;
     align-self: center;
 }
+.task-title {
+    font-family: "Arial", Arial, sans-serif;
+}
