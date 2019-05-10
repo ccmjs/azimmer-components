@@ -51,7 +51,7 @@
                                         },
                                         {
                                             "tag": "span",
-                                            "inner": "Anderer Spieler"
+                                            "inner": "Andere Spieler"
                                         }
                                     ]
                                 },

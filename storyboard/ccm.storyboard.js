@@ -32,7 +32,7 @@
                     {
                         "tag": "h3",
                         "class": "legend-headline",
-                        "inner": "Klicken Sie auf einer der farbigen Kästchen im unteren Spielfeld um eine Aufgabe zu öffnen!"
+                        "inner": "Klicken Sie auf eines der farbigen Kästchen im unteren Spielfeld, um eine Aufgabe zu öffnen!"
                     },
                     {
                         "tag": "div",
