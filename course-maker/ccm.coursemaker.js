@@ -13,7 +13,7 @@
 
         name: "coursemaker",
 
-        ccm: "https://ccmjs.github.io/ccm/ccm.js",
+        ccm: "https://ccmjs.github.io/ccm/versions/ccm-20.1.0.js",
 
         config: {
             "html": {
@@ -31,7 +31,7 @@
                                     "inner": [
                                         {
                                             "tag": "img",
-                                            "src": "https://ccmjs.github.io/azimmer-components/course-maker/resources/home-icon-silhouette.svg",
+                                            "src": "./resources/home-icon-silhouette.svg",
                                             "class": "game-menu-icon"
                                         },
                                         {
@@ -46,12 +46,12 @@
                                     "inner": [
                                         {
                                             "tag": "img",
-                                            "src": "https://ccmjs.github.io/azimmer-components/course-maker/resources/group-of-people.svg ",
+                                            "src": "./resources/group-of-people.svg",
                                             "class": "players-menu-icon"
                                         },
                                         {
                                             "tag": "span",
-                                            "inner": "Andere Spieler"
+                                            "inner": "Anderer Spieler"
                                         }
                                     ]
                                 },
@@ -61,7 +61,7 @@
                                     "inner": [
                                         {
                                             "tag": "img",
-                                            "src": "https://ccmjs.github.io/azimmer-components/course-maker/resources/settings.svg",
+                                            "src": "./resources/settings.svg",
                                             "class": "settings-menu-icon"
                                         },
                                         {
@@ -132,7 +132,7 @@
                     ]
                 }
             },
-            "css": ["ccm.load", "https://ccmjs.github.io/azimmer-components/course-maker/resources/default.css"],
+            "css": ["ccm.load", "../course-maker/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}],
             "remoteStore": ["ccm.store", {"name": "azimme2s_playerstatus", url: "wss://ccm2.inf.h-brs.de"}],
         },
@@ -308,10 +308,11 @@
                     const deleteBtn = document.createElement("button");
                     deleteBtn.className = "delete-btn";
                     deleteBtn.innerHTML = "Spiel von vorne Beginnen";
-                    deleteBtn.onclick = async () => {
+                    deleteBtn.onclick = () => {
                         const gameKeys = ["game","achievements","badges","tasksdone"];
                         gameKeys.map(e => this.store.del(e));
-                        await this.remoteStore.del(this.player.name).then().catch(error => console.log(error));
+                        this.store.del();
+                        this.remoteStore.del(this.player.name).then().catch(error => console.log(error));
                         this.start();
                     };
                     const settingContainer = this.element.querySelector(".settings-container");
