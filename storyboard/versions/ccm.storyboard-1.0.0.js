@@ -1,49 +1,49 @@
 /**
- * @overview ccm component for progress bar
+ * @overview ccm component for creating al storyboard as a playboard
  * @author Arthur Zimmermann 2018
  * @license MIT License
  * @version 1.0.0
  * @changes
- * version 1.0.0 (12.10.2018)
+ * version 1.0.0 (20.01.2019)
  */
 
 (function () {
 
     const component = {
 
-        name: 'storyboard',
+        name: "storyboard",
 
-        version: [1, 0, 0],
-
-        ccm: 'https://ccmjs.github.io/ccm/versions/ccm-20.1.0.js',
+        ccm: "https://ccmjs.github.io/ccm/versions/ccm-20.1.0.js",
 
         config: {
             "html": {
-                "storyboard": [
+                "storyboard":[
                     {
-                        "tag": "div",
-                        "class": "legend",
-                        "inner":
-                            {
-                                "tag": "h2",
-                                "class": "legend-headline",
-                                "inner": "Legende zu den Aufgaben"
-                            },
-
-                    },
-                    {
-                        "tag": "h3",
-                        "class": "legend-headline",
-                        "inner": "Klicken Sie auf eines der farbigen Kästchen im unteren Spielfeld, um eine Aufgabe zu öffnen!"
+                        "tag":"div",
+                        "class":"legend",
+                        "inner": {
+                            "tag": "h2",
+                            "class": "legend-headline",
+                            "inner": "Legende zu den Aufgaben"
+                        }
                     },
                     {
                         "tag": "div",
                         "class": "storyboard",
-                        "inner": [],
+                        "inner": {
+                            "tag": "ul",
+                            "class": "timeline",
+                            "inner": []
+                        }
+                    },
+                    {
+                        "tag": "div",
+                        "class": "taskfield",
+                        "inner": []
                     }
                 ]
             },
-            "css": ["ccm.load", "https://ccmjs.github.io/azimmer-components/storyboard/resources/default.css"],
+            "css": ["ccm.load", "../storyboard/resources/default.css"],
             "store": ["ccm.store", {"name": "player"}]
         },
 
@@ -65,28 +65,24 @@
                 this.ccm.helper.setContent(this.element, this.ccm.helper.html(this.html.storyboard));
                 const legendWrapper = this.element.querySelector(".legend");
                 this.legend.forEach(element => {
-                    const taskLegendIcon = document.createElement("div");
-                    taskLegendIcon.className = "legends-icon";
+                    const taskLegendIcon =  document.createElement("div");
+                    taskLegendIcon.className = "legends-icon"
                     taskLegendIcon.style.backgroundColor = element.color;
 
 
-                    const taskLegendTitle = document.createElement("span");
+                    const taskLegendTitle =  document.createElement("span");
                     taskLegendTitle.className = "legends-title"
                     taskLegendTitle.innerHTML = element.difficulty;
 
                     legendWrapper.appendChild(taskLegendIcon);
                     legendWrapper.appendChild(taskLegendTitle);
                 });
-                const svgPic = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                const storyboard = this.element.querySelector(".storyboard");
-                svgPic.setAttribute("width", "100%");
-                svgPic.setAttribute("height", "100%");
-                await storyboard.appendChild(svgPic);
                 await this.renderMilestones();
                 await this.renderTasks();
 
             };
             this.renderMilestones = async () => {
+                const timeline = this.element.querySelector(".timeline");
                 await this.store.get("game")
                     .then(result => {
                         this.player = result.value;
@@ -95,76 +91,39 @@
                     .then(result => {
                         this.taskdone = result.value;
                     });
-                const numberOfMilestones = this.milestones.length;
-                let pathCoordinates = [];
-                const storyboard = this.element.querySelector("svg");
-                const svgBound = storyboard.getBoundingClientRect();
-                const addwidth = svgBound.width / numberOfMilestones;
-                let startX = addwidth / 2;
-                const startY = svgBound.height / 2;
-                pathCoordinates.push({X: startX, Y: startY});
 
                 this.milestones.forEach((milestone, index) => {
-                    const milestoneCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                    milestoneCircle.setAttribute("fill", "gray");
-                    milestoneCircle.setAttribute("stroke", "0");
-                    milestoneCircle.setAttribute("r", "" + (storyboard.getBoundingClientRect().width * 0.03));
-                    milestoneCircle.id = milestone.milestoneID;
-
-                    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                    text.setAttribute("font-size", "30");
-                    text.setAttribute("font-family", "sans-serif");
-                    text.setAttribute("fill", "black");
-                    text.setAttribute("text-anchor", "middle");
-
-
+                    const milestoneElement = document.createElement("li")
                     if (milestone.conditions.level <= this.player.level && this.checkDoneTasks(milestone.conditions.tasksDone, this.taskdone)) {
-                        milestoneCircle.setAttribute("fill", "black");
+                        milestoneElement.className = 'event';
                         milestone.show = true;
+                        timeline.style.borderLeftColor = '#a6afc1';
                     }
-
+                    milestoneElement.className = 'event-grey';
                     if (index === 0) {
-                        milestoneCircle.setAttribute("cx", "" + startX);
-                        milestoneCircle.setAttribute("cy", "" + startY);
-
-                        text.setAttribute("x", "" + startX);
-                        text.setAttribute("y", "" + (startY + (storyboard.getBoundingClientRect().width * 0.03 + 40)));
-                        text.innerHTML = "Start";
-                        storyboard.appendChild(text);
+                        milestoneElement.setAttribute('data-date', 'Start')
                     }
-                    else if (index % 2 === 0 && index !== numberOfMilestones - 1) {
-                        milestoneCircle.setAttribute("cx", "" + startX);
-                        milestoneCircle.setAttribute("cy", "" + startY / 2);
-                        pathCoordinates.push({X: startX, Y: startY / 2});
-
+                    else if( index === this.milestones.length - 1) {
+                        milestoneElement.setAttribute('data-date', 'Ziel')
                     }
-                    else if (index % 2 === 1 && index !== 0 && index !== numberOfMilestones - 1) {
-                        milestoneCircle.setAttribute("cx", "" + startX);
-                        milestoneCircle.setAttribute("cy", "" + startY * 1.50);
-                        pathCoordinates.push({X: startX, Y: startY * 1.50});
-
+                    else {
+                        milestoneElement.setAttribute('data-date', `Meilenstein${index+1}`)
                     }
-                    else if (index === numberOfMilestones - 1) {
-                        milestoneCircle.setAttribute("cx", "" + startX);
-                        milestoneCircle.setAttribute("cy", "" + startY);
-                        pathCoordinates.push({X: startX, Y: startY});
+                    const taskContainer = document.createElement("div");
+                    taskContainer.className = 'task-container';
+                    taskContainer.id = milestone.milestoneID;
+                    milestoneElement.appendChild(taskContainer);
 
-                        text.setAttribute("x", "" + startX);
-                        text.setAttribute("y", "" + (startY + (storyboard.getBoundingClientRect().width * 0.03 + 40)));
-                        text.innerHTML = "Ziel";
-                        storyboard.appendChild(text);
-                    }
-                    storyboard.appendChild(milestoneCircle);
-                    startX += addwidth
+                    timeline.appendChild(milestoneElement);
                 });
-                storyboard.appendChild(this.drawPath(pathCoordinates));
             };
+
             this.checkDoneTasks = (_arr1, _arr2) => {
 
                 if (!Array.isArray(_arr1) || !Array.isArray(_arr2))
                     return false;
 
-                if (_arr1.length === 0) {
+                if (_arr1.length === 0){
                     return true;
                 }
                 let arr1 = _arr1.concat().sort();
@@ -180,87 +139,23 @@
                 return true;
 
             };
-            this.drawPath = (coordinates) => {
-                const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                let pathString = "";
-                coordinates.forEach((item, index) => {
-                    if (index === 0) {
-                        pathString += "M" + item.X + " " + item.Y + " ";
-                    }
-                    else {
-                        pathString += "L" + item.X + " " + item.Y + " ";
-                    }
-                });
-                path.setAttribute("d", pathString);
-                path.setAttribute("stroke", "black");
-                path.setAttribute("stroke-width", "5");
-                path.setAttribute("fill", "none");
-                return path;
-            };
-
 
             this.renderTasks = () => {
-                const storyboard = this.element.querySelector("svg");
-                /*y is a mutable variable that is adding the y coordinate based on the height*/
-                let yCoordinates = {};
-                /* tmp variable to store which milestone is now looked at */
-                //let tmp = "";
+
                 this.tasks.forEach((task, index) => {
-                    /* Setting the y coordinate to 0 when new milestone is in the task*/
-                    if (!yCoordinates[task.milestoneId]) {
-                        yCoordinates[task.milestoneId] = 0
-                    }
-                    //tmp = task.milestoneId;
-                    const taskTag = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                    const taskTitle = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                    const taskTag = document.createElement("div");
                     const milestoneWrapper = this.element.querySelector("#" + task.milestoneId);
 
                     taskTag.id = task.taskId;
-                    const reactDimension = (storyboard.getBoundingClientRect().height/this.tasks.length) *2;
-                    taskTag.setAttribute("height", reactDimension + "px");
-                    taskTag.setAttribute("width", reactDimension + "px");
-                    taskTag.setAttribute("rx", "5px");
-                    taskTag.setAttribute("stroke", "rgb(0,0,0)");
-                    taskTitle.setAttribute("height", reactDimension/2 + "px");
-                    taskTitle.className.baseVal="task-title";
+                    taskTag.className = 'task';
+                    taskTag.tabIndex = 0;
+                    taskTag.style.backgroundColor = task.color;
 
-                    if (index % 2 === 0) {
-                        let x = milestoneWrapper.getBoundingClientRect().x - 80;
-                        if(x <= 0) x =0;
-                        if(index === 0 || index === 1) yCoordinates[task.milestoneId] = 10;
-                        taskTag.setAttribute("x", "" + x);
-                        taskTag.setAttribute("y", "" + yCoordinates[task.milestoneId]);
-                        yCoordinates[task.milestoneId] += reactDimension + 20;
-                        taskTitle.setAttribute("x", "" + x);
-                        taskTitle.setAttribute("y", "" + yCoordinates[task.milestoneId]);
-                        yCoordinates[task.milestoneId] += reactDimension/2 + 20;
-                        taskTitle.innerHTML = task.task.title;
-                    }
-                    else if (index % 2 === 1) {
-                        let x = milestoneWrapper.getBoundingClientRect().x + reactDimension + 20;
-                        if(x <= 0) x =0;
-                        if(index === 0 || index === 1) yCoordinates[task.milestoneId] = 10;
-                        taskTag.setAttribute("x", "" + x);
-                        taskTag.setAttribute("y", "" + yCoordinates[task.milestoneId]);
-                        yCoordinates[task.milestoneId] += reactDimension + 20;
-                        taskTitle.setAttribute("x", "" + x);
-                        taskTitle.setAttribute("y", "" + yCoordinates[task.milestoneId]);
-                        yCoordinates[task.milestoneId] += reactDimension/2 + 20;
-                        taskTitle.innerHTML = task.task.title;
-                    }
-                    taskTag.setAttribute("fill", task.color);
-                    taskTag.addEventListener("click", () =>{
-                        const allTasks = this.element.querySelectorAll("rect");
-                        allTasks.forEach(element => element.removeAttribute("stroke-width"));
-                        taskTag.setAttribute("stroke-width", "5px");
-                        this.renderTaskField(task);
-                    });
-
-
+                    taskTag.addEventListener("click", () => this.renderTaskField(task));
+                    taskTag.innerHTML = task.task.title;
                     const result = this.milestones.find(milestone => milestone.milestoneID === task.milestoneId);
                     if (result.show === true) {
-                        storyboard.appendChild(taskTag);
-                        storyboard.appendChild(taskTitle);
+                        milestoneWrapper.appendChild(taskTag);
                     }
 
 
@@ -299,7 +194,7 @@
                     taskField.appendChild(testButton);
                 } else {
                     task.task.task.onfinish = currentTask => {
-                        if (currentTask.getValue().correct >= task.task.correct) {
+                        if(currentTask.getValue().correct >= task.task.correct){
                             if (!task.taskDone) {
                                 this.parent.setProgress(task.exp).then(result => {
                                     this.parent.comparegame.addGame(result);
@@ -318,7 +213,7 @@
                     taskField.appendChild(task.task.task.root);
                 }
                 this.element.appendChild(taskField);
-            };
+            }
 
         }
 
